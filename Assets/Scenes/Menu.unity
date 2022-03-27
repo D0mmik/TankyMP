@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -861,7 +861,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1189950095}
+      - m_Target: {fileID: 2021781577}
         m_TargetAssemblyTypeName: NickName, Assembly-CSharp
         m_MethodName: SetName
         m_Mode: 1
@@ -2171,7 +2171,6 @@ GameObject:
   - component: {fileID: 1189950094}
   - component: {fileID: 1189950097}
   - component: {fileID: 1189950096}
-  - component: {fileID: 1189950095}
   m_Layer: 5
   m_Name: ChangeNicknameMenu
   m_TagString: Untagged
@@ -2201,19 +2200,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1189950095
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1189950093}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c33f4d500a836141b2f5cdc58607c76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nameIP: {fileID: 1653871755}
 --- !u!114 &1189950096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2961,7 +2947,7 @@ RectTransform:
   m_Children:
   - {fileID: 23480953}
   m_Father: {fileID: 1856278932}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4604,8 +4590,8 @@ RectTransform:
   m_Children:
   - {fileID: 1631180302}
   - {fileID: 1836951530}
-  - {fileID: 1921218442}
   - {fileID: 1312795006}
+  - {fileID: 1921218442}
   m_Father: {fileID: 2021781575}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4708,7 +4694,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1921218442
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4722,12 +4708,12 @@ RectTransform:
   m_Children:
   - {fileID: 1928186643}
   m_Father: {fileID: 1856278932}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1280, y: -797.5}
-  m_SizeDelta: {x: 600, y: 125}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1921218443
 MonoBehaviour:
@@ -4907,8 +4893,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 100
-  m_fontSizeBase: 100
+  m_fontSize: 51.2
+  m_fontSizeBase: 51.2
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -5451,6 +5437,7 @@ GameObject:
   - component: {fileID: 2021781573}
   - component: {fileID: 2021781572}
   - component: {fileID: 2021781576}
+  - component: {fileID: 2021781577}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -5563,6 +5550,21 @@ MonoBehaviour:
   - {fileID: 462483317}
   - {fileID: 1325106547}
   - {fileID: 1181225576}
+  - {fileID: 1189950093}
+--- !u!114 &2021781577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2021781571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c33f4d500a836141b2f5cdc58607c76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameIP: {fileID: 1653871755}
+  nickNameMenu: {fileID: 1189950093}
 --- !u!1 &2052964416
 GameObject:
   m_ObjectHideFlags: 0

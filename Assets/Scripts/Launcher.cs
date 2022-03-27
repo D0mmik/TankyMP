@@ -25,7 +25,6 @@ public class Launcher : MonoBehaviourPunCallbacks
     void Start()
     {
         loading.SetActive(true);
-        nickNameMenu.SetActive(false);
         UIbuttons.SetActive(false);
         Debug.Log("Connecting");
         PhotonNetwork.ConnectUsingSettings();
@@ -47,7 +46,6 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public override void OnJoinedLobby()
     {
-        nickNameMenu.SetActive(true);
         UIbuttons.SetActive(true);
         Debug.Log("Joined Lobby");
     }
@@ -88,6 +86,10 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.LeaveRoom();
         menuManager.CloseWindows();
+        foreach(Transform transform in playerListContent)
+        {
+            Destroy(transform.gameObject);
+        }
 
     }
     public override void OnRoomListUpdate(List<RoomInfo> roomList)

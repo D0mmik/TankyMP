@@ -66,3 +66,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbe63122a8c31e945b665a31a0af3fb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnpoints:
+  - {fileID: 3605391947744739449, guid: a9f0c095dcbdef64788b345389d73d89, type: 3}
+  - {fileID: 6761525899535846368, guid: 4deb31f13646eb9488376253dc3c5bda, type: 3}
+  - {fileID: 5605337106027387927, guid: 879924423c3fd604e83620515f102392, type: 3}
+  - {fileID: 156821142304733107, guid: d08e2933d145a094e836a31ffeb82595, type: 3}
+  teamSelect: {fileID: 0}
