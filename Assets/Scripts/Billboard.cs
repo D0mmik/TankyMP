@@ -1,14 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class Billboard : MonoBehaviour
+public class Billboard : MonoBehaviourPun
 {
     private Transform camTransform;
-
+    
+    void Start()
+    {
+        if(Camera.main.transform != null)
+        {
+            camTransform = Camera.main.transform;
+        }
+    }
     private void LateUpdate()
     {
-        camTransform = Camera.main.transform;
         transform.LookAt(transform.position + camTransform.rotation * Vector3.forward, camTransform.rotation * Vector3.up);
     }
 }
