@@ -9,6 +9,11 @@ public class Billboard : MonoBehaviourPun
     
     void Start()
     {
+        FindBillboard();
+        Debug.Log("ok");
+    }
+    void FindBillboard()
+    {
         if(Camera.main.transform != null)
         {
             camTransform = Camera.main.transform;
@@ -16,6 +21,9 @@ public class Billboard : MonoBehaviourPun
     }
     private void LateUpdate()
     {
-        transform.LookAt(transform.position + camTransform.rotation * Vector3.forward, camTransform.rotation * Vector3.up);
+        if(transform != null && camTransform != null)
+        {
+            transform.LookAt(transform.position + camTransform.rotation * Vector3.forward, camTransform.rotation * Vector3.up);
+        }
     }
 }

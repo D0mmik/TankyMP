@@ -11,6 +11,8 @@ public class Shooting : MonoBehaviourPun
     public float range = 100f;
     public GameObject impactPrefab;
     private Target target;
+
+
     void Update()
     {   if(photonView.IsMine)
         {
@@ -25,10 +27,9 @@ public class Shooting : MonoBehaviourPun
     {
         if(Physics.Raycast(shootPoint.position, shootPoint.forward, out hit, range))
         {
-            target = hit.transform.GetComponent<Target>();
-            if(target != null)
+            if(hit.transform != null)
             {
-               target.TakeDamage(damage);
+                hit.transform.GetComponent<Target>()?.TakeDamage(damage);
             }
 
             Instantiate(impactPrefab, hit.point,Quaternion.LookRotation(hit.normal));

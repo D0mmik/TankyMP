@@ -34,7 +34,7 @@ public class Movement : MonoBehaviourPun
             horizontal = Input.GetAxisRaw("Horizontal");
             vertical = Input.GetAxisRaw("Vertical");
 
-            moveDirection = transform.forward * vertical;
+            moveDirection = Vector3.forward * vertical;
             isGrounded = Physics.Raycast(transform.position, Vector3.down, 2f); 
             //Debug.DrawRay(transform.position, Vector3.down,Color.cyan,2+ 0.1f);
 

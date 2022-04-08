@@ -8,6 +8,7 @@ public class PlayerManager : MonoBehaviourPun
 {
     [SerializeField] private Transform[] spawnpoints;
     private int i = 0;
+    GameObject controller;
     void Start()
     {
         CreatePlayer();
@@ -18,10 +19,15 @@ public class PlayerManager : MonoBehaviourPun
         if(photonView.IsMine == true)
         {
             i = Random.Range(1,spawnpoints.Count());
-        Debug.Log(spawnpoints.Count());
-        Debug.Log("číslo je" + i);   
-        PhotonNetwork.Instantiate("PlayerRed", spawnpoints[i].position, Quaternion.identity);
-        Debug.Log("Player created");
+            controller = PhotonNetwork.Instantiate("PlayerRed", spawnpoints[i].position, Quaternion.identity, 0, new object[]{photonView.ViewID});
         }
+    }
+    public void Die()
+    {
+        if(photonView.IsMine)
+        {
+            PhotonNetwork.Destroy(controller);
+        }
+        CreatePlayer();
     }
 }

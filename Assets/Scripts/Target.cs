@@ -1,25 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class Target : MonoBehaviour
+public class Target : MonoBehaviourPun
 {
-    public float health = 50f;
-
-    public void TakeDamage(float amount)
+    public float health = 100;
+    PlayerManager playerManager;
+    void Awake()
     {
-        health -= amount;
-        if(health <= 0f)
+        playerManager = PhotonView.Find((int)photonView.InstantiationData[0]).GetComponent<PlayerManager>();
+    }
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
+        
+        if(health == 0)
         {
             Die();
         }
-        void Die()
-        {
-            if(this.gameObject != null)
-            {
-                Destroy(this.gameObject);
-            }
-            
-        }
+
+    }
+    void Die()
+    {
+        playerManager.Die();
     }
 }
