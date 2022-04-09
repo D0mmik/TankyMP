@@ -5,6 +5,7 @@ using Photon.Pun;
 using TMPro;
 using Photon.Realtime;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class Launcher : MonoBehaviourPunCallbacks
 {
@@ -27,7 +28,10 @@ public class Launcher : MonoBehaviourPunCallbacks
         loading.SetActive(true);
         UIbuttons.SetActive(false);
         Debug.Log("Connecting");
-        PhotonNetwork.ConnectUsingSettings();
+        if(PhotonNetwork.IsConnected == false)
+        {
+            PhotonNetwork.ConnectUsingSettings();
+        }
     }
     void Update()
     {
@@ -92,6 +96,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         }
 
     }
+    
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
         foreach(Transform transform in roomListContent)

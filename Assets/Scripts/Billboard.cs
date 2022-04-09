@@ -7,12 +7,8 @@ public class Billboard : MonoBehaviourPun
 {
     private Transform camTransform;
     
-    void Start()
-    {
-        FindBillboard();
-        Debug.Log("ok");
-    }
-    void FindBillboard()
+   
+    void Update()
     {
         if(Camera.main.transform != null)
         {

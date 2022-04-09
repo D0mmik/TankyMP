@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] windows;
+    [SerializeField] private GameObject buttons;
     
     void Start()
     {
@@ -37,6 +39,12 @@ public class MenuManager : MonoBehaviour
     {
         ToggleWindow("ChangeNicknameMenu");
     }
+    public void Configurator()
+    {
+        ToggleWindow("ConfiguratorMenu");
+        buttons.SetActive(false);
+        
+    }
     public void CloseButton()
     {
         CloseWindows();
@@ -46,5 +54,5 @@ public class MenuManager : MonoBehaviour
         Application.Quit();
         Debug.Log("quit");
     }
-
+    
 }

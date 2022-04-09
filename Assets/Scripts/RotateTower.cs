@@ -7,12 +7,14 @@ public class RotateTower : MonoBehaviourPun
 {
     public Transform tower;
     private float mouseX;
-    private float speed = 100f;
+    public float speed = 1000f;
     private float yRot;
     public float yRotation;
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        yRotation = 0;
+        yRot = 0;
     }
     void Update()
     {
@@ -20,9 +22,17 @@ public class RotateTower : MonoBehaviourPun
         {
             mouseX = Input.GetAxis("Mouse X") * speed * Time.deltaTime;
             yRot += mouseX;
-            yRotation = Mathf.MoveTowards(yRotation, yRot, 0.5f);
+            yRotation = Mathf.MoveTowards(yRotation, yRot, 1f);
+            if(yRotation >= 365)
+            {
+                yRotation = 365;
+            }
+            if(yRotation <= -365)
+            {
+                yRotation = -365;
+            }
 
-            tower.localRotation = Quaternion.Euler(0,yRotation,0);
+            tower.localRotation = Quaternion.Euler(0,yRot,0);
 
 
         }
