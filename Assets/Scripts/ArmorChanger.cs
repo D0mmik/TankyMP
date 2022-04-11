@@ -29,5 +29,6 @@ public class ArmorChanger : MonoBehaviour
             item.SetActive(false);
         }
         armors[number].SetActive(true);
+        currentArmor = number;
     }
 }

@@ -8,6 +8,7 @@ public class MenuManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] windows;
     [SerializeField] private GameObject buttons;
+    public SaveConfig saveConfig;
     
     void Start()
     {
@@ -42,8 +43,13 @@ public class MenuManager : MonoBehaviour
     public void Configurator()
     {
         ToggleWindow("ConfiguratorMenu");
-        buttons.SetActive(false);
-        
+        buttons.SetActive(false);        
+    }
+    public void CloseConfigurator()
+    {
+        CloseWindows();
+        buttons.SetActive(true);
+        saveConfig.Save();
     }
     public void CloseButton()
     {

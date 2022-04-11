@@ -67,7 +67,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnpoints:
-  - {fileID: 3605391947744739449, guid: a9f0c095dcbdef64788b345389d73d89, type: 3}
-  - {fileID: 6761525899535846368, guid: 4deb31f13646eb9488376253dc3c5bda, type: 3}
-  - {fileID: 5605337106027387927, guid: 879924423c3fd604e83620515f102392, type: 3}
-  - {fileID: 156821142304733107, guid: d08e2933d145a094e836a31ffeb82595, type: 3}
+  - {fileID: 2768654387310257281, guid: 0d492ea7e0f55634fa016a836602284d, type: 3}
+  - {fileID: 3567684237776835118, guid: b2dab653a10929645b5d1419e6dd3d4d, type: 3}
+  - {fileID: 9055491136055371562, guid: 8580cf1c65fc0b142a0a031be63faf6d, type: 3}
+  - {fileID: 7173462676726040429, guid: a8436f6bbfef4a14fb7965e5a8c55912, type: 3}
+  - {fileID: 1880882308808008502, guid: c89d9e92e2c939d43b0a35fadc4934d7, type: 3}
+  - {fileID: 5443066775156243413, guid: 9b61331dfc980f64da950b6ec92a6c35, type: 3}
+  - {fileID: 1156410426055648041, guid: ab2e43bec477be441b3774575429263f, type: 3}
+  - {fileID: 134104279640239793, guid: d26b32ddd2584f04aa0203314a8f6394, type: 3}
+  - {fileID: 5782004751891428083, guid: 76687b138f6f5004d8d71d03971ce42c, type: 3}
+  - {fileID: 2155951281506317165, guid: 3730fd4fe322d4a42bdedc3034360e8b, type: 3}
+  saveConfig: {fileID: 0}

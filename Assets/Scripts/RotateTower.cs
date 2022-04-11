@@ -22,19 +22,7 @@ public class RotateTower : MonoBehaviourPun
         {
             mouseX = Input.GetAxis("Mouse X") * speed * Time.deltaTime;
             yRot += mouseX;
-            yRotation = Mathf.MoveTowards(yRotation, yRot, 1f);
-            if(yRotation >= 365)
-            {
-                yRotation = 365;
-            }
-            if(yRotation <= -365)
-            {
-                yRotation = -365;
-            }
-
             tower.localRotation = Quaternion.Euler(0,yRot,0);
-
-
         }
         
     }

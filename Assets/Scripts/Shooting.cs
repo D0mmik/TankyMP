@@ -8,8 +8,7 @@ public class Shooting : MonoBehaviourPun
     public Transform shootPoint;
     private RaycastHit hit;
     public float damage = 10f;
-    public float range = 100f;
-    public GameObject impactPrefab;
+    public float range = 1000f;
     private Target target;
 
 
@@ -31,8 +30,10 @@ public class Shooting : MonoBehaviourPun
             {
                 hit.transform.GetComponent<Target>()?.TakeDamage(damage);
             }
-
-            Instantiate(impactPrefab, hit.point,Quaternion.LookRotation(hit.normal));
+            if(photonView.IsMine)
+            {
+                PhotonNetwork.Instantiate("impactPrefab", hit.point,Quaternion.LookRotation(hit.normal));
+            }
         }
     }
 }

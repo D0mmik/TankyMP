@@ -11,7 +11,8 @@ public class ColorChanger : MonoBehaviour
 
     void Start()
     {
-         for(int i = 0; i < colors.Length; i++)
+        FindTank();
+        for(int i = 0; i < colors.Length; i++)
         {   
             var ColorButtonClone = Instantiate(Buttons, transform).GetComponent<ButtonsPrefab>();
             ColorButtonClone.ButtonInt = i;
@@ -24,5 +25,9 @@ public class ColorChanger : MonoBehaviour
         currentColor = number;
         tank.GetComponent<MeshRenderer>().material = colors[number];
 
+    }
+    public void FindTank()
+    {
+        tank = GameObject.Find("Body");   
     }
 }

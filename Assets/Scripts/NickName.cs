@@ -7,10 +7,12 @@ using Photon.Pun;
 public class NickName : MonoBehaviour
 {
     [SerializeField] private TMP_Text nameIP;
+    [SerializeField] private TMP_Text lobbyNick;
     [SerializeField] private GameObject nickNameMenu;
     void Start()
     {
         PhotonNetwork.NickName = PlayerPrefs.GetString("nick", "");
+        lobbyNick.text = PhotonNetwork.NickName;
         Debug.Log(PhotonNetwork.NickName);
         if(PlayerPrefs.GetString("nick","") == "")
         {
@@ -28,6 +30,7 @@ public class NickName : MonoBehaviour
     {
        PlayerPrefs.SetString("nick", nameIP.text);
        PhotonNetwork.NickName = PlayerPrefs.GetString("nick");
+       lobbyNick.text = PhotonNetwork.NickName;
        nickNameMenu.SetActive(false);
     }
 }
