@@ -9,7 +9,6 @@ public class PlayerManager : MonoBehaviourPun
     [SerializeField] private Transform[] spawnpoints;
     private int i = 0;
     GameObject controller;
-    public SaveConfig saveConfig;
     void Start()
     {
         CreatePlayer();

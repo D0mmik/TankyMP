@@ -77,4 +77,3 @@ MonoBehaviour:
   - {fileID: 134104279640239793, guid: d26b32ddd2584f04aa0203314a8f6394, type: 3}
   - {fileID: 5782004751891428083, guid: 76687b138f6f5004d8d71d03971ce42c, type: 3}
   - {fileID: 2155951281506317165, guid: 3730fd4fe322d4a42bdedc3034360e8b, type: 3}
-  saveConfig: {fileID: 0}

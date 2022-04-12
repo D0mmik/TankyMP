@@ -8,13 +8,9 @@ public class SaveConfig : MonoBehaviour
     public ColorChanger colorChanger;
     public PropulsionChanger propulsionChanger;
     public WeaponsChanger weaponsChanger;
-
-    void Update()
+    void Start()
     {
-        if(Input.GetKey(KeyCode.L))
-        {
-            Load();
-        }
+        Load();
     }
 
     public void Save()
@@ -28,6 +24,7 @@ public class SaveConfig : MonoBehaviour
     public void Load()
     {
         armorChanger.dothis(PlayerPrefs.GetInt("armor"));
+        colorChanger.FindTank();
         colorChanger.dothis(PlayerPrefs.GetInt("color"));
         //propulsionChanger.dothis(PlayerPrefs.GetInt("propulsion"));
         weaponsChanger.dothis(PlayerPrefs.GetInt("weapon"));
