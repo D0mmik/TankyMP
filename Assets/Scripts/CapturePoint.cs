@@ -16,14 +16,39 @@ public class CapturePoint : MonoBehaviourPunCallbacks
     public int playerCount;
     private float timer;
     public bool allplayer = false;
-    Hashtable hash = PhotonNetwork.LocalPlayer.CustomProperties;
+    Hashtable hashtable = PhotonNetwork.LocalPlayer.CustomProperties;
+    Hashtable scoreHash = new Hashtable();
+    void Start()
+    {
+        StartScore();
+        if(photonView.IsMine)
+        {
+            capturing = false;
+            hashtable["Counting"] = false;
+            PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable); 
+        }
+        CheckPlayers();
+    }
+    public void StartScore()
+    {
+        if(photonView.IsMine)
+        {
+            score = 0;
+            scoreHash = new Hashtable();
+            scoreHash.Add("Score", score);
+            PhotonNetwork.CurrentRoom.SetCustomProperties(scoreHash);
+            scoreText.text = score.ToString();
+        }
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "CapturePoint" && photonView.IsMine)
         {
+            score = 0;
             capturing = true;
-            hash["Counting"] = true;   
-            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+            hashtable["Counting"] = true;   
+            PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable);
         }
     }
     void OnTriggerExit(Collider other)
@@ -31,8 +56,8 @@ public class CapturePoint : MonoBehaviourPunCallbacks
         if(other.gameObject.tag == "CapturePoint" && photonView.IsMine)
         {
             capturing = false;
-            hash["Counting"] = false;
-            PhotonNetwork.LocalPlayer.SetCustomProperties(hash); 
+            hashtable["Counting"] = false;
+            PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable); 
         }
     }
     void Update()
@@ -57,16 +82,21 @@ public class CapturePoint : MonoBehaviourPunCallbacks
     }
     public override void OnPlayerPropertiesUpdate (Player targetPlayer, Hashtable changedProps)
     {
-        if(!changedProps.ContainsKey("Counting")) return;
+        if(!changedProps.ContainsKey("Counting"))
+        {
+            return;
+        } 
 
         CheckPlayers();
     }
-    private void CheckPlayers()
+    public void CheckPlayers()
     {
+      
         var players = PhotonNetwork.PlayerList;
 
 
         playerCount = players.Count(p => p.CustomProperties.ContainsKey("Counting") && (bool)p.CustomProperties["Counting"] == true);
+        
         
     }
     void CountScore()
@@ -77,12 +107,20 @@ public class CapturePoint : MonoBehaviourPunCallbacks
             if(timer >= 1)
             {
                 score++;
-                scoreText.text = score.ToString();
+                scoreHash = new Hashtable();
+                scoreHash.Add("Score", score);
+                PhotonNetwork.CurrentRoom.SetCustomProperties(scoreHash);
                 timer = 0;
 
             }
         }      
-    }    
-    
-    
+    }
+    public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
+    {
+        if(!propertiesThatChanged.ContainsKey("Score"))
+        {
+            return;
+        } 
+        scoreText.text = propertiesThatChanged["Score"].ToString();
+    } 
 }

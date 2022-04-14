@@ -11,6 +11,7 @@ public class Target : MonoBehaviourPun
     public float maxHealth = 100;
     public Image healthBar;
     PlayerManager playerManager;
+    public CapturePoint capturePoint;
     void Awake()
     {
         playerManager = PhotonView.Find((int)photonView.InstantiationData[0]).GetComponent<PlayerManager>();
@@ -40,6 +41,8 @@ public class Target : MonoBehaviourPun
     }
     void Die()
     {
+        capturePoint.StartScore();
+        capturePoint.CheckPlayers();
         playerManager.Die();
     }
 }

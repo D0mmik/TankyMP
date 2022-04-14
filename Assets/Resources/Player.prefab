@@ -2804,6 +2804,7 @@ MonoBehaviour:
   health: 100
   maxHealth: 100
   healthBar: {fileID: 1379697264846548727}
+  capturePoint: {fileID: 4896247088695144566}
 --- !u!114 &250832486482335179
 MonoBehaviour:
   m_ObjectHideFlags: 0

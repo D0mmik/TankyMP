@@ -45,10 +45,14 @@ public class Load : MonoBehaviourPunCallbacks
     
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
     {
-       if(!photonView.IsMine && targetPlayer == photonView.Owner)
-       {
-           LoadAll((int)changedProps["armor"],(int)changedProps["color"],(int)changedProps["weapon"]);
-       } 
+       if(!changedProps.ContainsKey("armor") || !changedProps.ContainsKey("color") || !changedProps.ContainsKey("weapon"))
+        {
+            return;
+        } 
+        if(!photonView.IsMine && targetPlayer == photonView.Owner)
+        {
+            LoadAll((int)changedProps["armor"],(int)changedProps["color"],(int)changedProps["weapon"]);
+        }
     }
     
 

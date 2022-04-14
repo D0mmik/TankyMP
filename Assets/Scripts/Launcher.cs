@@ -61,11 +61,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         {
             return;
         }
-        RoomOptions roomOptions = new RoomOptions();
-        Hashtable RoomCustomProps = new Hashtable();
-
-        roomOptions.CustomRoomProperties = RoomCustomProps;
-        PhotonNetwork.CreateRoom(roomNameIP.text, roomOptions);
+        PhotonNetwork.CreateRoom(roomNameIP.text);
     }
     public override void OnJoinedRoom()
     {
