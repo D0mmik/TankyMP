@@ -16,7 +16,7 @@ public class Load : MonoBehaviourPunCallbacks
    public GameObject tank;
    [SerializeField] private int currentArmor;
    [SerializeField] private int currentColor;
-   [SerializeField] private int currentWeapon;
+   public int currentWeapon;
    public ChangerIG changerIG;
    void Start()
    {

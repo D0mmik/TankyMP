@@ -21,17 +21,22 @@ public class Target : MonoBehaviourPun
     }
     public void TakeDamage(float damage)
     {
-        if(photonView.IsMine)
+        photonView.RPC("RPC_TakeDamage", RpcTarget.All, damage);
+    }
+    [PunRPC]
+    void RPC_TakeDamage(float damage)
+    {
+        if(!photonView.IsMine)
         {
-            health -= damage;
-            healthBar.fillAmount = health / maxHealth;
-        
-            if(health == 0)
-            {
-                Die();
-            }
+            return;
         }
-
+        health -= damage;
+        healthBar.fillAmount = health / maxHealth;
+        
+        if(health <= 0)
+        {
+            Die();
+        }
     }
     void Die()
     {

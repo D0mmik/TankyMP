@@ -10,8 +10,10 @@ public class Shooting : MonoBehaviourPun
     public float damage = 10f;
     public float range = 1000f;
     private Target target;
+    public Load load;
 
     public PauseMenu pauseMenu;
+    public Item[] guns;
 
 
     void Update()
@@ -19,23 +21,10 @@ public class Shooting : MonoBehaviourPun
         {
             if(Input.GetMouseButtonDown(0) && pauseMenu.paused == false)
             {
-                photonView.RPC("RPC_Shoot",RpcTarget.All);
+                guns[load.currentWeapon].Use();
+
             }
         }   
     }
-    [PunRPC]
-    void RPC_Shoot()
-    {
-        if(Physics.Raycast(shootPoint.position, shootPoint.forward, out hit, range))
-        {
-            if(hit.transform != null)
-            {
-                hit.transform.GetComponent<Target>()?.TakeDamage(damage);
-            }
-            if(photonView.IsMine)
-            {
-                PhotonNetwork.Instantiate("impactPrefab", hit.point,Quaternion.LookRotation(hit.normal));
-            }
-        }
-    }
+    
 }
