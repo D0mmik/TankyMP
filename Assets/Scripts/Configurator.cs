@@ -6,7 +6,7 @@ using System.Linq;
 public class Configurator : MonoBehaviour
 {
     [SerializeField] private GameObject[] windows;
-    public ColorChanger colorChanger;
+
     public void CloseWindows()
     {
         foreach( var item in windows)
@@ -34,6 +34,5 @@ public class Configurator : MonoBehaviour
     public void ColorButton()
     {
         ToggleWindow("Color");
-        colorChanger.FindTank();
     }
 }

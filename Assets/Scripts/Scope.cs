@@ -19,7 +19,7 @@ public class Scope : MonoBehaviourPun
     public GameObject weaponHolder;
     public float VerticalWH;
 
-    private bool scoped = false;
+    public bool scoped = false;
     
     void Update()
     {

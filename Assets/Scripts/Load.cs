@@ -4,9 +4,11 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
+using TMPro;
 
 public class Load : MonoBehaviourPunCallbacks
 {
+   
    public GameObject[] armor;
    public Material[] color;
    //public GameObject[] propulsion;
@@ -15,6 +17,7 @@ public class Load : MonoBehaviourPunCallbacks
    [SerializeField] private int currentArmor;
    [SerializeField] private int currentColor;
    [SerializeField] private int currentWeapon;
+   public ChangerIG changerIG;
    void Start()
    {
        if(photonView.IsMine)
@@ -22,17 +25,22 @@ public class Load : MonoBehaviourPunCallbacks
             LoadAll(PlayerPrefs.GetInt("armor"),PlayerPrefs.GetInt("color"),PlayerPrefs.GetInt("weapon"));
         }
    }
-   
-    public void Update()
+
+   public void UpdateConfig()
+   {
+       if(photonView.IsMine)
+        {
+            LoadAll(changerIG.currentArmor, changerIG.currentColor, changerIG.currentWeapon);
+        }
+   }
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         if(photonView.IsMine)
         {
-            if(Input.GetKeyDown(KeyCode.L))
-            {
-                LoadAll(PlayerPrefs.GetInt("armor"),PlayerPrefs.GetInt("color"),PlayerPrefs.GetInt("weapon"));
-            }
+            LoadAll(PlayerPrefs.GetInt("armor"),PlayerPrefs.GetInt("color"),PlayerPrefs.GetInt("weapon"));
         }
-        
+        //Debug.Log(newPlayer.NickName);
     }
     
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
@@ -72,8 +80,12 @@ public class Load : MonoBehaviourPunCallbacks
             table.Add("armor",currentArmor);
             table.Add("color",currentColor);
             table.Add("weapon",currentWeapon);
-            PhotonNetwork.LocalPlayer.SetCustomProperties(table);
+            if(PhotonNetwork.InRoom)
+            {
+                PhotonNetwork.LocalPlayer.SetCustomProperties(table);
+            }
         }       
    }
+    
    
 }

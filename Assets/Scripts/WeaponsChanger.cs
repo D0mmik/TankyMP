@@ -9,6 +9,8 @@ public class WeaponsChanger : MonoBehaviour
     public GameObject currentclone;
     public int currentWeapon;
 
+    public Load load;
+
 
     void Start()
     {

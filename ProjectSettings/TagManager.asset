@@ -6,6 +6,7 @@ TagManager:
   tags:
   - TeamSelect
   - Crosshair
+  - CapturePoint
   layers:
   - Default
   - TransparentFX

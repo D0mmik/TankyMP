@@ -6,6 +6,7 @@ using TMPro;
 using Photon.Realtime;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class Launcher : MonoBehaviourPunCallbacks
 {
@@ -60,7 +61,11 @@ public class Launcher : MonoBehaviourPunCallbacks
         {
             return;
         }
-        PhotonNetwork.CreateRoom(roomNameIP.text);
+        RoomOptions roomOptions = new RoomOptions();
+        Hashtable RoomCustomProps = new Hashtable();
+
+        roomOptions.CustomRoomProperties = RoomCustomProps;
+        PhotonNetwork.CreateRoom(roomNameIP.text, roomOptions);
     }
     public override void OnJoinedRoom()
     {
@@ -116,6 +121,5 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         Instantiate(playerListPrefab, playerListContent).GetComponent<PlayerListPrefab>().OnStart(newPlayer);
     }
-
 }
 

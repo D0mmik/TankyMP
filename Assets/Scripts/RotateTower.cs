@@ -10,6 +10,7 @@ public class RotateTower : MonoBehaviourPun
     public float speed = 1000f;
     private float yRot;
     public float yRotation;
+    public PauseMenu pauseMenu;
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -18,7 +19,7 @@ public class RotateTower : MonoBehaviourPun
     }
     void Update()
     {
-        if(photonView.IsMine == true)
+        if(photonView.IsMine == true && pauseMenu.paused == false)
         {
             mouseX = Input.GetAxis("Mouse X") * speed * Time.deltaTime;
             yRot += mouseX;

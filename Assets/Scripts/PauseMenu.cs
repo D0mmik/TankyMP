@@ -4,42 +4,35 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
 
-public class PauseMenu : MonoBehaviourPunCallbacks
+public class PauseMenu : MonoBehaviourPun
 {
-    private bool paused = false;
+    public bool paused = false;
     public GameObject pauseMenu;
+    public Configurator configurator;
+    public Scope scope;
     void Start()
     {
         pauseMenu.SetActive(false);
     }
+    
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape) && paused == false)
+        if(Input.GetKeyDown(KeyCode.Escape) && paused == false && photonView.IsMine && scope.scoped == false)
         {
             pauseMenu.SetActive(true);
+            configurator.CloseWindows();
             paused = true;
+            Cursor.lockState = CursorLockMode.None;
         }
-        else if(Input.GetKeyDown(KeyCode.Escape) && paused == true)
+        else if(Input.GetKeyDown(KeyCode.Escape) && paused == true && photonView.IsMine && scope.scoped == false)
         {
             pauseMenu.SetActive(false);
             paused = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
+    }
 
-    }
-    public void LeaveGame()
-    {
-        PhotonNetwork.LeaveRoom();
-        if(photonView.IsMine)
-        {
-
-        }
-        
-        Debug.Log("eeeee");
-    }
-    public override void OnLeftRoom()
-    {
-        SceneManager.LoadScene("Menu");
-    }
+   
 
 
     

@@ -19,6 +19,8 @@ public class Pohyb : MonoBehaviourPun
     [SerializeField] private Camera cam;
     [SerializeField] private AudioListener lis;
     PlayerManager playerManager;
+    public PauseMenu pauseMenu;
+    public GameObject ui;
 
     
 
@@ -30,11 +32,12 @@ public class Pohyb : MonoBehaviourPun
         {
             cam.enabled = false;
             lis.enabled = false;
+            Destroy(ui);
         }
     }
     void Update()
     {  
-        if(photonView.IsMine)
+        if(photonView.IsMine && pauseMenu.paused == false)
         {
             isGrounded = Physics.Raycast(transform.position, Vector3.down,playerHeight / 2 + 0.1f);
 

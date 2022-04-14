@@ -11,11 +11,13 @@ public class Shooting : MonoBehaviourPun
     public float range = 1000f;
     private Target target;
 
+    public PauseMenu pauseMenu;
+
 
     void Update()
     {   if(photonView.IsMine)
         {
-            if(Input.GetMouseButtonDown(0))
+            if(Input.GetMouseButtonDown(0) && pauseMenu.paused == false)
             {
                 photonView.RPC("RPC_Shoot",RpcTarget.All);
             }
