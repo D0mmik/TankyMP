@@ -19,14 +19,14 @@ public class Scope : MonoBehaviourPun
     public GameObject weaponHolder;
     public float VerticalWH;
 
-    public bool scoped = false;
+    public static bool scoped = false;
     
     void Update()
     {
 
         if(photonView.IsMine)
         {
-            if(Input.GetMouseButtonDown(1) && scoped == false)
+            if(Input.GetMouseButtonDown(1) && scoped == false && PlayerLeave.paused == false)
             {
                 cam.transform.position = shootPoint.transform.position;
                 cam.transform.rotation = shootPoint.transform.rotation;

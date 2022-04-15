@@ -7,6 +7,7 @@ using Photon.Realtime;
 using System.Linq;
 using UnityEngine.SceneManagement;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
+using UnityEngine.UI;
 
 public class Launcher : MonoBehaviourPunCallbacks
 {
@@ -23,11 +24,17 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField] private Player[] players;
     [SerializeField] private GameObject startGameButton;
     [SerializeField] private GameObject nickNameMenu;
+    public bool instagibMode = false;
+    [SerializeField] private GameObject checkMarkInstagib;
+    public bool randomizerMode = false;
+    [SerializeField] private GameObject checkMarkRandomizer;
 
     void Start()
     {
         loading.SetActive(true);
         UIbuttons.SetActive(false);
+        checkMarkInstagib.SetActive(false);
+        checkMarkRandomizer.SetActive(false);
         Debug.Log("Connecting");
         if(PhotonNetwork.IsConnected == false)
         {
@@ -39,6 +46,32 @@ public class Launcher : MonoBehaviourPunCallbacks
         if(UIbuttons.activeSelf == true)
         {
             loading.SetActive(false);
+        }
+    }
+    public void InstagibButton()
+    {
+        if(instagibMode == false)
+        {
+            instagibMode = true;
+            checkMarkInstagib.SetActive(true);
+        }
+        else if(instagibMode == true)
+        {
+            instagibMode = false;
+            checkMarkInstagib.SetActive(false);
+        }
+    }
+    public void RandomizerButton()
+    {
+        if(randomizerMode == false)
+        {
+            randomizerMode = true;
+            checkMarkRandomizer.SetActive(true);
+        }
+        else if(randomizerMode == true)
+        {
+            randomizerMode = false;
+            checkMarkRandomizer.SetActive(false);
         }
     }
 
@@ -54,6 +87,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         UIbuttons.SetActive(true);
         Debug.Log("Joined Lobby");
     }
+    
 
     public void CreateRoom()
     {
@@ -61,7 +95,12 @@ public class Launcher : MonoBehaviourPunCallbacks
         {
             return;
         }
-        PhotonNetwork.CreateRoom(roomNameIP.text);
+        RoomOptions roomOptions = new RoomOptions();
+        Hashtable hash = new Hashtable();
+        hash["Instagib"] = instagibMode;
+        hash["Randomizer"] = randomizerMode;
+        roomOptions.CustomRoomProperties = hash;
+        PhotonNetwork.CreateRoom(roomNameIP.text, roomOptions);
     }
     public override void OnJoinedRoom()
     {

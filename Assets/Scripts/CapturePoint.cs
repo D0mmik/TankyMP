@@ -11,11 +11,13 @@ public class CapturePoint : MonoBehaviourPunCallbacks
 {
     public bool capturing = false;
     public bool canCapture = true;
-    public int score = 0;
+    public float score = 0;
     public TMP_Text scoreText;
     public int playerCount;
     private float timer;
     public bool allplayer = false;
+    public TMP_Text winnerText;
+    public GameObject winnerGameObject;
     Hashtable hashtable = PhotonNetwork.LocalPlayer.CustomProperties;
     Hashtable scoreHash = new Hashtable();
     void Start()
@@ -77,8 +79,6 @@ public class CapturePoint : MonoBehaviourPunCallbacks
                 canCapture = false;
             }   
         }
-        
- 
     }
     public override void OnPlayerPropertiesUpdate (Player targetPlayer, Hashtable changedProps)
     {
@@ -108,6 +108,10 @@ public class CapturePoint : MonoBehaviourPunCallbacks
             {
                 score++;
                 scoreHash = new Hashtable();
+                if(score >= 20)
+                {
+                    score = 20;
+                }
                 scoreHash.Add("Score", score);
                 PhotonNetwork.CurrentRoom.SetCustomProperties(scoreHash);
                 timer = 0;
@@ -122,5 +126,25 @@ public class CapturePoint : MonoBehaviourPunCallbacks
             return;
         } 
         scoreText.text = propertiesThatChanged["Score"].ToString();
+
+        if((float)propertiesThatChanged["Score"] == 20 && playerCount == 1)
+        {
+            var players = PhotonNetwork.PlayerList;
+            score = 0;
+
+            if(photonView.IsMine)
+            {
+                Player winner = players.Single(p => p.CustomProperties.ContainsKey("Counting") && (bool)p.CustomProperties["Counting"] == true);
+                winnerGameObject.SetActive(true);
+                winnerText.text = ($"{winner.NickName} CAPTURED POINT");
+                StartCoroutine(HideWinnerGO());
+            }
+
+        }
     } 
+    IEnumerator HideWinnerGO()
+    {
+        yield return new WaitForSeconds(5);
+        winnerGameObject.SetActive(false);
+    }
 }

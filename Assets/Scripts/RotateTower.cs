@@ -19,7 +19,7 @@ public class RotateTower : MonoBehaviourPun
     }
     void Update()
     {
-        if(photonView.IsMine == true && pauseMenu.paused == false)
+        if(photonView.IsMine == true && PlayerLeave.paused == false)
         {
             mouseX = Input.GetAxis("Mouse X") * speed * Time.deltaTime;
             yRot += mouseX;

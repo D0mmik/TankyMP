@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: FourBarrel
   m_EditorClassIdentifier: 
   gunName: FourBarrel
-  damage: 60
+  damage: 40

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: EightBarrel
   m_EditorClassIdentifier: 
   gunName: EightBarrel
-  damage: 50
+  damage: 80

@@ -19,7 +19,7 @@ public class Shooting : MonoBehaviourPun
     void Update()
     {   if(photonView.IsMine)
         {
-            if(Input.GetMouseButtonDown(0) && pauseMenu.paused == false)
+            if(Input.GetMouseButtonDown(0) && PlayerLeave.paused == false)
             {
                 guns[load.currentWeapon].Use();
 

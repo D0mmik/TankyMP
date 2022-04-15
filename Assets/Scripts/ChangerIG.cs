@@ -21,27 +21,29 @@ public class ChangerIG : MonoBehaviourPun
         if(photonView.IsMine)
         {
             for(int i = 0; i < load.weapons.Length; i++)
-        {   
-            var WeaponsButtonClone = Instantiate(buttons, weaponHere.transform).GetComponent<ButtonsPrefab>();
-            WeaponsButtonClone.ButtonInt = i;
-            WeaponsButtonClone.Name.text = ($"WEAPON {WeaponsButtonClone.ButtonInt}");  
-            WeaponsButtonClone.Button.onClick.AddListener(()=>DoWeapon(WeaponsButtonClone.ButtonInt));        
-        }
+            {   
+                var WeaponsButtonClone = Instantiate(buttons, weaponHere.transform).GetComponent<ButtonsPrefab>();
+                WeaponsButtonClone.ButtonInt = i;
+                WeaponsButtonClone.Name.text = ($"WEAPON {WeaponsButtonClone.ButtonInt}");  
+                WeaponsButtonClone.Button.onClick.AddListener(()=>DoWeapon(WeaponsButtonClone.ButtonInt));        
+            }
 
-        for(int i = 0; i < load.armor.Length; i++)
-        {   
-            var ArmorButtonClone = Instantiate(buttons, armorHere.transform).GetComponent<ButtonsPrefab>();
-            ArmorButtonClone.ButtonInt = i;
-            ArmorButtonClone.Name.text = ($"ARMOR {ArmorButtonClone.ButtonInt}");  
-            ArmorButtonClone.Button.onClick.AddListener(()=>DoArmor(ArmorButtonClone.ButtonInt));        
-        }
-        for(int i = 0; i < load.color.Length; i++)
-        {   
-            var ColorButtonClone = Instantiate(buttons, colorHere.transform).GetComponent<ButtonsPrefab>();
-            ColorButtonClone.ButtonInt = i;
-            ColorButtonClone.Name.text = ($"COLOR {ColorButtonClone.ButtonInt}");  
-            ColorButtonClone.Button.onClick.AddListener(()=>DoColor(ColorButtonClone.ButtonInt));                    
-        }
+            for(int i = 0; i < load.armor.Length; i++)
+            {   
+                var ArmorButtonClone = Instantiate(buttons, armorHere.transform).GetComponent<ButtonsPrefab>();
+                ArmorButtonClone.ButtonInt = i;
+                ArmorButtonClone.Name.text = ($"ARMOR {ArmorButtonClone.ButtonInt}");  
+                ArmorButtonClone.Button.onClick.AddListener(()=>DoArmor(ArmorButtonClone.ButtonInt));        
+            }
+
+
+            for(int i = 0; i < load.color.Length; i++)
+            {   
+                var ColorButtonClone = Instantiate(buttons, colorHere.transform).GetComponent<ButtonsPrefab>();
+                ColorButtonClone.ButtonInt = i;
+                ColorButtonClone.Name.text = ($"COLOR {ColorButtonClone.ButtonInt}");  
+                ColorButtonClone.Button.onClick.AddListener(()=>DoColor(ColorButtonClone.ButtonInt));                    
+            }
         }
     }
     public void DoWeapon(int number)
@@ -58,7 +60,7 @@ public class ChangerIG : MonoBehaviourPun
         if(photonView.IsMine)
         {
             currentArmor = number;
-            PlayerPrefs.SetInt("armor", currentArmor);
+            PlayerPrefs.SetInt("armor", currentArmor); 
             load.UpdateConfig();
         }
     }

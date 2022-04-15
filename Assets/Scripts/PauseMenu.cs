@@ -6,30 +6,40 @@ using Photon.Pun;
 
 public class PauseMenu : MonoBehaviourPun
 {
-    public bool paused = false;
     public GameObject pauseMenu;
     public Configurator configurator;
-    public Scope scope;
+    public ChangerIG changerIG;
+    private bool randomizer = false;
     void Start()
     {
-        pauseMenu.SetActive(false);
+        if((bool)PhotonNetwork.CurrentRoom.CustomProperties["Randomizer"] == true)
+        {
+            randomizer = true;
+        }
     }
-    
+
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape) && paused == false && photonView.IsMine && scope.scoped == false)
-        {
-            pauseMenu.SetActive(true);
-            configurator.CloseWindows();
-            paused = true;
-            Cursor.lockState = CursorLockMode.None;
-        }
-        else if(Input.GetKeyDown(KeyCode.Escape) && paused == true && photonView.IsMine && scope.scoped == false)
+        if(Input.GetKeyDown(KeyCode.Escape) && PlayerLeave.paused == false && Scope.scoped == false && randomizer == false)
         {
             pauseMenu.SetActive(false);
-            paused = false;
+            configurator.CloseWindows();
             Cursor.lockState = CursorLockMode.Locked;
         }
+        if(Input.GetKeyDown(KeyCode.Escape) && PlayerLeave.paused == true && Scope.scoped == false && randomizer == false)
+        {
+            pauseMenu.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+        }
+        if(Input.GetKeyDown(KeyCode.Escape) && PlayerLeave.paused == false && Scope.scoped == false && randomizer == true)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        if(Input.GetKeyDown(KeyCode.Escape) && PlayerLeave.paused == true && Scope.scoped == false && randomizer == true)
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+
     }
 
    

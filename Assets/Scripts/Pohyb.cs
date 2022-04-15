@@ -37,7 +37,7 @@ public class Pohyb : MonoBehaviourPun
     }
     void Update()
     {  
-        if(photonView.IsMine && pauseMenu.paused == false)
+        if(photonView.IsMine && PlayerLeave.paused == false)
         {
             isGrounded = Physics.Raycast(transform.position, Vector3.down,playerHeight / 2 + 0.1f);
 

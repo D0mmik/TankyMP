@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: TwoBarrel
   m_EditorClassIdentifier: 
   gunName: TwoBarrel
-  damage: 30
+  damage: 20
