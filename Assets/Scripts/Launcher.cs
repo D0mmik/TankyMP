@@ -85,6 +85,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     public override void OnJoinedLobby()
     {
         UIbuttons.SetActive(true);
+        loading.SetActive(false);
         Debug.Log("Joined Lobby");
     }
     
@@ -101,6 +102,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         hash["Randomizer"] = randomizerMode;
         roomOptions.CustomRoomProperties = hash;
         PhotonNetwork.CreateRoom(roomNameIP.text, roomOptions);
+        menuManager.playMenu.SetActive(false);
     }
     public override void OnJoinedRoom()
     {
@@ -130,6 +132,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.LeaveRoom();
         menuManager.CloseWindows();
+        loading.SetActive(true);
         foreach(Transform transform in playerListContent)
         {
             Destroy(transform.gameObject);

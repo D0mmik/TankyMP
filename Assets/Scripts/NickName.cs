@@ -9,6 +9,7 @@ public class NickName : MonoBehaviour
     [SerializeField] private TMP_Text nameIP;
     [SerializeField] private TMP_Text lobbyNick;
     [SerializeField] private GameObject nickNameMenu;
+    [SerializeField] private GameObject buttons;
     void Start()
     {
         PhotonNetwork.NickName = PlayerPrefs.GetString("nick", "");
@@ -32,5 +33,6 @@ public class NickName : MonoBehaviour
        PhotonNetwork.NickName = PlayerPrefs.GetString("nick");
        lobbyNick.text = PhotonNetwork.NickName;
        nickNameMenu.SetActive(false);
+       buttons.SetActive(true);
     }
 }
