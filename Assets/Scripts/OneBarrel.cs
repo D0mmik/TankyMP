@@ -10,6 +10,7 @@ public class OneBarrel : Gun
     private RaycastHit hit;
     private float range = 1000f;
     private Target target;
+    private GameObject impact;
 
     void Start()
     {
@@ -27,7 +28,8 @@ public class OneBarrel : Gun
             {
                 hit.transform.GetComponent<Target>()?.TakeDamage(((GunInfo)gunInfo).damage);
             }
-            PhotonNetwork.Instantiate("impactPrefab", hit.point,Quaternion.LookRotation(hit.normal));
+            impact = PhotonNetwork.Instantiate("impactPrefab", hit.point,Quaternion.LookRotation(hit.normal));
+            Destroy(impact,5);
         }
     }
 }

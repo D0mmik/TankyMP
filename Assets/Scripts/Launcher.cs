@@ -102,10 +102,13 @@ public class Launcher : MonoBehaviourPunCallbacks
         hash["Randomizer"] = randomizerMode;
         roomOptions.CustomRoomProperties = hash;
         PhotonNetwork.CreateRoom(roomNameIP.text, roomOptions);
+        menuManager.CloseWindows();
         menuManager.playMenu.SetActive(false);
+        loading.SetActive(true);
     }
     public override void OnJoinedRoom()
     {
+        loading.SetActive(false);
         menuManager.ToggleWindow("RoomMenu");
         loading.SetActive(false);
         roomName.text = PhotonNetwork.CurrentRoom.Name;

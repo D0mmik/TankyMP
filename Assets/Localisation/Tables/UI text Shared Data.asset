@@ -1,0 +1,129 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: UI text Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: UI text
+  m_TableCollectionNameGuidString: 16dfc5b90de9d284f95e91d2d2f7b3f6
+  m_Entries:
+  - m_Id: 35906871296
+    m_Key: Play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 133411856384
+    m_Key: Options
+    m_Metadata:
+      m_Items: []
+  - m_Id: 838516301824
+    m_Key: Quit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10057021874176
+    m_Key: 'CreateRoom
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10131999252480
+    m_Key: FindRoom
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10220763308032
+    m_Key: Configurator
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10412363309056
+    m_Key: Back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11269158952960
+    m_Key: Loading
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12648980111360
+    m_Key: Create
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12895991062528
+    m_Key: Leave
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12961103437824
+    m_Key: Start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13823490088960
+    m_Key: SetNickname
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13912379973632
+    m_Key: EnterNickname
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15126744227840
+    m_Key: Weapons
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15131295047680
+    m_Key: Armor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15133891321856
+    m_Key: Color
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16173470539776
+    m_Key: ChangeNickname
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16760379498496
+    m_Key: Sensitivity
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16765093896192
+    m_Key: ADSSensitivity
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18542170169344
+    m_Key: NicknameChange
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21681380220928
+    m_Key: EnterRoomName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23279590400000
+    m_Key: OneBarrelDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23284598398976
+    m_Key: TwoBarrelDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23286133514240
+    m_Key: FourBarrelDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23287542800384
+    m_Key: EightBarrelDescription
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    id: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1650303864330
