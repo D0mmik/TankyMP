@@ -10,6 +10,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject buttons;
     public GameObject playMenu;
     public SaveConfig saveConfig;
+    public Language language;
     
     void Start()
     {
@@ -64,6 +65,7 @@ public class MenuManager : MonoBehaviour
     }
     public void CloseOptions()
     {
+        language.SaveLanguage();
         CloseWindows();
         buttons.SetActive(true);
     }

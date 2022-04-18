@@ -12,10 +12,10 @@ public class NickName : MonoBehaviour
     [SerializeField] private GameObject buttons;
     void Start()
     {
-        PhotonNetwork.NickName = PlayerPrefs.GetString("nick", "");
+        PhotonNetwork.NickName = PlayerPrefs.GetString("nick");
         lobbyNick.text = PhotonNetwork.NickName;
         Debug.Log(PhotonNetwork.NickName);
-        if(PlayerPrefs.GetString("nick","") == "")
+        if(!PlayerPrefs.HasKey("nick"))
         {
             nickNameMenu.SetActive(true);
             Debug.Log("true");

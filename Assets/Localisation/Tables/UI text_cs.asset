@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: cs
   m_SharedData: {fileID: 11400000, guid: 16dfc5b90de9d284f95e91d2d2f7b3f6, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - id: 0
   m_TableData:
   - m_Id: 35906871296
     m_Localized: "HR\xC1T"
@@ -75,7 +76,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 15131295047680
-    m_Localized: "PANC\xC9\u0158"
+    m_Localized: "PANC\xED\u0158"
     m_Metadata:
       m_Items: []
   - m_Id: 15126744227840
@@ -118,5 +119,13 @@ MonoBehaviour:
     m_Localized: "Osm kan\xF3n\u016F - 80 po\u0161kozen\xED"
     m_Metadata:
       m_Items: []
+  - m_Id: 33908002873344
+    m_Localized: JAZYK
+    m_Metadata:
+      m_Items: []
   references:
     version: 1
+    00000000:
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 0060f74eb3180000

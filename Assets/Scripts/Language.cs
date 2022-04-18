@@ -6,18 +6,24 @@ using UnityEngine.Localization.Settings;
 
 public class Language : MonoBehaviour
 {
-
+    private string selectedlanguage;
     public void Czech()
     {
         StartCoroutine(ChangeLanguage(0));
+        selectedlanguage = "cs";
     }
     public void English()
     {
         StartCoroutine(ChangeLanguage(1));
+        selectedlanguage = "en";
     }
     public IEnumerator ChangeLanguage(int LanguageNumber)
     {
         yield return LocalizationSettings.InitializationOperation;
         LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[LanguageNumber];
+    }
+    public void SaveLanguage()
+    {
+        PlayerPrefs.SetString("language",selectedlanguage);
     }
 }
