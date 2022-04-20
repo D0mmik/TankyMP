@@ -69,6 +69,11 @@ public class MenuManager : MonoBehaviour
         CloseWindows();
         buttons.SetActive(true);
     }
+    public void CloseNickname()
+    {
+        CloseWindows();
+        buttons.SetActive(true);
+    }
     public void Back()
     {
         playMenu.SetActive(false);
@@ -77,7 +82,6 @@ public class MenuManager : MonoBehaviour
     public void CloseButton()
     {
         CloseWindows();
-        buttons.SetActive(true);
     }
     public void quit()
     {

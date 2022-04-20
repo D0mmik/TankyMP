@@ -7,11 +7,10 @@ public class Pohyb : MonoBehaviourPun
 {
     private Rigidbody rb;
     [SerializeField] private float speed = 10;
-    private float horizontal;
-    private float vertical;
+    public float horizontal;
+    public float vertical;
     public Vector3 moveDirection;
-    private bool isGrounded;
-    private float playerHeight = 5f;
+    public bool isGrounded;
     public float jumpForce = 10f;
     private float groundDrag = 6f;
     private float airDrag = 2f;
@@ -39,7 +38,8 @@ public class Pohyb : MonoBehaviourPun
     {  
         if(photonView.IsMine && PlayerLeave.paused == false)
         {
-            isGrounded = Physics.Raycast(transform.position, Vector3.down,playerHeight / 2 + 0.1f);
+            isGrounded = Physics.Raycast(transform.position, Vector3.down,0.01f);
+            Debug.DrawRay(transform.position, Vector3.down,Color.black,0.01f);
 
             if(isGrounded)
             {
@@ -50,8 +50,8 @@ public class Pohyb : MonoBehaviourPun
                 rb.drag = airDrag;
             }
 
-            horizontal = Input.GetAxis("Horizontal");
             vertical = Input.GetAxisRaw("Vertical");
+            horizontal = Input.GetAxis("Horizontal");
         
             moveDirection = transform.forward * vertical;
             transform.Rotate(Vector3.up * 100 * horizontal * Time.deltaTime);
@@ -68,6 +68,7 @@ public class Pohyb : MonoBehaviourPun
         else
         {
             rb.AddForce(moveDirection.normalized * speed * airMovement, ForceMode.Acceleration);
+            rb.AddForce(-transform.up * 100000, ForceMode.Acceleration);
         }
         
     }

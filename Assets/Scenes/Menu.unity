@@ -11950,7 +11950,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2021781576}
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: CloseButton
+        m_MethodName: CloseNickname
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -2967,7 +2967,7 @@ MonoBehaviour:
   - {fileID: 5065507336516201183}
   - {fileID: 1413772540827790650}
   - {fileID: 1455503862416554436}
-  sceneViewId: 0
+  sceneViewId: 1
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!54 &6829615879545451678
@@ -3053,6 +3053,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 50
+  horizontal: 0
+  vertical: 0
   moveDirection: {x: 0, y: 0, z: 0}
   jumpForce: 10
   airMovement: 0.4
