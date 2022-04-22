@@ -5,17 +5,22 @@ using UnityEngine;
 public class Hover : MonoBehaviour
 {
     private Rigidbody rb;
-    public float multiplier;
-    public float moveForce;
-    public float turnTorque;
+    public float speed;
     public Transform[] forcePoints = new Transform[4];
     private RaycastHit[] hits = new RaycastHit[4];
     private float vertical;
     private float horizontal;
 
-    void Start()
+    void Awake()
     {
         rb = GetComponent<Rigidbody>();
+    }
+    public void SetRb()
+    {
+        rb.mass = 100;
+        rb.drag = 2;
+        rb.angularDrag = 2.1f;
+        rb.useGravity = true;
     }
     void FixedUpdate()
     {
@@ -27,10 +32,11 @@ public class Hover : MonoBehaviour
         vertical = Input.GetAxis("Vertical");
         horizontal = Input.GetAxis("Horizontal");
 
-        rb.AddForce(vertical * moveForce * transform.forward);
-        rb.AddTorque(horizontal * turnTorque * transform.up);
-
-
+        rb.AddForce(vertical * speed* transform.forward);
+    }
+    void Update()
+    {
+        transform.Rotate(Vector3.up * 100 * horizontal * Time.deltaTime);
     }
     void ApplyForce(Transform forcePoint, RaycastHit hit)
     {
