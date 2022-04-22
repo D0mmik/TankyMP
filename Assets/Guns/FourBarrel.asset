@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunName: FourBarrel
   damage: 40
+  reloadTime: 5

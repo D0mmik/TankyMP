@@ -15,7 +15,6 @@ public class Target : MonoBehaviourPun
     public CapturePoint capturePoint;
     public GameObject armor;
     public bool armored = false;
-    public TMP_Text healthText;
     private bool instagib = false;
     void Awake()
     {
@@ -29,7 +28,6 @@ public class Target : MonoBehaviourPun
             if(instagib == false)
             {
                 health = maxHealth;
-                healthText.text = health.ToString();
                 healthBar.fillAmount = health / maxHealth;
             }
             if(instagib == true)
@@ -48,7 +46,6 @@ public class Target : MonoBehaviourPun
                 armored = true;
                 health = 200;
                 maxHealth = 200;
-                healthText.text = health.ToString();
                 healthBar.fillAmount = health / maxHealth;
             }
             else if(armor.activeSelf == false && armored == true)
@@ -59,7 +56,6 @@ public class Target : MonoBehaviourPun
                 {
                     health = 100;
                 }
-                healthText.text = health.ToString();
                 healthBar.fillAmount = health / maxHealth;
             }
         }
@@ -80,7 +76,6 @@ public class Target : MonoBehaviourPun
         }
         health -= damage;
         healthBar.fillAmount = health / maxHealth;
-        healthText.text = health.ToString();
         
         if(health <= 0)
         {

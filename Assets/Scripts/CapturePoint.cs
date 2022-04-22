@@ -15,7 +15,6 @@ public class CapturePoint : MonoBehaviourPunCallbacks
     public TMP_Text scoreText;
     public int playerCount;
     private float timer;
-    public bool allplayer = false;
     public TMP_Text winnerText;
     public GameObject winnerGameObject;
     Hashtable hashtable = PhotonNetwork.LocalPlayer.CustomProperties;

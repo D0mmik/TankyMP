@@ -74,7 +74,6 @@ public class Fly : MonoBehaviourPun
         else
         {
             rb.AddForce(moveDirection.normalized * speed * airMovement, ForceMode.Acceleration);
-            //rb.AddForce(-transform.up * 100000, ForceMode.Acceleration);
         }
         
     }

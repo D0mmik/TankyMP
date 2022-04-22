@@ -7,7 +7,6 @@ public class ArmorChanger : MonoBehaviour
 {
     public GameObject[] armors;
     public ButtonsPrefab Buttons;
-    public GameObject currentclone;
     public int currentArmor;
 
 

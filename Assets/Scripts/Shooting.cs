@@ -16,6 +16,7 @@ public class Shooting : MonoBehaviourPun
     public Item[] guns;
 
 
+
     void Update()
     {   if(photonView.IsMine)
         {

@@ -23,7 +23,6 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField] private Transform playerListPrefab;
     [SerializeField] private Player[] players;
     [SerializeField] private GameObject startGameButton;
-    [SerializeField] private GameObject nickNameMenu;
     public bool instagibMode = false;
     [SerializeField] private GameObject checkMarkInstagib;
     public bool randomizerMode = false;

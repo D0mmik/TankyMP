@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunName: TwoBarrel
   damage: 20
+  reloadTime: 4

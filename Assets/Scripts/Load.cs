@@ -82,8 +82,6 @@ public class Load : MonoBehaviourPunCallbacks
         {
             LoadAll(randomArmor,randomColor,randomWeapon);
         }
-
-        //Debug.Log(newPlayer.NickName);
     }
     
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
@@ -107,7 +105,6 @@ public class Load : MonoBehaviourPunCallbacks
             item.SetActive(false);
         }
         armor[armorNumber].SetActive(true);
-        //tank = GameObject.Find("Body");
         currentArmor = armorNumber;
         
 

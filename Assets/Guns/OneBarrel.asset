@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunName: OneBarrel
   damage: 10
+  reloadTime: 3
