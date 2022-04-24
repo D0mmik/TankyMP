@@ -29,6 +29,9 @@ public class Belt : MonoBehaviourPun
         rb.drag = 0;
         rb.angularDrag = 10;
         rb.useGravity = true;
+
+        PlayerPrefs.SetInt("useGravity", 1);
+        PlayerPrefs.SetInt("mass", 10);
     }
     void Update()
     {  
@@ -57,13 +60,16 @@ public class Belt : MonoBehaviourPun
     }
     void FixedUpdate()
     {
-        if(isGrounded)
+        if(photonView.IsMine)
         {
-            rb.AddForce(moveDirection.normalized * speed, ForceMode.Acceleration);
-        }
-        else
-        {
-            rb.AddForce(moveDirection.normalized * speed * airMovement, ForceMode.Acceleration);
+            if(isGrounded)
+            {
+                rb.AddForce(moveDirection.normalized * speed, ForceMode.Acceleration);
+            }
+            else
+            {
+                rb.AddForce(moveDirection.normalized * speed * airMovement, ForceMode.Acceleration);
+            }
         }
         
     }

@@ -10,6 +10,9 @@ public class Movements : MonoBehaviourPun
     [SerializeField] private Camera cam;
     [SerializeField] private AudioListener lis;
 
+    private bool randomizer;
+    private int randomMovement;
+
     private Belt belt;
     private Hover hover;
     private Fly fly;
@@ -20,19 +23,30 @@ public class Movements : MonoBehaviourPun
 
     void Start()
     {
+        if((bool)PhotonNetwork.CurrentRoom.CustomProperties["Randomizer"] == true)
+        {
+            //randomizer = true;
+        }
         if(photonView.IsMine == false)
         {
             cam.enabled = false;
             lis.enabled = false;
             Destroy(ui);
         }
-        if(photonView.IsMine)
+    
+        belt = GetComponent<Belt>();
+        hover = GetComponent<Hover>();
+        fly = GetComponent<Fly>();
+        TurnOffMovements();
+        belt.enabled = true;
+        
+        if(randomizer == true)
         {
-            belt = GetComponent<Belt>();
-            hover = GetComponent<Hover>();
-            fly = GetComponent<Fly>();
-            TurnOffMovements();
-            belt.enabled = true;
+            randomMovement = Random.Range(1, 4);
+            if(randomMovement == 1){beltActive = true;}
+            if(randomMovement == 2){flyActive = true;}
+            if(randomMovement == 3){hoverActive = true;}
+
         }
     }
     void Update()
@@ -40,21 +54,19 @@ public class Movements : MonoBehaviourPun
         if(beltActive == true)
         {
             EnableBelt();
-            Debug.Log("belt");
             beltActive = false;
         }
         if(hoverActive == true)
         {
             EnableHover();
-            Debug.Log("hover");
             hoverActive = false;
         }
         if(flyActive == true)
         {
             EnableFly();
-            Debug.Log("fly");
             flyActive = false;
         }
+        
     }
 
     public void TurnOffMovements()

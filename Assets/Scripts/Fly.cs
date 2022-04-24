@@ -28,6 +28,9 @@ public class Fly : MonoBehaviourPun
         rb.drag = 0;
         rb.angularDrag = 10;
         rb.useGravity = false;
+
+        PlayerPrefs.SetInt("useGravity", 0);
+        PlayerPrefs.SetInt("mass", 10);
     }
     void Update()
     {  
@@ -49,9 +52,26 @@ public class Fly : MonoBehaviourPun
             horizontal = Input.GetAxis("Horizontal");
         
             moveDirection = transform.forward * vertical;
-            transform.Rotate(Vector3.up * 100 * horizontal * Time.deltaTime);
+            
+            //transform.Rotate(Vector3.up * 100 * horizontal * Time.deltaTime);
 
-            if(Input.GetKey(KeyCode.Space))
+            
+        }    
+        
+
+    }
+    void FixedUpdate()
+    {
+        rb.AddTorque(horizontal * 500 * transform.up);
+        if(isGrounded)
+        {
+            rb.AddForce(moveDirection.normalized * speed, ForceMode.Acceleration);
+        }
+        else
+        {
+            rb.AddForce(moveDirection.normalized * speed * airMovement, ForceMode.Acceleration);
+        }
+        if(Input.GetKey(KeyCode.Space))
             {
                 rb.AddForce(transform.up * 5, ForceMode.Acceleration);
             }
@@ -61,20 +81,6 @@ public class Fly : MonoBehaviourPun
             {
                 rb.AddForce(-transform.up * 5, ForceMode.Acceleration);
             }
-        }    
-        
-
-    }
-    void FixedUpdate()
-    {
-        if(isGrounded)
-        {
-            rb.AddForce(moveDirection.normalized * speed, ForceMode.Acceleration);
-        }
-        else
-        {
-            rb.AddForce(moveDirection.normalized * speed * airMovement, ForceMode.Acceleration);
-        }
         
     }
 }

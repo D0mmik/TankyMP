@@ -11,7 +11,7 @@ public class Scope : MonoBehaviourPun
     public GameObject cameraPoint;
     public GameObject crossHair;
     private float mouseWheel;
-    public float ScrollSensitivity;
+    public float scrollSensitivity;
     public float targetZoom = 60;
     
     private float mouseY;
@@ -20,6 +20,10 @@ public class Scope : MonoBehaviourPun
     public float VerticalWH;
 
     public static bool scoped = false;
+    void Start()
+    {
+        scrollSensitivity = PlayerPrefs.GetFloat("ScrollSens", 30) * 100;
+    }
     
     void Update()
     {
@@ -44,7 +48,7 @@ public class Scope : MonoBehaviourPun
            
             if(scoped == true)
             {
-                mouseWheel = Input.GetAxis("Mouse ScrollWheel") * ScrollSensitivity * Time.deltaTime * 50;
+                mouseWheel = Input.GetAxis("Mouse ScrollWheel") * scrollSensitivity * Time.deltaTime * 50;
                 targetZoom = targetZoom -= mouseWheel;   
 
                 mouseY = Input.GetAxis("Mouse Y") * speed * Time.deltaTime;

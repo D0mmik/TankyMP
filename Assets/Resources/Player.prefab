@@ -962,6 +962,7 @@ MonoBehaviour:
   reload: 0
   canShoot: 1
   reloadImage: {fileID: 6558497598688841623}
+  damageText: {fileID: 6617322605976766180}
 --- !u!1 &1053387387283823590
 GameObject:
   m_ObjectHideFlags: 0
@@ -2308,6 +2309,7 @@ MonoBehaviour:
   reload: 0
   canShoot: 1
   reloadImage: {fileID: 6558497598688841623}
+  damageText: {fileID: 6617322605976766180}
 --- !u!1 &2097047423525352452
 GameObject:
   m_ObjectHideFlags: 0
@@ -3766,7 +3768,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 112
-  m_CollisionDetection: 1
+  m_CollisionDetection: 2
 --- !u!114 &2127091207811268659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3796,7 +3798,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tower: {fileID: 55738622162123944}
-  speed: 85
+  speed: 40
   yRotation: 0
   pauseMenu: {fileID: 54207996489656282}
 --- !u!114 &555285227
@@ -3874,6 +3876,9 @@ MonoBehaviour:
   randomColor: 0
   randomWeapon: 0
   changerIG: {fileID: 5521366861478354693}
+  currentMass: 0
+  currentGravity: 0
+  rb: {fileID: 6829615879545451678}
 --- !u!114 &4896247088695144566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3923,7 +3928,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eed9ba153d75bd1479d056f0f8d516ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 70
+  speed: 30
   horizontal: 0
   vertical: 0
   moveDirection: {x: 0, y: 0, z: 0}
@@ -4457,6 +4462,7 @@ MonoBehaviour:
   reload: 0
   canShoot: 1
   reloadImage: {fileID: 6558497598688841623}
+  damageText: {fileID: 6617322605976766180}
 --- !u!1 &4442068378722212744
 GameObject:
   m_ObjectHideFlags: 0
@@ -4574,7 +4580,7 @@ GameObject:
   - component: {fileID: 541945336053868276}
   - component: {fileID: 6617322605976766180}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: DamageText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5952,7 +5958,7 @@ MonoBehaviour:
   shootPoint: {fileID: 715338049}
   cameraPoint: {fileID: 1453795992}
   crossHair: {fileID: 2234215954762656568}
-  ScrollSensitivity: 130
+  scrollSensitivity: 0
   targetZoom: 60
   speed: 30
   weaponHolder: {fileID: 1392233552955521391}
@@ -6137,6 +6143,7 @@ MonoBehaviour:
   reload: 0
   canShoot: 1
   reloadImage: {fileID: 6558497598688841623}
+  damageText: {fileID: 6617322605976766180}
 --- !u!1 &6991483936738679754
 GameObject:
   m_ObjectHideFlags: 0

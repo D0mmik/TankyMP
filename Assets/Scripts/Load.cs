@@ -22,6 +22,14 @@ public class Load : MonoBehaviourPunCallbacks
    public int randomWeapon;
    public ChangerIG changerIG;
    private bool randomizer;
+
+   public int currentMass;
+   public bool currentGravity;
+   public Rigidbody rb;
+   private bool gravity;
+
+
+
    void Start()
    {
         if((bool)PhotonNetwork.CurrentRoom.CustomProperties["Randomizer"] == true)
@@ -30,6 +38,7 @@ public class Load : MonoBehaviourPunCallbacks
         }
         if(photonView.IsMine && randomizer == false)
         {
+            Gravity();
             LoadAll(PlayerPrefs.GetInt("armor"),PlayerPrefs.GetInt("color"),PlayerPrefs.GetInt("weapon"));
         }
         if(photonView.IsMine && randomizer == true)
@@ -38,6 +47,10 @@ public class Load : MonoBehaviourPunCallbacks
         }
         //UpdateConfig();
         
+   }
+   public void Gravity()
+   {
+       if(PlayerPrefs.GetInt("useGravity") == 0){gravity = false;}else{gravity = true;}
    }
    public void RandomSpawn()
    {
@@ -49,6 +62,7 @@ public class Load : MonoBehaviourPunCallbacks
             PlayerPrefs.SetInt("armor", randomArmor); 
             PlayerPrefs.SetInt("color", randomColor);
             PlayerPrefs.SetInt("weapon", randomWeapon);
+            Gravity();
             LoadAll(randomArmor,randomColor,randomWeapon);
         }
         StartCoroutine(WaitForUpdate());
@@ -62,6 +76,8 @@ public class Load : MonoBehaviourPunCallbacks
 
    public void UpdateConfig()
    {
+       Gravity();
+
         if(photonView.IsMine &&  randomizer == false)
         {
             LoadAll(PlayerPrefs.GetInt("armor"),PlayerPrefs.GetInt("color"),PlayerPrefs.GetInt("weapon"));
@@ -74,6 +90,7 @@ public class Load : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
+        Gravity();
         if(photonView.IsMine &&  randomizer == false)
         {
             LoadAll(PlayerPrefs.GetInt("armor"),PlayerPrefs.GetInt("color"),PlayerPrefs.GetInt("weapon"));
@@ -119,12 +136,17 @@ public class Load : MonoBehaviourPunCallbacks
         weapons[weaponNumber].SetActive(true);
         currentWeapon = weaponNumber;
 
+        rb.useGravity = gravity;
+        gravity = currentGravity;
+
         if(photonView.IsMine)
         {
             Hashtable table = new Hashtable();
             table.Add("armor",currentArmor);
             table.Add("color",currentColor);
             table.Add("weapon",currentWeapon);
+            table.Add("mass", currentMass);
+            table.Add("gravity", currentGravity);
             if(PhotonNetwork.InRoom)
             {
                 PhotonNetwork.LocalPlayer.SetCustomProperties(table);

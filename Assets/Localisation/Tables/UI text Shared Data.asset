@@ -90,7 +90,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 16765093896192
-    m_Key: ADSSensitivity
+    m_Key: ScrollSensitivity
     m_Metadata:
       m_Items: []
   - m_Id: 18542170169344

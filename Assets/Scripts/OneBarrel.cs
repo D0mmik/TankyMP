@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using UnityEngine.UI;
+using TMPro;
 
 public class OneBarrel : Gun
 {
@@ -16,6 +17,7 @@ public class OneBarrel : Gun
     public float reload;
     public bool canShoot = true;
     public Image reloadImage;
+    public TMP_Text damageText;
 
     public override void Use()
     {
@@ -38,6 +40,11 @@ public class OneBarrel : Gun
         else if(reload == ((GunInfo)gunInfo).reloadTime)
         {
             canShoot = true;
+        }
+        if(damageText.text != ((GunInfo)gunInfo).damage.ToString())
+        {
+            damageText.text = ((GunInfo)gunInfo).damage.ToString();
+            reload = 0;
         }
     }
     public void Shoot()

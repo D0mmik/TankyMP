@@ -21,6 +21,9 @@ public class Hover : MonoBehaviour
         rb.drag = 2;
         rb.angularDrag = 2.1f;
         rb.useGravity = true;
+
+        PlayerPrefs.SetInt("useGravity", 1);
+        PlayerPrefs.SetInt("mass", 100);
     }
     void FixedUpdate()
     {
@@ -33,10 +36,7 @@ public class Hover : MonoBehaviour
         horizontal = Input.GetAxis("Horizontal");
 
         rb.AddForce(vertical * speed* transform.forward);
-    }
-    void Update()
-    {
-        transform.Rotate(Vector3.up * 100 * horizontal * Time.deltaTime);
+        rb.AddTorque(horizontal * 500 * transform.up);
     }
     void ApplyForce(Transform forcePoint, RaycastHit hit)
     {

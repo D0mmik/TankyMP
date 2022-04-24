@@ -24,6 +24,7 @@ public class Shooting : MonoBehaviourPun
             {
                 guns[load.currentWeapon].Use();
 
+
             }
         }   
     }

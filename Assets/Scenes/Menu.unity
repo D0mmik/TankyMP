@@ -337,7 +337,6 @@ MonoBehaviour:
   playerListContent: {fileID: 1286183857}
   playerListPrefab: {fileID: 6494356392485338107, guid: efe59e12dcfc00e43b324ee5773abc38, type: 3}
   startGameButton: {fileID: 1758594094}
-  nickNameMenu: {fileID: 1189950093}
   instagibMode: 0
   checkMarkInstagib: {fileID: 888110376}
   randomizerMode: 0
@@ -404,7 +403,7 @@ GameObject:
   - component: {fileID: 54610137}
   - component: {fileID: 54610138}
   m_Layer: 5
-  m_Name: ADSSensSlider
+  m_Name: ScrollSensSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1730,6 +1729,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 284782289}
+        m_TargetAssemblyTypeName: Sensitivity, Assembly-CSharp
+        m_MethodName: LoadSliderValue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &202484168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2434,6 +2445,7 @@ GameObject:
   - component: {fileID: 284782286}
   - component: {fileID: 284782288}
   - component: {fileID: 284782287}
+  - component: {fileID: 284782289}
   m_Layer: 5
   m_Name: OptionsMenu
   m_TagString: Untagged
@@ -2510,6 +2522,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 284782285}
   m_CullTransparentMesh: 1
+--- !u!114 &284782289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 284782285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acd017ea7f1bf054b80e9ce8fa1672c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollSensSlider: {fileID: 54610138}
+  scrollSensText: {fileID: 827026051}
+  sensSlider: {fileID: 760846324}
+  sensText: {fileID: 1698129945}
 --- !u!1 &288473008
 GameObject:
   m_ObjectHideFlags: 0
@@ -5058,7 +5086,7 @@ GameObject:
   - component: {fileID: 827026052}
   - component: {fileID: 827026051}
   m_Layer: 5
-  m_Name: ADSSensTextNumber
+  m_Name: ScrollSensTextNumber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5868,6 +5896,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 284782289}
+        m_TargetAssemblyTypeName: Sensitivity, Assembly-CSharp
+        m_MethodName: SaveSliderValue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &959803453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5919,7 +5959,7 @@ GameObject:
   - component: {fileID: 962865229}
   - component: {fileID: 962865231}
   m_Layer: 5
-  m_Name: ADSSensText
+  m_Name: ScrollSensText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5964,7 +6004,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: SCOPE SENSITIVITY
+  m_text: SCROLL SENSITIVITY
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
@@ -16435,7 +16475,6 @@ MonoBehaviour:
   - {fileID: 966462657}
   - {fileID: 6281756373642865116}
   Buttons: {fileID: 8301531216762243601, guid: 1056c9d40cac55c4c91536ee927b143f, type: 3}
-  currentclone: {fileID: 966462657}
   currentArmor: 0
 --- !u!114 &6337418812425905101
 MonoBehaviour:
