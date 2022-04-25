@@ -29,9 +29,10 @@ public class Belt : MonoBehaviourPun
         rb.drag = 0;
         rb.angularDrag = 10;
         rb.useGravity = true;
-
-        PlayerPrefs.SetInt("useGravity", 1);
-        PlayerPrefs.SetInt("mass", 10);
+        if(photonView.IsMine == false)
+        {
+            rb.useGravity = false;
+        }
     }
     void Update()
     {  

@@ -3766,7 +3766,7 @@ Rigidbody:
   m_AngularDrag: 10
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 1
+  m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 2
 --- !u!114 &2127091207811268659
@@ -3876,9 +3876,6 @@ MonoBehaviour:
   randomColor: 0
   randomWeapon: 0
   changerIG: {fileID: 5521366861478354693}
-  currentMass: 0
-  currentGravity: 0
-  rb: {fileID: 6829615879545451678}
 --- !u!114 &4896247088695144566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7497,6 +7494,7 @@ GameObject:
   - component: {fileID: 9088379327949280591}
   - component: {fileID: 5362411269511566829}
   - component: {fileID: 54207996489656282}
+  - component: {fileID: 5991356375676590555}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -7605,6 +7603,18 @@ MonoBehaviour:
   pauseMenu: {fileID: 1301681587544623477}
   configurator: {fileID: 8859171971789454119}
   changerIG: {fileID: 5521366861478354693}
+--- !u!114 &5991356375676590555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8993814080779120769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2177689ab81ab64a9c1d100d69fa16a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9080094694716968657
 GameObject:
   m_ObjectHideFlags: 0

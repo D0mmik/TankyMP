@@ -25,7 +25,7 @@ public class Movements : MonoBehaviourPun
     {
         if((bool)PhotonNetwork.CurrentRoom.CustomProperties["Randomizer"] == true)
         {
-            //randomizer = true;
+            randomizer = true;
         }
         if(photonView.IsMine == false)
         {
@@ -38,7 +38,7 @@ public class Movements : MonoBehaviourPun
         hover = GetComponent<Hover>();
         fly = GetComponent<Fly>();
         TurnOffMovements();
-        belt.enabled = true;
+        beltActive = true;
         
         if(randomizer == true)
         {

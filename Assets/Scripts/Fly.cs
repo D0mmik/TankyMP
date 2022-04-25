@@ -28,13 +28,14 @@ public class Fly : MonoBehaviourPun
         rb.drag = 0;
         rb.angularDrag = 10;
         rb.useGravity = false;
-
-        PlayerPrefs.SetInt("useGravity", 0);
-        PlayerPrefs.SetInt("mass", 10);
+        if(photonView.IsMine == false)
+        {
+            rb.useGravity = false;
+        }
     }
     void Update()
     {  
-        if(PlayerLeave.paused == false)
+        if(photonView.IsMine && PlayerLeave.paused == false)
         {
             isGrounded = Physics.Raycast(transform.position, Vector3.down,0.01f);
             Debug.DrawRay(transform.position, Vector3.down,Color.black,0.01f);
@@ -53,7 +54,7 @@ public class Fly : MonoBehaviourPun
         
             moveDirection = transform.forward * vertical;
             
-            //transform.Rotate(Vector3.up * 100 * horizontal * Time.deltaTime);
+            transform.Rotate(Vector3.up * 100 * horizontal * Time.deltaTime);
 
             
         }    
@@ -62,7 +63,6 @@ public class Fly : MonoBehaviourPun
     }
     void FixedUpdate()
     {
-        rb.AddTorque(horizontal * 500 * transform.up);
         if(isGrounded)
         {
             rb.AddForce(moveDirection.normalized * speed, ForceMode.Acceleration);

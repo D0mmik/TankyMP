@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class Hover : MonoBehaviour
+public class Hover : MonoBehaviourPun
 {
     private Rigidbody rb;
     public float speed;
@@ -21,9 +22,19 @@ public class Hover : MonoBehaviour
         rb.drag = 2;
         rb.angularDrag = 2.1f;
         rb.useGravity = true;
-
-        PlayerPrefs.SetInt("useGravity", 1);
-        PlayerPrefs.SetInt("mass", 100);
+        if(photonView.IsMine == false)
+        {
+            rb.useGravity = false;
+        }
+    }
+    void Update()
+    {
+        if(photonView.IsMine && PlayerLeave.paused == false)
+        {
+            vertical = Input.GetAxis("Vertical");
+            horizontal = Input.GetAxis("Horizontal");
+            transform.Rotate(Vector3.up * 100 * horizontal * Time.deltaTime);
+        }
     }
     void FixedUpdate()
     {
@@ -31,16 +42,11 @@ public class Hover : MonoBehaviour
         {
             ApplyForce(forcePoints[i], hits[i]);
         }
-
-        vertical = Input.GetAxis("Vertical");
-        horizontal = Input.GetAxis("Horizontal");
-
         rb.AddForce(vertical * speed* transform.forward);
-        rb.AddTorque(horizontal * 500 * transform.up);
     }
     void ApplyForce(Transform forcePoint, RaycastHit hit)
     {
-        if(Physics.Raycast(forcePoint.position, -forcePoint.up, out hit))
+        if(Physics.Raycast(forcePoint.position, -forcePoint.up, out hit) && photonView.IsMine)
         {
             float force = 0;
             force = Mathf.Abs(1 /(hit.point.y - transform.position.y));

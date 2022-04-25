@@ -58,7 +58,13 @@ public class OneBarrel : Gun
                     hit.transform.GetComponent<Target>()?.TakeDamage(((GunInfo)gunInfo).damage);
                 }
                 impact = PhotonNetwork.Instantiate("impactPrefab", hit.point,Quaternion.LookRotation(hit.normal));
-                Destroy(impact,5);
+                StartCoroutine (WaitForDestroy());
+
+                IEnumerator WaitForDestroy()
+                {
+                    yield return new WaitForSeconds(5f);
+                    PhotonNetwork.Destroy(impact);
+                }
             }
             reload = 0;
             if(reloadImage == null) return;
