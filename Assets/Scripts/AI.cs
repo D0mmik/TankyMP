@@ -7,21 +7,51 @@ using Photon.Pun;
 public class AI : MonoBehaviourPun
 {
     private  NavMeshAgent navMeshAgent;
-    private GameObject target;
-    public GameObject tower;
+    private GameObject opponentTarget;
+
+    public float health = 100;
+
 
     void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
-        target = GameObject.FindGameObjectWithTag("Player");
+        opponentTarget = GameObject.FindGameObjectWithTag("Player");
     }
     void Update()
     {
-        if(target == null)
+        if(opponentTarget == null)
         {
-            target = GameObject.FindGameObjectWithTag("Player");
+            opponentTarget = GameObject.FindGameObjectWithTag("Player");
         }     
-        navMeshAgent.destination = target.transform.position;
+        navMeshAgent.destination = opponentTarget.transform.position;
+       
+    }
+    public void TakeDamage(float damage)
+    {      
+        if(health >= 0)
+        {
+            photonView.RPC("RPC_TakeDamage", RpcTarget.All, damage); 
+        }
+    }
+    [PunRPC]
+    void RPC_TakeDamage(float damage)
+    {
+        if(!photonView.IsMine)
+        {
+            return;
+        }
+        health -= damage;
+        
+        if(health <= 0)
+        {
+            photonView.RPC("RPC_Destroy", RpcTarget.MasterClient); 
+        }
+    }
+
+    [PunRPC]
+    void RPC_Destroy()
+    {
+        PhotonNetwork.Destroy(this.gameObject);
     }
 }
 

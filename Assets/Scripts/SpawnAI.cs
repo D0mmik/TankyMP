@@ -5,14 +5,20 @@ using Photon.Pun;
 
 public class SpawnAI : MonoBehaviourPun
 {
-    void Update()
+    private GameObject ai;
+    public int aiCount = 0;
+    public void Start()
     {
-        if(Input.GetKeyDown(KeyCode.L) && photonView.IsMine)
+        Spawn();
+    }
+    public void Spawn()
+    {
+        if(PhotonNetwork.IsMasterClient && aiCount <= 10)
         {
-            PhotonNetwork.Instantiate("PlayerAi", Vector3.zero, Quaternion.identity);
-            Debug.Log("Spawn");
-
+            ai = PhotonNetwork.Instantiate("PlayerAI", Vector3.zero, Quaternion.identity);
+            aiCount++;
         }
     }
+    
 }
     

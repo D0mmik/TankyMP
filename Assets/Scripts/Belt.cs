@@ -13,7 +13,6 @@ public class Belt : MonoBehaviourPun
     public bool isGrounded;
     public float jumpForce = 10f;
     private float groundDrag = 6f;
-    private float airDrag = 2f;
     public float airMovement = 0.4f;
     
 
@@ -26,7 +25,7 @@ public class Belt : MonoBehaviourPun
     public void SetRb()
     {
         rb.mass = 10;
-        rb.drag = 0;
+        rb.drag = 6;
         rb.angularDrag = 10;
         rb.useGravity = true;
         if(photonView.IsMine == false)
@@ -47,7 +46,7 @@ public class Belt : MonoBehaviourPun
             } 
             else
             {
-                rb.drag = airDrag;
+                rb.drag = 6;
             }
 
             vertical = Input.GetAxisRaw("Vertical");

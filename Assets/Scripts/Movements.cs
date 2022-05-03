@@ -21,6 +21,9 @@ public class Movements : MonoBehaviourPun
     public bool hoverActive;
     public bool flyActive;
 
+    SpawnAI spawnAI;
+    public GameObject aiManager;
+
     void Start()
     {
         if((bool)PhotonNetwork.CurrentRoom.CustomProperties["Randomizer"] == true)
@@ -46,11 +49,19 @@ public class Movements : MonoBehaviourPun
             if(randomMovement == 1){beltActive = true;}
             if(randomMovement == 2){flyActive = true;}
             if(randomMovement == 3){hoverActive = true;}
-
         }
+        aiManager = GameObject.Find("AIManager");
+        spawnAI = aiManager.GetComponent<SpawnAI>();
+
     }
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.L) && photonView.IsMine)
+        {
+            spawnAI.Spawn();
+        }
+
+
         if(beltActive == true)
         {
             EnableBelt();
