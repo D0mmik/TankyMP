@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 655a4a88bca046d45b4de56845751b2d, type: 2}
 --- !u!1 &193967091
 GameObject:
   m_ObjectHideFlags: 0
@@ -485,9 +485,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40a21f3156df7f840af71c54d4579176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  multiplier: 2.5
-  moveForce: 1000
-  turnTorque: 100
+  speed: 0
   forcePoints:
   - {fileID: 428407817}
   - {fileID: 613707762}
@@ -1130,7 +1128,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!65 &1710141556
 BoxCollider:

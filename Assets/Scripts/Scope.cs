@@ -36,6 +36,7 @@ public class Scope : MonoBehaviourPun
                 cam.transform.rotation = shootPoint.transform.rotation;
                 scoped = true;
                 crossHair.SetActive(true);
+                Debug.Log("nene");
             }
             else if(Input.GetMouseButtonDown(1) && scoped == true)
             {

@@ -9,13 +9,26 @@ public class AI : MonoBehaviourPun
     private  NavMeshAgent navMeshAgent;
     private GameObject opponentTarget;
 
-    public float health = 100;
+    private float timer;
+    public float reload;
+    public bool canShoot = true;
 
+    public Transform shootPoint;
+    private RaycastHit hit;
+    private float range = 1000f;
+    private Target target;
+    private GameObject impact;
+
+    public float health = 100;
 
     void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         opponentTarget = GameObject.FindGameObjectWithTag("Player");
+        if((bool)PhotonNetwork.CurrentRoom.CustomProperties["Instagib"] == true)
+        {
+            health = 1;
+        }
     }
     void Update()
     {
@@ -24,6 +37,17 @@ public class AI : MonoBehaviourPun
             opponentTarget = GameObject.FindGameObjectWithTag("Player");
         }     
         navMeshAgent.destination = opponentTarget.transform.position;
+
+        timer += Time.deltaTime % 60;
+        if(timer >= 1)
+        {
+            reload++;
+            timer = 0;
+        }
+        if(reload == 5)
+        {
+            ShootAI();
+        }
        
     }
     public void TakeDamage(float damage)
@@ -52,6 +76,35 @@ public class AI : MonoBehaviourPun
     void RPC_Destroy()
     {
         PhotonNetwork.Destroy(this.gameObject);
+    }
+
+    void ShootAI()
+    {
+
+        if(Physics.Raycast(shootPoint.position, shootPoint.forward, out hit, range))
+        {
+            if(hit.transform != null)
+            {
+                hit.transform.GetComponent<AI>()?.TakeDamage(30f);
+                hit.transform.GetComponent<Target>()?.TakeDamage(30f);
+            }
+            Collider[] colliders = Physics.OverlapSphere(hit.point, 0.3f);
+            if(colliders.Length != 0)
+            {
+                impact = PhotonNetwork.Instantiate("impactPrefab", hit.point,Quaternion.LookRotation(hit.normal));
+                impact.transform.SetParent(colliders[0].transform);
+            } 
+            StartCoroutine (WaitForDestroy());
+        }
+        reload = 0;
+    }
+    IEnumerator WaitForDestroy()
+    {
+        yield return new WaitForSeconds(5f);
+        if(impact != null)
+        {
+            PhotonNetwork.Destroy(impact);
+        }
     }
 }
 

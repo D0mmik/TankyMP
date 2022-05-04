@@ -34,7 +34,7 @@ public class Movements : MonoBehaviourPun
         {
             cam.enabled = false;
             lis.enabled = false;
-            Destroy(ui);
+            ui.SetActive(false);
         }
     
         belt = GetComponent<Belt>();
@@ -56,6 +56,11 @@ public class Movements : MonoBehaviourPun
     }
     void Update()
     {
+        if(photonView.Owner.IsLocal)
+        {
+            cam.enabled = true;
+            ui.SetActive(true);
+        }
         if(Input.GetKeyDown(KeyCode.L) && photonView.IsMine)
         {
             spawnAI.Spawn();

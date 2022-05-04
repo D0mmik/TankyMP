@@ -15,8 +15,6 @@ public class Shooting : MonoBehaviourPun
     public PauseMenu pauseMenu;
     public Item[] guns;
 
-
-
     void Update()
     { 
         if(photonView.IsMine)
@@ -24,8 +22,6 @@ public class Shooting : MonoBehaviourPun
             if(Input.GetMouseButtonDown(0) && PlayerLeave.paused == false)
             {
                 guns[load.currentWeapon].Use();
-
-
             }
         }   
     }

@@ -13,12 +13,13 @@ public class SpawnAI : MonoBehaviourPun
     }
     public void Spawn()
     {
-        if(PhotonNetwork.IsMasterClient && aiCount <= 10)
+        if(PhotonNetwork.IsMasterClient && aiCount < 10)
         {
             ai = PhotonNetwork.Instantiate("PlayerAI", Vector3.zero, Quaternion.identity);
             aiCount++;
         }
     }
+    
     
 }
     
