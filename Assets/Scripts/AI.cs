@@ -21,14 +21,33 @@ public class AI : MonoBehaviourPun
 
     public float health = 100;
 
+    public int randomArmor;
+    public int randomColor;
+    public GameObject[] armor;
+    public Material[] color;
+    public GameObject tank;
+    public GameObject aiManager;
+    SpawnAI spawnAI;
+
     void Awake()
     {
+        aiManager = GameObject.Find("AIManager");
+        spawnAI = aiManager.GetComponent<SpawnAI>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         opponentTarget = GameObject.FindGameObjectWithTag("Player");
         if((bool)PhotonNetwork.CurrentRoom.CustomProperties["Instagib"] == true)
         {
             health = 1;
         }
+        randomArmor = Random.Range(0,armor.Length);
+        randomColor = Random.Range(0,color.Length);
+        foreach( var item in armor)
+        {
+            item.SetActive(false);
+        }
+        armor[randomArmor].SetActive(true);
+        
+        tank.GetComponent<MeshRenderer>().material = color[randomColor];
     }
     void Update()
     {
@@ -76,6 +95,7 @@ public class AI : MonoBehaviourPun
     void RPC_Destroy()
     {
         PhotonNetwork.Destroy(this.gameObject);
+        spawnAI.Spawn();
     }
 
     void ShootAI()
@@ -94,7 +114,7 @@ public class AI : MonoBehaviourPun
                 impact = PhotonNetwork.Instantiate("impactPrefab", hit.point,Quaternion.LookRotation(hit.normal));
                 impact.transform.SetParent(colliders[0].transform);
             } 
-            StartCoroutine (WaitForDestroy());
+            StartCoroutine(WaitForDestroy());
         }
         reload = 0;
     }

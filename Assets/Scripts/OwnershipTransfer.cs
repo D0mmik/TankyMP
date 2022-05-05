@@ -7,6 +7,6 @@ public class OwnershipTransfer : MonoBehaviourPun
 {
     void OnMouseDown()
     {
-        base.photonView.RequestOwnership();
+        //base.photonView.RequestOwnership();
     }
 }
