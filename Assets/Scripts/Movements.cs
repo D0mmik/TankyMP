@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using System.Linq;
+using TMPro;
+using Photon.Realtime;
 
-public class Movements : MonoBehaviourPun
+public class Movements : MonoBehaviourPunCallbacks
 {
     [SerializeField] private GameObject ui;
     [SerializeField] private Camera cam;
@@ -12,6 +14,7 @@ public class Movements : MonoBehaviourPun
 
     private bool randomizer;
     private int randomMovement;
+    private bool instagib;
 
     private Belt belt;
     private Hover hover;
@@ -23,12 +26,18 @@ public class Movements : MonoBehaviourPun
 
     SpawnAI spawnAI;
     public GameObject aiManager;
+    public TMP_Text aiText;
+    public GameObject aiButtons;
 
     void Start()
     {
         if((bool)PhotonNetwork.CurrentRoom.CustomProperties["Randomizer"] == true)
         {
             randomizer = true;
+        }
+        if((bool)PhotonNetwork.CurrentRoom.CustomProperties["Instagib"] == true)
+        {
+            instagib = true;
         }
         if(photonView.IsMine == false)
         {
@@ -41,8 +50,16 @@ public class Movements : MonoBehaviourPun
         hover = GetComponent<Hover>();
         fly = GetComponent<Fly>();
         TurnOffMovements();
-        beltActive = true;
-        
+
+        if(instagib == true)
+        {
+            hoverActive = true;
+        }
+        else
+        {
+            beltActive = true;
+        }
+  
         if(randomizer == true)
         {
             randomMovement = Random.Range(1, 4);
@@ -52,6 +69,8 @@ public class Movements : MonoBehaviourPun
         }
         aiManager = GameObject.Find("AIManager");
         spawnAI = aiManager.GetComponent<SpawnAI>();
+        aiText.text = spawnAI.aiCount.ToString();
+        aiButtons.SetActive(PhotonNetwork.IsMasterClient);
 
     }
     void Update()
@@ -61,11 +80,6 @@ public class Movements : MonoBehaviourPun
             cam.enabled = true;
             ui.SetActive(true);
         }
-        if(Input.GetKeyDown(KeyCode.L) && photonView.IsMine)
-        {
-            spawnAI.Spawn();
-        }
-
 
         if(beltActive == true)
         {
@@ -109,5 +123,26 @@ public class Movements : MonoBehaviourPun
         TurnOffMovements();
         fly.enabled = true;
         fly.SetRb();
+    }
+    public void AiPlus()
+    {
+        if(spawnAI.aiCount < 10)
+        {
+            spawnAI.aiCount++;
+        }
+        aiText.text = spawnAI.aiCount.ToString();
+        spawnAI.Spawn();
+    }
+    public void AiMinus()
+    {
+        if(spawnAI.aiCount > 0)
+        {
+            spawnAI.aiCount--;
+        }
+        aiText.text = spawnAI.aiCount.ToString();
+    }
+    public override void OnMasterClientSwitched(Player newMasterClient)
+    {
+        aiButtons.SetActive(PhotonNetwork.IsMasterClient);
     }
 }

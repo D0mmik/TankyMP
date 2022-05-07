@@ -19,6 +19,12 @@ public class OneBarrel : Gun
     public Image reloadImage;
     public TMP_Text damageText;
 
+    public bool projectileShooting = false;
+    public Bullet bullet;
+    private float shootCycles;
+    private bool shootingProjectiles;
+    private float timer2;
+
     public override void Use()
     {
         Shoot();
@@ -26,6 +32,7 @@ public class OneBarrel : Gun
     void Update()
     {
         timer += Time.deltaTime % 60;
+        timer2 += Time.deltaTime % 60;
         if(timer >= 1)
         {
             reload++;
@@ -46,10 +53,24 @@ public class OneBarrel : Gun
             damageText.text = ((GunInfo)gunInfo).damage.ToString();
             reload = 0;
         }
+        if(shootCycles < ((GunInfo)gunInfo).bullets && shootingProjectiles == true)
+        {
+            if(timer2 >= 0.25f)
+            {
+                GameObject ball =  PhotonNetwork.Instantiate("ball", shootPoint.position, Quaternion.identity);
+                ball.GetComponent<Rigidbody>().AddForce(transform.forward * 125,ForceMode.Impulse);
+                shootCycles++;
+                timer2 = 0;
+            }
+        }
+        else if(shootCycles >= ((GunInfo)gunInfo).bullets)
+        {
+            shootingProjectiles = false;
+        }
     }
     public void Shoot()
     {
-        if(canShoot == true)
+        if(canShoot == true && !((GunInfo)gunInfo).projectile)
         {
             if(Physics.Raycast(shootPoint.position, shootPoint.forward, out hit, range))
             {
@@ -70,7 +91,19 @@ public class OneBarrel : Gun
             if(reloadImage == null) return;
             reloadImage.fillAmount = reload / ((GunInfo)gunInfo).reloadTime;
         }
+        if(canShoot == true && ((GunInfo)gunInfo).projectile)
+        {
+            shootCycles = 0;
+            shootingProjectiles = true;
+            //bullet.damage = ((GunInfo)gunInfo).damage;
+            bullet.damage = 10;
+            reload = 0;
+            if(reloadImage == null) return;
+            reloadImage.fillAmount = reload / ((GunInfo)gunInfo).reloadTime;
+
+        }
     }
+
     IEnumerator WaitForDestroy()
     {
         yield return new WaitForSeconds(5f);

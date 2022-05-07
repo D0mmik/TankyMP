@@ -60,6 +60,7 @@ public class Target : MonoBehaviourPun
             }
         }
     }
+    
     public void TakeDamage(float damage)
     {
         if(health >= 0)

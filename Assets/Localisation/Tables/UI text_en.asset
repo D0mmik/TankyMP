@@ -123,6 +123,18 @@ MonoBehaviour:
     m_Localized: LANGUAGE
     m_Metadata:
       m_Items: []
+  - m_Id: 6603327634104320
+    m_Localized: BELT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6603442448982016
+    m_Localized: FLY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6603460484489216
+    m_Localized: HOVER
+    m_Metadata:
+      m_Items: []
   references:
     version: 1
     00000000:

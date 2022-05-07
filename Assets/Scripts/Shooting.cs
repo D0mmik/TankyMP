@@ -11,6 +11,7 @@ public class Shooting : MonoBehaviourPun
     public float range = 1000f;
     private Target target;
     public Load load;
+    public OneBarrel oneBarrel;
 
     public PauseMenu pauseMenu;
     public Item[] guns;
@@ -25,5 +26,4 @@ public class Shooting : MonoBehaviourPun
             }
         }   
     }
-    
 }

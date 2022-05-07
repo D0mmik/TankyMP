@@ -95,6 +95,7 @@ public class AI : MonoBehaviourPun
     void RPC_Destroy()
     {
         PhotonNetwork.Destroy(this.gameObject);
+        spawnAI.aiActive--;
         spawnAI.Spawn();
     }
 
