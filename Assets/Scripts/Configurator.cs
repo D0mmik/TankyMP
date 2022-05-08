@@ -35,4 +35,16 @@ public class Configurator : MonoBehaviour
     {
         ToggleWindow("Color");
     }
+    public void BeltButton()
+    {
+        ToggleWindow("BeltUpgrades");
+    }
+    public void FlyButton()
+    {
+        ToggleWindow("FlyUpgrades");
+    }
+    public void HoverButton()
+    {
+        ToggleWindow("HoverUpgrades");
+    }
 }

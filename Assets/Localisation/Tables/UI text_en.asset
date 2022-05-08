@@ -135,6 +135,48 @@ MonoBehaviour:
     m_Localized: HOVER
     m_Metadata:
       m_Items: []
+  - m_Id: 6959125115658240
+    m_Localized: 'Belt speed: 75'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6959131121901568
+    m_Localized: 'Belt speed: 110'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6959129150578688
+    m_Localized: 'Belt speed: 90'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6959134573813760
+    m_Localized: 'Fly speed: 5
+
+      Speed: 35'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6959135978905600
+    m_Localized: 'Fly speed: 10
+
+      Speed: 40'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6959137274945536
+    m_Localized: 'Fly speed: 15
+
+      Speed: 55'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6959138952667136
+    m_Localized: 'Hover speed: 1250'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6959140181598208
+    m_Localized: 'Hover speed: 1275'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6959141360197632
+    m_Localized: 'Hover speed: 1300'
+    m_Metadata:
+      m_Items: []
   references:
     version: 1
     00000000:

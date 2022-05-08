@@ -5,15 +5,14 @@ using Photon.Pun;
 
 public class Bullet : MonoBehaviourPun
 {
-    public float damage = 10;
     void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player") && photonView.IsMine)
+        if(other.CompareTag("Player"))
         {
-            other.GetComponent<Target>()?.TakeDamage(damage);
-            other.GetComponent<AI>()?.TakeDamage(damage);
+            other.GetComponent<Target>()?.TakeDamage(10);
+            other.GetComponent<AI>()?.TakeDamage(10);
         }
-        if(!other.CompareTag("CapturePoint"))
+        if(other.CompareTag("Wall") && photonView.IsMine)
         {
             PhotonNetwork.Destroy(this.gameObject);
         }

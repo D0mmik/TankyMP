@@ -33,6 +33,10 @@ public class Belt : MonoBehaviourPun
             rb.useGravity = false;
         }
     }
+    public void ChangeSpeed(float upgradeSpeed)
+    {
+        speed = upgradeSpeed;
+    }
     void Update()
     {  
         if(photonView.IsMine && PlayerLeave.paused == false)

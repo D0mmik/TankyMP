@@ -21,6 +21,7 @@ public class Load : MonoBehaviourPunCallbacks
    public int randomWeapon;
    public ChangerIG changerIG;
    private bool randomizer;
+   private bool instagib;
 
 
 
@@ -30,9 +31,20 @@ public class Load : MonoBehaviourPunCallbacks
         {
             randomizer = true;
         }
+        if((bool)PhotonNetwork.CurrentRoom.CustomProperties["Instagib"] == true)
+        {
+            instagib = true;
+        }
         if(photonView.IsMine && randomizer == false)
         {
-            LoadAll(PlayerPrefs.GetInt("armor"),PlayerPrefs.GetInt("color"),PlayerPrefs.GetInt("weapon"));
+            if(instagib == false)
+            {
+                LoadAll(PlayerPrefs.GetInt("armor"),PlayerPrefs.GetInt("color"),PlayerPrefs.GetInt("weapon"));
+            }
+            else if(instagib == true)
+            {
+                LoadAll(PlayerPrefs.GetInt("armor"),PlayerPrefs.GetInt("color"),0);
+            }
         }
         if(photonView.IsMine && randomizer == true)
         {
@@ -48,7 +60,14 @@ public class Load : MonoBehaviourPunCallbacks
         {
             randomArmor = Random.Range(0,armor.Length);
             randomColor = Random.Range(0,color.Length);
-            randomWeapon = Random.Range(0, weapons.Length);
+            if(instagib == false)
+            {
+                randomWeapon = Random.Range(0, weapons.Length);
+            }
+            else if(instagib == true)
+            {
+                randomWeapon = 0;
+            }
             PlayerPrefs.SetInt("armor", randomArmor); 
             PlayerPrefs.SetInt("color", randomColor);
             PlayerPrefs.SetInt("weapon", randomWeapon);

@@ -7,6 +7,7 @@ public class Fly : MonoBehaviourPun
 {
     private Rigidbody rb;
     [SerializeField] private float speed = 20;
+    [SerializeField] private float flySpeed = 5;
     public float horizontal;
     public float vertical;
     public Vector3 moveDirection;
@@ -33,6 +34,14 @@ public class Fly : MonoBehaviourPun
             rb.useGravity = false;
         }
     }
+    public void ChangeSpeed(float upgradeSpeed)
+    {
+        speed = upgradeSpeed;
+    }
+    public void ChangeFlySpeed(float upgradeFlySpeed)
+    {
+        flySpeed = upgradeFlySpeed;
+    }
     void Update()
     {  
         if(photonView.IsMine && PlayerLeave.paused == false)
@@ -54,12 +63,8 @@ public class Fly : MonoBehaviourPun
         
             moveDirection = transform.forward * vertical;
             
-            transform.Rotate(Vector3.up * 100 * horizontal * Time.deltaTime);
-
-            
+            transform.Rotate(Vector3.up * 100 * horizontal * Time.deltaTime);    
         }    
-        
-
     }
     void FixedUpdate()
     {
@@ -71,16 +76,16 @@ public class Fly : MonoBehaviourPun
         {
             rb.AddForce(moveDirection.normalized * speed * airMovement, ForceMode.Acceleration);
         }
-        if(Input.GetKey(KeyCode.Space))
-            {
-                rb.AddForce(transform.up * 5, ForceMode.Acceleration);
-            }
+        if(Input.GetKey(KeyCode.Space) && photonView.IsMine)
+        {
+            rb.AddForce(transform.up * flySpeed, ForceMode.Acceleration);
+        }
 
 
-            if(Input.GetKey(KeyCode.LeftShift))
-            {
-                rb.AddForce(-transform.up * 5, ForceMode.Acceleration);
-            }
+        if(Input.GetKey(KeyCode.LeftShift) && photonView.IsMine)
+        {
+            rb.AddForce(-transform.up * flySpeed, ForceMode.Acceleration);
+        }
         
     }
 }

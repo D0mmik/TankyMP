@@ -8,6 +8,8 @@ TagManager:
   - Crosshair
   - CapturePoint
   - Bullet
+  - NotPlayer
+  - Wall
   layers:
   - Default
   - TransparentFX

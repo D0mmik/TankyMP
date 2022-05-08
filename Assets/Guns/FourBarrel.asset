@@ -16,4 +16,4 @@ MonoBehaviour:
   damage: 40
   reloadTime: 5
   projectile: 1
-  bullets: 2
+  bullets: 3

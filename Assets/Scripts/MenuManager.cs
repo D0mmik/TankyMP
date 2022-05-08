@@ -14,6 +14,7 @@ public class MenuManager : MonoBehaviour
     
     void Start()
     {
+        Application.targetFrameRate = 360;
         ToggleWindow("LoadingMenu");
     }
     public void CloseWindows()

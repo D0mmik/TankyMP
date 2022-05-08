@@ -79,13 +79,13 @@ public class OneBarrel : Gun
                     hit.transform.GetComponent<AI>()?.TakeDamage(((GunInfo)gunInfo).damage);
                     hit.transform.GetComponent<Target>()?.TakeDamage(((GunInfo)gunInfo).damage);
                 }
-                Collider[] colliders = Physics.OverlapSphere(hit.point, 0.3f);
-                if(colliders.Length != 0)
-                {
-                    impact = PhotonNetwork.Instantiate("impactPrefab", hit.point,Quaternion.LookRotation(hit.normal));
-                    impact.transform.SetParent(colliders[0].transform);
-                } 
-                StartCoroutine (WaitForDestroy());
+                //Collider[] colliders = Physics.OverlapSphere(hit.point, 0.3f);
+                //if(colliders.Length != 0)
+                //{
+                //    impact = PhotonNetwork.Instantiate("impactPrefab", hit.point,Quaternion.LookRotation(hit.normal));
+                //    impact.transform.SetParent(colliders[0].transform);
+                //} 
+                //StartCoroutine (WaitForDestroy());
             }
             reload = 0;
             if(reloadImage == null) return;
@@ -96,7 +96,6 @@ public class OneBarrel : Gun
             shootCycles = 0;
             shootingProjectiles = true;
             //bullet.damage = ((GunInfo)gunInfo).damage;
-            bullet.damage = 10;
             reload = 0;
             if(reloadImage == null) return;
             reloadImage.fillAmount = reload / ((GunInfo)gunInfo).reloadTime;

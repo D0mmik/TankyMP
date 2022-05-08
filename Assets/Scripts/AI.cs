@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Photon.Pun;
+using System.Linq;
 
 public class AI : MonoBehaviourPun
 {
     private  NavMeshAgent navMeshAgent;
-    private GameObject opponentTarget;
+    public List<GameObject> opponentTarget;
+    private int randomTargetNumber;
+    public GameObject randomTarget;
 
     private float timer;
     public float reload;
@@ -34,7 +37,6 @@ public class AI : MonoBehaviourPun
         aiManager = GameObject.Find("AIManager");
         spawnAI = aiManager.GetComponent<SpawnAI>();
         navMeshAgent = GetComponent<NavMeshAgent>();
-        opponentTarget = GameObject.FindGameObjectWithTag("Player");
         if((bool)PhotonNetwork.CurrentRoom.CustomProperties["Instagib"] == true)
         {
             health = 1;
@@ -51,11 +53,13 @@ public class AI : MonoBehaviourPun
     }
     void Update()
     {
-        if(opponentTarget == null)
+        if(randomTarget == null)
         {
-            opponentTarget = GameObject.FindGameObjectWithTag("Player");
+            opponentTarget = GameObject.FindGameObjectsWithTag("Player").Where(x => !x.Equals(this.gameObject)).ToList();
+            randomTargetNumber = Random.Range(0,opponentTarget.Count);
+            randomTarget = opponentTarget[randomTargetNumber];
         }     
-        navMeshAgent.destination = opponentTarget.transform.position;
+        navMeshAgent.destination = randomTarget.transform.position;
 
         timer += Time.deltaTime % 60;
         if(timer >= 1)
@@ -109,13 +113,13 @@ public class AI : MonoBehaviourPun
                 hit.transform.GetComponent<AI>()?.TakeDamage(30f);
                 hit.transform.GetComponent<Target>()?.TakeDamage(30f);
             }
-            Collider[] colliders = Physics.OverlapSphere(hit.point, 0.3f);
-            if(colliders.Length != 0)
-            {
-                impact = PhotonNetwork.Instantiate("impactPrefab", hit.point,Quaternion.LookRotation(hit.normal));
-                impact.transform.SetParent(colliders[0].transform);
-            } 
-            StartCoroutine(WaitForDestroy());
+            // Collider[] colliders = Physics.OverlapSphere(hit.point, 0.3f);
+            // if(colliders.Length != 0)
+            // {
+            //     impact = PhotonNetwork.Instantiate("impactPrefab", hit.point,Quaternion.LookRotation(hit.normal));
+            //     impact.transform.SetParent(colliders[0].transform);
+            // } 
+            // StartCoroutine(WaitForDestroy());
         }
         reload = 0;
     }

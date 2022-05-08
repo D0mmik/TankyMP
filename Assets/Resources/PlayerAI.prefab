@@ -2183,6 +2183,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f5d76f35be6205449e6c62d0800a563, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  opponentTarget: []
+  randomTarget: {fileID: 0}
   reload: 5
   canShoot: 1
   shootPoint: {fileID: 5211395844319218705}

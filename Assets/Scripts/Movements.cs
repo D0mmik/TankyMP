@@ -50,22 +50,21 @@ public class Movements : MonoBehaviourPunCallbacks
         hover = GetComponent<Hover>();
         fly = GetComponent<Fly>();
         TurnOffMovements();
-
-        if(instagib == true)
-        {
-            hoverActive = true;
-        }
-        else
+        if(randomizer == false && instagib == false)
         {
             beltActive = true;
         }
   
-        if(randomizer == true)
+        if(randomizer == true && instagib == false)
         {
             randomMovement = Random.Range(1, 4);
             if(randomMovement == 1){beltActive = true;}
             if(randomMovement == 2){flyActive = true;}
             if(randomMovement == 3){hoverActive = true;}
+        }
+        if(instagib == true)
+        {
+            hoverActive = true;
         }
         aiManager = GameObject.Find("AIManager");
         spawnAI = aiManager.GetComponent<SpawnAI>();
@@ -75,7 +74,7 @@ public class Movements : MonoBehaviourPunCallbacks
     }
     void Update()
     {
-        if(photonView.Owner.IsLocal)
+        if(photonView.IsMine)
         {
             cam.enabled = true;
             ui.SetActive(true);
@@ -143,6 +142,6 @@ public class Movements : MonoBehaviourPunCallbacks
     }
     public override void OnMasterClientSwitched(Player newMasterClient)
     {
-        aiButtons.SetActive(PhotonNetwork.IsMasterClient);
+        aiButtons.SetActive(PhotonNetwork.IsMasterClient); //plus a mínus
     }
 }
