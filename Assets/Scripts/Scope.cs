@@ -23,6 +23,7 @@ public class Scope : MonoBehaviourPun
     void Start()
     {
         scrollSensitivity = PlayerPrefs.GetFloat("ScrollSens", 30) * 100;
+        scoped = false;
     }
     
     void Update()

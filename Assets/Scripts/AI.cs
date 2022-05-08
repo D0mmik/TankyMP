@@ -49,7 +49,7 @@ public class AI : MonoBehaviourPun
         }
         armor[randomArmor].SetActive(true);
         
-        tank.GetComponent<MeshRenderer>().material = color[randomColor];
+        tank.GetComponent<MeshRenderer>().material = color[randomColor];    
     }
     void Update()
     {
@@ -59,7 +59,8 @@ public class AI : MonoBehaviourPun
             randomTargetNumber = Random.Range(0,opponentTarget.Count);
             randomTarget = opponentTarget[randomTargetNumber];
         }     
-        navMeshAgent.destination = randomTarget.transform.position;
+    navMeshAgent.destination = randomTarget.transform.position;
+    
 
         timer += Time.deltaTime % 60;
         if(timer >= 1)
