@@ -5,13 +5,13 @@ using Photon.Pun;
 
 public class Shooting : MonoBehaviourPun
 {
-    public Transform shootPoint;
+    public Transform ShootPoint;
     private RaycastHit hit;
-    public float damage = 10f;
-    public float range = 1000f;
+    public float Damage = 10f;
+    public float Range = 1000f;
     private Target target;
-    public Load load;
-    public OneBarrel oneBarrel;
+    public Load Load;
+    public OneBarrel OneBarrel;
 
     public PauseMenu pauseMenu;
     public Item[] guns;
@@ -20,9 +20,9 @@ public class Shooting : MonoBehaviourPun
     { 
         if(photonView.IsMine)
         {
-            if(Input.GetMouseButtonDown(0) && PlayerLeave.paused == false)
+            if(Input.GetMouseButtonDown(0) && PlayerLeave.Paused == false)
             {
-                guns[load.currentWeapon].Use();
+                guns[Load.CurrentWeapon].Use();
             }
         }   
     }

@@ -9,9 +9,8 @@ public class PlayerNameTag : MonoBehaviourPun
     [SerializeField] private TMP_Text nameText;
     void Start()
     {
-        if(photonView.IsMine == false)
-        {
-            nameText.text = photonView.Owner.NickName;
-        }
+        if(photonView.IsMine)
+            return;
+        nameText.text = photonView.Owner.NickName;   
     }    
 }

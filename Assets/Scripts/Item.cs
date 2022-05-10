@@ -4,8 +4,8 @@ using UnityEngine;
 
 public abstract class Item : MonoBehaviour
 {
-    public GunInfo gunInfo;
-    public GameObject itemGameObject;
+    public GunInfo GunInfo;
+    public GameObject ItemGameObject;
 
     public abstract void Use();
 }

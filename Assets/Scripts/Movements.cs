@@ -20,14 +20,14 @@ public class Movements : MonoBehaviourPunCallbacks
     private Hover hover;
     private Fly fly;
 
-    public bool beltActive;
-    public bool hoverActive;
-    public bool flyActive;
+    public bool BeltActive;
+    public bool HoverActive;
+    public bool FlyActive;
 
     SpawnAI spawnAI;
-    public GameObject aiManager;
-    public TMP_Text aiText;
-    public GameObject aiButtons;
+    public GameObject AIManager;
+    public TMP_Text AIText;
+    public GameObject AIButtons;
 
     void Start()
     {
@@ -52,24 +52,24 @@ public class Movements : MonoBehaviourPunCallbacks
         TurnOffMovements();
         if(randomizer == false && instagib == false)
         {
-            beltActive = true;
+            BeltActive = true;
         }
   
         if(randomizer == true && instagib == false)
         {
             randomMovement = Random.Range(1, 4);
-            if(randomMovement == 1){beltActive = true;}
-            if(randomMovement == 2){flyActive = true;}
-            if(randomMovement == 3){hoverActive = true;}
+            if(randomMovement == 1){BeltActive = true;}
+            if(randomMovement == 2){FlyActive = true;}
+            if(randomMovement == 3){HoverActive = true;}
         }
         if(instagib == true)
         {
-            hoverActive = true;
+            HoverActive = true;
         }
-        aiManager = GameObject.Find("AIManager");
-        spawnAI = aiManager.GetComponent<SpawnAI>();
-        aiText.text = spawnAI.aiCount.ToString();
-        aiButtons.SetActive(PhotonNetwork.IsMasterClient);
+        AIManager = GameObject.Find("AIManager");
+        spawnAI = AIManager.GetComponent<SpawnAI>();
+        AIText.text = spawnAI.AICount.ToString();
+        AIButtons.SetActive(PhotonNetwork.IsMasterClient);
 
     }
     void Update()
@@ -80,20 +80,20 @@ public class Movements : MonoBehaviourPunCallbacks
             ui.SetActive(true);
         }
 
-        if(beltActive == true)
+        if(BeltActive == true)
         {
             EnableBelt();
-            beltActive = false;
+            BeltActive = false;
         }
-        if(hoverActive == true)
+        if(HoverActive == true)
         {
             EnableHover();
-            hoverActive = false;
+            HoverActive = false;
         }
-        if(flyActive == true)
+        if(FlyActive == true)
         {
             EnableFly();
-            flyActive = false;
+            FlyActive = false;
         }
         
     }
@@ -125,23 +125,23 @@ public class Movements : MonoBehaviourPunCallbacks
     }
     public void AiPlus()
     {
-        if(spawnAI.aiCount < 10)
+        if(spawnAI.AICount < 10)
         {
-            spawnAI.aiCount++;
+            spawnAI.AICount++;
         }
-        aiText.text = spawnAI.aiCount.ToString();
+        AIText.text = spawnAI.AICount.ToString();
         spawnAI.Spawn();
     }
     public void AiMinus()
     {
-        if(spawnAI.aiCount > 0)
+        if(spawnAI.AICount > 0)
         {
-            spawnAI.aiCount--;
+            spawnAI.AICount--;
         }
-        aiText.text = spawnAI.aiCount.ToString();
+        AIText.text = spawnAI.AICount.ToString();
     }
     public override void OnMasterClientSwitched(Player newMasterClient)
     {
-        aiButtons.SetActive(PhotonNetwork.IsMasterClient); //plus a mínus
+        AIButtons.SetActive(PhotonNetwork.IsMasterClient); //plus a mínus
     }
 }

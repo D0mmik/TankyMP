@@ -232,7 +232,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LeaveButton: {fileID: 23494025}
-  bar: {fileID: 129848898}
+  Bar: {fileID: 0}
 --- !u!114 &91871852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -535,7 +535,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83a5740d0d5f78e4a8023fde18882408, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bar: {fileID: 1354903471}
+  Bar: {fileID: 1354903471}
 --- !u!1 &138497570
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,58 +8,58 @@ using System.Linq;
 public class AI : MonoBehaviourPun
 {
     private  NavMeshAgent navMeshAgent;
-    public List<GameObject> opponentTarget;
+    public List<GameObject> OpponentTarget;
     private int randomTargetNumber;
-    public GameObject randomTarget;
+    public GameObject RandomTarget;
 
     private float timer;
     public float reload;
-    public bool canShoot = true;
+    public bool CanShoot = true;
 
-    public Transform shootPoint;
+    public Transform ShootPoint;
     private RaycastHit hit;
     private float range = 1000f;
     private Target target;
     private GameObject impact;
 
-    public float health = 100;
+    public float Health = 100;
 
-    public int randomArmor;
-    public int randomColor;
-    public GameObject[] armor;
-    public Material[] color;
-    public GameObject tank;
-    public GameObject aiManager;
+    public int RandomArmor;
+    public int RandomColor;
+    public GameObject[] Armor;
+    public Material[] Color;
+    public GameObject Tank;
+    public GameObject AIManager;
     SpawnAI spawnAI;
 
     void Awake()
     {
-        aiManager = GameObject.Find("AIManager");
-        spawnAI = aiManager.GetComponent<SpawnAI>();
+        AIManager = GameObject.Find("AIManager");
+        spawnAI = AIManager.GetComponent<SpawnAI>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         if((bool)PhotonNetwork.CurrentRoom.CustomProperties["Instagib"] == true)
         {
-            health = 1;
+            Health = 1;
         }
-        randomArmor = Random.Range(0,armor.Length);
-        randomColor = Random.Range(0,color.Length);
-        foreach( var item in armor)
+        RandomArmor = Random.Range(0,Armor.Length);
+        RandomColor = Random.Range(0,Color.Length);
+        foreach( var item in Armor)
         {
             item.SetActive(false);
         }
-        armor[randomArmor].SetActive(true);
+        Armor[RandomArmor].SetActive(true);
         
-        tank.GetComponent<MeshRenderer>().material = color[randomColor];    
+        Tank.GetComponent<MeshRenderer>().material = Color[RandomColor];    
     }
     void Update()
     {
-        if(randomTarget == null)
+        if(RandomTarget == null)
         {
-            opponentTarget = GameObject.FindGameObjectsWithTag("Player").Where(x => !x.Equals(this.gameObject)).ToList();
-            randomTargetNumber = Random.Range(0,opponentTarget.Count);
-            randomTarget = opponentTarget[randomTargetNumber];
+            OpponentTarget = GameObject.FindGameObjectsWithTag("Player").Where(x => !x.Equals(this.gameObject)).ToList();
+            randomTargetNumber = Random.Range(0,OpponentTarget.Count);
+            RandomTarget = OpponentTarget[randomTargetNumber];
         }     
-    navMeshAgent.destination = randomTarget.transform.position;
+    navMeshAgent.destination = RandomTarget.transform.position;
     
 
         timer += Time.deltaTime % 60;
@@ -76,7 +76,7 @@ public class AI : MonoBehaviourPun
     }
     public void TakeDamage(float damage)
     {      
-        if(health >= 0)
+        if(Health >= 0)
         {
             photonView.RPC("RPC_TakeDamage", RpcTarget.All, damage); 
         }
@@ -88,9 +88,9 @@ public class AI : MonoBehaviourPun
         {
             return;
         }
-        health -= damage;
+        Health -= damage;
         
-        if(health <= 0)
+        if(Health <= 0)
         {
             photonView.RPC("RPC_Destroy", RpcTarget.MasterClient); 
         }
@@ -100,14 +100,14 @@ public class AI : MonoBehaviourPun
     void RPC_Destroy()
     {
         PhotonNetwork.Destroy(this.gameObject);
-        spawnAI.aiActive--;
+        spawnAI.AIActive--;
         spawnAI.Spawn();
     }
 
     void ShootAI()
     {
 
-        if(Physics.Raycast(shootPoint.position, shootPoint.forward, out hit, range))
+        if(Physics.Raycast(ShootPoint.position, ShootPoint.forward, out hit, range))
         {
             if(hit.transform != null)
             {

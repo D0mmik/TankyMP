@@ -8,9 +8,9 @@ public class MenuManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] windows;
     [SerializeField] private GameObject buttons;
-    public GameObject playMenu;
-    public SaveConfig saveConfig;
-    public Language language;
+    public GameObject PlayMenu;
+    public SaveConfig SaveConfig;
+    public Language Language;
     
     void Start()
     {
@@ -32,7 +32,7 @@ public class MenuManager : MonoBehaviour
     }
     public void PlayButton()
     {
-        playMenu.SetActive(true);
+        PlayMenu.SetActive(true);
         buttons.SetActive(false);
     }
     public void FindRoom()
@@ -50,14 +50,14 @@ public class MenuManager : MonoBehaviour
     public void Configurator()
     {
         ToggleWindow("ConfiguratorMenu");
-        playMenu.SetActive(false);
+        PlayMenu.SetActive(false);
         buttons.SetActive(false);        
     }
     public void CloseConfigurator()
     {
         CloseWindows();
-        playMenu.SetActive(true);
-        saveConfig.Save();
+        PlayMenu.SetActive(true);
+        SaveConfig.Save();
     }
     public void Options()
     {
@@ -66,7 +66,7 @@ public class MenuManager : MonoBehaviour
     }
     public void CloseOptions()
     {
-        language.SaveLanguage();
+        Language.SaveLanguage();
         CloseWindows();
         buttons.SetActive(true);
     }
@@ -77,7 +77,7 @@ public class MenuManager : MonoBehaviour
     }
     public void Back()
     {
-        playMenu.SetActive(false);
+        PlayMenu.SetActive(false);
         buttons.SetActive(true);
     }
     public void CloseButton()

@@ -6,25 +6,25 @@ using TMPro;
 
 public class Sensitivity : MonoBehaviour
 {
-    public Slider scrollSensSlider;
-    public TMP_Text scrollSensText;
-    public Slider sensSlider;
-    public TMP_Text sensText;
+    public Slider ScrollSensSlider;
+    public TMP_Text ScrollSensText;
+    public Slider SensSlider;
+    public TMP_Text SensText;
 
     public void LoadSliderValue()
     {
-        scrollSensSlider.value = PlayerPrefs.GetFloat("ScrollSens", 30);;
-        sensSlider.value = PlayerPrefs.GetFloat("Sens", 40);
+        ScrollSensSlider.value = PlayerPrefs.GetFloat("ScrollSens", 30);;
+        SensSlider.value = PlayerPrefs.GetFloat("Sens", 40);
 
     }
     public void SaveSliderValue()
     {
-        PlayerPrefs.SetFloat("ScrollSens", scrollSensSlider.value);
-        PlayerPrefs.SetFloat("Sens", sensSlider.value);
+        PlayerPrefs.SetFloat("ScrollSens", ScrollSensSlider.value);
+        PlayerPrefs.SetFloat("Sens", SensSlider.value);
     }
     void Update()
     {
-        scrollSensText.text = (scrollSensSlider.value * 100).ToString("F0");
-        sensText.text = (sensSlider.value * 100).ToString("F0");
+        ScrollSensText.text = (ScrollSensSlider.value * 100).ToString("F0");
+        SensText.text = (SensSlider.value * 100).ToString("F0");
     }
 }

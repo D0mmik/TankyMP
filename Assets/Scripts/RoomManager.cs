@@ -6,17 +6,17 @@ using UnityEngine.SceneManagement;
 
 public class RoomManager : MonoBehaviourPunCallbacks
 {
-    public static RoomManager Instance;
+    public static RoomManager S_RoomManager;
     private GameObject playerManager;
     void Awake()
     {
-        if(Instance)
+        if(S_RoomManager)
         {
             Destroy(gameObject);
             return;
         }
         DontDestroyOnLoad(gameObject);
-        Instance = this;
+        S_RoomManager = this;
     }
     public override void OnEnable()
     {

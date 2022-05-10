@@ -14,24 +14,24 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField] private TMP_Text roomNameIP;
     [SerializeField] private TMP_Text roomName;
     [SerializeField] private GameObject loading;
-    [SerializeField] private GameObject UIbuttons;
+    [SerializeField] private GameObject uiButtons;
     [SerializeField] private MenuManager menuManager;
-    [SerializeField] private GameObject JoinLobby;
+    [SerializeField] private GameObject joinLobby;
     [SerializeField] private Transform roomListContent;
     [SerializeField] private GameObject roomListPrefab;
     [SerializeField] private Transform playerListContent;
     [SerializeField] private Transform playerListPrefab;
     [SerializeField] private Player[] players;
     [SerializeField] private GameObject startGameButton;
-    public bool instagibMode = false;
+    public bool InstagibMode = false;
     [SerializeField] private GameObject checkMarkInstagib;
-    public bool randomizerMode = false;
+    public bool RandomizerMode = false;
     [SerializeField] private GameObject checkMarkRandomizer;
 
     void Start()
     {
         loading.SetActive(true);
-        UIbuttons.SetActive(false);
+        uiButtons.SetActive(false);
         checkMarkInstagib.SetActive(false);
         checkMarkRandomizer.SetActive(false);
         Debug.Log("Connecting");
@@ -42,34 +42,34 @@ public class Launcher : MonoBehaviourPunCallbacks
     }
     void Update()
     {
-        if(UIbuttons.activeSelf == true)
+        if(uiButtons.activeSelf == true)
         {
             loading.SetActive(false);
         }
     }
     public void InstagibButton()
     {
-        if(instagibMode == false)
+        if(InstagibMode == false)
         {
-            instagibMode = true;
+            InstagibMode = true;
             checkMarkInstagib.SetActive(true);
         }
-        else if(instagibMode == true)
+        else if(InstagibMode == true)
         {
-            instagibMode = false;
+            InstagibMode = false;
             checkMarkInstagib.SetActive(false);
         }
     }
     public void RandomizerButton()
     {
-        if(randomizerMode == false)
+        if(RandomizerMode == false)
         {
-            randomizerMode = true;
+            RandomizerMode = true;
             checkMarkRandomizer.SetActive(true);
         }
-        else if(randomizerMode == true)
+        else if(RandomizerMode == true)
         {
-            randomizerMode = false;
+            RandomizerMode = false;
             checkMarkRandomizer.SetActive(false);
         }
     }
@@ -83,7 +83,7 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public override void OnJoinedLobby()
     {
-        UIbuttons.SetActive(true);
+        uiButtons.SetActive(true);
         loading.SetActive(false);
         Debug.Log("Joined Lobby");
     }
@@ -97,12 +97,12 @@ public class Launcher : MonoBehaviourPunCallbacks
         }
         RoomOptions roomOptions = new RoomOptions();
         Hashtable hash = new Hashtable();
-        hash["Instagib"] = instagibMode;
-        hash["Randomizer"] = randomizerMode;
+        hash["Instagib"] = InstagibMode;
+        hash["Randomizer"] = RandomizerMode;
         roomOptions.CustomRoomProperties = hash;
         PhotonNetwork.CreateRoom(roomNameIP.text, roomOptions);
         menuManager.CloseWindows();
-        menuManager.playMenu.SetActive(false);
+        menuManager.PlayMenu.SetActive(false);
         loading.SetActive(true);
     }
     public override void OnJoinedRoom()

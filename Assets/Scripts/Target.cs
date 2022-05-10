@@ -8,17 +8,17 @@ using TMPro;
 
 public class Target : MonoBehaviourPun
 {
-    public float health = 100;
-    public float maxHealth = 100;
-    public Image healthBar;
-    PlayerManager playerManager;
-    public CapturePoint capturePoint;
-    public GameObject armor;
-    public bool armored = false;
-    private bool instagib = false;
+    public float Health = 100;
+    public float MaxHealth = 100;
+    public Image HealthBar;
+    PlayerManager PlayerManager;
+    public CapturePoint CapturePoint;
+    public GameObject Armor;
+    public bool Armored;
+    private bool instagib;
     void Awake()
     {
-        playerManager = PhotonView.Find((int)photonView.InstantiationData[0]).GetComponent<PlayerManager>();
+        PlayerManager = PhotonView.Find((int)photonView.InstantiationData[0]).GetComponent<PlayerManager>();
         if((bool)PhotonNetwork.CurrentRoom.CustomProperties["Instagib"] == true)
         {
             instagib = true;
@@ -27,13 +27,13 @@ public class Target : MonoBehaviourPun
         {
             if(instagib == false)
             {
-                health = maxHealth;
-                healthBar.fillAmount = health / maxHealth;
+                Health = MaxHealth;
+                HealthBar.fillAmount = Health / MaxHealth;
             }
             if(instagib == true)
             {
-                health = 1;
-                maxHealth = 1;
+                Health = 1;
+                MaxHealth = 1;
             }
         }
     }
@@ -41,29 +41,29 @@ public class Target : MonoBehaviourPun
     {
         if(photonView.IsMine && instagib == false)
         {
-            if(armor.activeSelf == true && armored == false)
+            if(Armor.activeSelf == true && Armored == false)
             {
-                armored = true;
-                health = 200;
-                maxHealth = 200;
-                healthBar.fillAmount = health / maxHealth;
+                Armored = true;
+                Health = 200;
+                MaxHealth = 200;
+                HealthBar.fillAmount = Health / MaxHealth;
             }
-            else if(armor.activeSelf == false && armored == true)
+            else if(Armor.activeSelf == false && Armored == true)
             {   
-                armored = false;
-                maxHealth = 100;
-                if(health >= 100)
+                Armored = false;
+                MaxHealth = 100;
+                if(Health >= 100)
                 {
-                    health = 100;
+                    Health = 100;
                 }
-                healthBar.fillAmount = health / maxHealth;
+                HealthBar.fillAmount = Health / MaxHealth;
             }
         }
     }
     
     public void TakeDamage(float damage)
     {
-        if(health >= 0)
+        if(Health >= 0)
         {
             photonView.RPC("RPC_TakeDamage", RpcTarget.All, damage);
         }
@@ -75,18 +75,18 @@ public class Target : MonoBehaviourPun
         {
             return;
         }
-        health -= damage;
-        healthBar.fillAmount = health / maxHealth;
+        Health -= damage;
+        HealthBar.fillAmount = Health / MaxHealth;
         
-        if(health <= 0)
+        if(Health <= 0)
         {
             Die();
         }
     }
     void Die()
     {
-        capturePoint.StartScore();
-        capturePoint.CheckPlayers();
-        playerManager.Die();
+        CapturePoint.StartScore();
+        CapturePoint.CheckPlayers();
+        PlayerManager.Die();
     }
 }

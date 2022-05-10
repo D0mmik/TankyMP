@@ -9,18 +9,17 @@ public class LeaveGame : MonoBehaviourPunCallbacks
 {
     public void Leave()
     {
-        if(photonView.IsMine)
-        {
-            Destroy(RoomManager.Instance.gameObject);
-            PhotonNetwork.LeaveRoom();
-        }
+        if(!photonView.IsMine)
+            return;
+
+        Destroy(RoomManager.S_RoomManager.gameObject);
+        PhotonNetwork.LeaveRoom();
+        
     }
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
-        if(photonView.IsMine)
-        {
-            SceneManager.LoadScene("Menu");
-            Debug.Log("jkbfhjevblfwhbjlvfvhbjkelwfkvhbjlwfkbhjlvwlfhbjwekbhjlfew");
-        }
+        if(!photonView.IsMine)
+            return;     
+        SceneManager.LoadScene("Menu");
     }
 }

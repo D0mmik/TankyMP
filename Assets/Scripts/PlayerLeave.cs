@@ -10,33 +10,33 @@ using TMPro;
 public class PlayerLeave : MonoBehaviourPunCallbacks
 {
     public GameObject LeaveButton;
-    public GameObject bar;
-    public static bool paused = false;
+    public GameObject Bar;
+    public static bool Paused = false;
     void Start()
     {
         LeaveButton.SetActive(false);
-        paused = false;
+        Paused = false;
     }
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape) && paused == false && Scope.scoped == false)
+        if(Input.GetKeyDown(KeyCode.Escape) && Paused == false && Scope.scoped == false)
         {
             LeaveButton.SetActive(true);
-            paused = true;
+            Paused = true;
    
 
         }
-        else if(Input.GetKeyDown(KeyCode.Escape) && paused == true)
+        else if(Input.GetKeyDown(KeyCode.Escape) && Paused == true)
         {
             LeaveButton.SetActive(false);
-            paused = false;
+            Paused = false;
         }
     }
     public void Leave()
     {
-        Destroy(RoomManager.Instance.gameObject);
-        Destroy(bar);
+        Destroy(RoomManager.S_RoomManager.gameObject);
+        Destroy(Bar);
         PhotonNetwork.LeaveRoom();
     }
     public override void OnLeftRoom()

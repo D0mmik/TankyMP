@@ -9,14 +9,14 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class CapturePoint : MonoBehaviourPunCallbacks
 {
-    public bool capturing = false;
-    public bool canCapture = true;
-    public float score = 0;
-    public TMP_Text scoreText;
-    public int playerCount;
+    private bool capturing = false;
+    private bool canCapture = true;
+    private float score = 0;
+    public TMP_Text ScoreText;
+    private int playerCount;
     private float timer;
-    public TMP_Text winnerText;
-    public GameObject winnerGameObject;
+    public TMP_Text WinnerText;
+    public GameObject WinnerGameObject;
     Hashtable hashtable = PhotonNetwork.LocalPlayer.CustomProperties;
     Hashtable scoreHash = new Hashtable();
     void Start()
@@ -38,7 +38,7 @@ public class CapturePoint : MonoBehaviourPunCallbacks
             scoreHash = new Hashtable();
             scoreHash.Add("Score", score);
             PhotonNetwork.CurrentRoom.SetCustomProperties(scoreHash);
-            scoreText.text = score.ToString();
+            ScoreText.text = score.ToString();
         }
     }
 
@@ -124,7 +124,7 @@ public class CapturePoint : MonoBehaviourPunCallbacks
         {
             return;
         } 
-        scoreText.text = propertiesThatChanged["Score"].ToString();
+        ScoreText.text = propertiesThatChanged["Score"].ToString();
 
         if((float)propertiesThatChanged["Score"] == 20 && playerCount == 1)
         {
@@ -134,8 +134,8 @@ public class CapturePoint : MonoBehaviourPunCallbacks
             if(photonView.IsMine)
             {
                 Player winner = players.Single(p => p.CustomProperties.ContainsKey("Counting") && (bool)p.CustomProperties["Counting"] == true);
-                winnerGameObject.SetActive(true);
-                winnerText.text = ($"{winner.NickName} CAPTURED POINT");
+                WinnerGameObject.SetActive(true);
+                WinnerText.text = ($"{winner.NickName} CAPTURED POINT");
                 StartCoroutine(HideWinnerGO());
             }
 
@@ -144,6 +144,6 @@ public class CapturePoint : MonoBehaviourPunCallbacks
     IEnumerator HideWinnerGO()
     {
         yield return new WaitForSeconds(5);
-        winnerGameObject.SetActive(false);
+        WinnerGameObject.SetActive(false);
     }
 }

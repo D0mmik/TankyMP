@@ -6,10 +6,10 @@ using Photon.Pun;
 
 public class PauseMenu : MonoBehaviourPun
 {
-    public GameObject pauseMenu;
-    public Configurator configurator;
-    public ChangerIG changerIG;
-    private bool randomizer = false;
+    public GameObject PauseMenuGO;
+    public Configurator Configurator;
+    public ChangerIG ChangerIG;
+    private bool randomizer;
     void Start()
     {
         if((bool)PhotonNetwork.CurrentRoom.CustomProperties["Randomizer"] == true)
@@ -20,22 +20,22 @@ public class PauseMenu : MonoBehaviourPun
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape) && PlayerLeave.paused == false && Scope.scoped == false && randomizer == false)
+        if(Input.GetKeyDown(KeyCode.Escape) && PlayerLeave.Paused == false && Scope.scoped == false && randomizer == false)
         {
-            pauseMenu.SetActive(false);
-            configurator.CloseWindows();
+            PauseMenuGO.SetActive(false);
+            Configurator.CloseWindows();
             Cursor.lockState = CursorLockMode.Locked;
         }
-        if(Input.GetKeyDown(KeyCode.Escape) && PlayerLeave.paused == true && Scope.scoped == false && randomizer == false)
+        if(Input.GetKeyDown(KeyCode.Escape) && PlayerLeave.Paused == true && Scope.scoped == false && randomizer == false)
         {
-            pauseMenu.SetActive(true);
+            PauseMenuGO.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
         }
-        if(Input.GetKeyDown(KeyCode.Escape) && PlayerLeave.paused == false && Scope.scoped == false && randomizer == true)
+        if(Input.GetKeyDown(KeyCode.Escape) && PlayerLeave.Paused == false && Scope.scoped == false && randomizer == true)
         {
             Cursor.lockState = CursorLockMode.Locked;
         }
-        if(Input.GetKeyDown(KeyCode.Escape) && PlayerLeave.paused == true && Scope.scoped == false && randomizer == true)
+        if(Input.GetKeyDown(KeyCode.Escape) && PlayerLeave.Paused == true && Scope.scoped == false && randomizer == true)
         {
             Cursor.lockState = CursorLockMode.None;
         }

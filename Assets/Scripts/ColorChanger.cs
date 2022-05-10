@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class ColorChanger : MonoBehaviour
 {
-    public Material[] colors;
+    public Material[] Colors;
     public ButtonsPrefab Buttons;
-    public GameObject tank;
-    public int currentColor;
+    public GameObject Tank;
+    public int CurrentColor;
 
     void Start()
     {
         FindTank();
-        for(int i = 0; i < colors.Length; i++)
+        for(int i = 0; i < Colors.Length; i++)
         {   
             var ColorButtonClone = Instantiate(Buttons, transform).GetComponent<ButtonsPrefab>();
             ColorButtonClone.ButtonInt = i;
@@ -22,12 +22,12 @@ public class ColorChanger : MonoBehaviour
     }
     public void dothis(int number)
     {  
-        currentColor = number;
-        tank.GetComponent<MeshRenderer>().material = colors[number];
+        CurrentColor = number;
+        Tank.GetComponent<MeshRenderer>().material = Colors[number];
 
     }
     public void FindTank()
     {
-        tank = GameObject.Find("Body");   
+        Tank = GameObject.Find("Body");   
     }
 }

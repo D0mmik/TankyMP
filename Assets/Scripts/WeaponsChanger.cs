@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class WeaponsChanger : MonoBehaviour
 {
-    public GameObject[] weapons;
+    public GameObject[] Weapons;
     public ButtonsPrefab Buttons;
-    public GameObject currentclone;
-    public int currentWeapon;
+    public GameObject CurrentClone;
+    public int CurrentWeapon;
 
     public Load load;
 
@@ -15,7 +15,7 @@ public class WeaponsChanger : MonoBehaviour
     void Start()
     {
 
-        for(int i = 0; i < weapons.Length; i++)
+        for(int i = 0; i < Weapons.Length; i++)
         {   
             var WeaponsButtonClone = Instantiate(Buttons, transform).GetComponent<ButtonsPrefab>();
             WeaponsButtonClone.ButtonInt = i;
@@ -25,11 +25,11 @@ public class WeaponsChanger : MonoBehaviour
     }
     public void dothis(int number)
     {  
-        foreach( var item in weapons)
+        foreach( var item in Weapons)
         {
             item.SetActive(false);
         }
-        weapons[number].SetActive(true);
-        currentWeapon = number;
+        Weapons[number].SetActive(true);
+        CurrentWeapon = number;
     }
 }

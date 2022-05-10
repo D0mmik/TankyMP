@@ -5,9 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "FPS/New Gun")]
 public class GunInfo : ScriptableObject
 {
-    public string gunName;
-    public float damage;
-    public float reloadTime;
-    public bool projectile;
-    public float bullets;
+    public string GunName;
+    public float Damage;
+    public float ReloadTime;
+    public bool Projectile;
+    public float Bullets;
 }

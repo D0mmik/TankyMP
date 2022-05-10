@@ -7,20 +7,20 @@ using TMPro;
 
 public class OneBarrel : Gun
 {
-    public Transform shootPoint;
+    public Transform ShootPoint;
     private RaycastHit hit;
     private float range = 1000f;
     private Target target;
     private GameObject impact;
 
     private float timer;
-    public float reload;
-    public bool canShoot = true;
-    public Image reloadImage;
-    public TMP_Text damageText;
+    public float Reload;
+    public bool CanShoot = true;
+    public Image ReloadImage;
+    public TMP_Text DamageText;
 
-    public bool projectileShooting = false;
-    public Bullet bullet;
+    public bool ProjectileShooting = false;
+    public Bullet Bullet;
     private float shootCycles;
     private bool shootingProjectiles;
     private float timer2;
@@ -35,49 +35,49 @@ public class OneBarrel : Gun
         timer2 += Time.deltaTime % 60;
         if(timer >= 1)
         {
-            reload++;
-            if(reloadImage == null) return;
-            reloadImage.fillAmount = reload / ((GunInfo)gunInfo).reloadTime;
+            Reload++;
+            if(ReloadImage == null) return;
+            ReloadImage.fillAmount = Reload / (GunInfo).ReloadTime;
             timer = 0;
         }
-        if(reload < ((GunInfo)gunInfo).reloadTime)
+        if(Reload < (GunInfo).ReloadTime)
         {
-            canShoot = false;
+            CanShoot = false;
         }
-        else if(reload == ((GunInfo)gunInfo).reloadTime)
+        else if(Reload == (GunInfo).ReloadTime)
         {
-            canShoot = true;
+            CanShoot = true;
         }
-        if(damageText.text != ((GunInfo)gunInfo).damage.ToString())
+        if(DamageText.text != (GunInfo).Damage.ToString())
         {
-            damageText.text = ((GunInfo)gunInfo).damage.ToString();
-            reload = 0;
+            DamageText.text = (GunInfo).Damage.ToString();
+            Reload = 0;
         }
-        if(shootCycles < ((GunInfo)gunInfo).bullets && shootingProjectiles == true)
+        if(shootCycles < (GunInfo).Bullets && shootingProjectiles == true)
         {
             if(timer2 >= 0.25f)
             {
-                GameObject ball =  PhotonNetwork.Instantiate("ball", shootPoint.position, Quaternion.identity);
+                GameObject ball =  PhotonNetwork.Instantiate("ball", ShootPoint.position, Quaternion.identity);
                 ball.GetComponent<Rigidbody>().AddForce(transform.forward * 125,ForceMode.Impulse);
                 shootCycles++;
                 timer2 = 0;
             }
         }
-        else if(shootCycles >= ((GunInfo)gunInfo).bullets)
+        else if(shootCycles >= (GunInfo).Bullets)
         {
             shootingProjectiles = false;
         }
     }
     public void Shoot()
     {
-        if(canShoot == true && !((GunInfo)gunInfo).projectile)
+        if(CanShoot == true && !(GunInfo).Projectile)
         {
-            if(Physics.Raycast(shootPoint.position, shootPoint.forward, out hit, range))
+            if(Physics.Raycast(ShootPoint.position, ShootPoint.forward, out hit, range))
             {
                 if(hit.transform != null)
                 {
-                    hit.transform.GetComponent<AI>()?.TakeDamage(((GunInfo)gunInfo).damage);
-                    hit.transform.GetComponent<Target>()?.TakeDamage(((GunInfo)gunInfo).damage);
+                    hit.transform.GetComponent<AI>()?.TakeDamage((GunInfo).Damage);
+                    hit.transform.GetComponent<Target>()?.TakeDamage((GunInfo).Damage);
                 }
                 //Collider[] colliders = Physics.OverlapSphere(hit.point, 0.3f);
                 //if(colliders.Length != 0)
@@ -87,18 +87,18 @@ public class OneBarrel : Gun
                 //} 
                 //StartCoroutine (WaitForDestroy());
             }
-            reload = 0;
-            if(reloadImage == null) return;
-            reloadImage.fillAmount = reload / ((GunInfo)gunInfo).reloadTime;
+            Reload = 0;
+            if(ReloadImage == null) return;
+            ReloadImage.fillAmount = Reload / (GunInfo).ReloadTime;
         }
-        if(canShoot == true && ((GunInfo)gunInfo).projectile)
+        if(CanShoot == true && (GunInfo).Projectile)
         {
             shootCycles = 0;
             shootingProjectiles = true;
-            //bullet.damage = ((GunInfo)gunInfo).damage;
-            reload = 0;
-            if(reloadImage == null) return;
-            reloadImage.fillAmount = reload / ((GunInfo)gunInfo).reloadTime;
+            //bullet.damage = (gunInfo).damage;
+            Reload = 0;
+            if(ReloadImage == null) return;
+            ReloadImage.fillAmount = Reload / (GunInfo).ReloadTime;
 
         }
     }

@@ -8,16 +8,16 @@ using Photon.Pun;
 public class RoomPrefab : MonoBehaviour
 {
     [SerializeField] private TMP_Text text;
-    public RoomInfo info;
+    public RoomInfo Info;
 
     public void OnStart(RoomInfo Info)
     {
-        info = Info;
-        text.text = info.Name;
+        this.Info = Info;
+        text.text = this.Info.Name;
     }
     public void OnClick()
     {
-        PhotonNetwork.JoinRoom(info.Name);
+        PhotonNetwork.JoinRoom(Info.Name);
     }
 
 }

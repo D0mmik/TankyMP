@@ -13,13 +13,13 @@ public class Load : MonoBehaviourPunCallbacks
    public Material[] color;
    public GameObject[] weapons;
    public GameObject tank;
-   public int currentArmor;
-   public int currentColor;
-   public int currentWeapon;
-   public int randomArmor;
-   public int randomColor;
-   public int randomWeapon;
-   public ChangerIG changerIG;
+   public int CurrentArmor;
+   public int CurrentColor;
+   public int CurrentWeapon;
+   private int randomArmor;
+   private int randomColor;
+   private int randomWeapon;
+   public ChangerIG ChangerIG;
    private bool randomizer;
    private bool instagib;
 
@@ -96,22 +96,14 @@ public class Load : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        if(photonView.IsMine &&  randomizer == false)
-        {
-            LoadAll(PlayerPrefs.GetInt("armor"),PlayerPrefs.GetInt("color"),PlayerPrefs.GetInt("weapon"));
-        }
-        if(photonView.IsMine &&  randomizer == true)
-        {
-            LoadAll(randomArmor,randomColor,randomWeapon);
-        }
+        UpdateConfig();
     }
     
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
     {
-       if(!changedProps.ContainsKey("armor") || !changedProps.ContainsKey("color") || !changedProps.ContainsKey("weapon"))
-        {
-            return;
-        }
+       if(!changedProps.ContainsKey("armor") || !changedProps.ContainsKey("color") || !changedProps.ContainsKey("weapon"))   
+        return;
+        
         if(!photonView.IsMine && targetPlayer == photonView.Owner)
         {
             LoadAll((int)changedProps["armor"],(int)changedProps["color"],(int)changedProps["weapon"]);
@@ -127,26 +119,26 @@ public class Load : MonoBehaviourPunCallbacks
             item.SetActive(false);
         }
         armor[armorNumber].SetActive(true);
-        currentArmor = armorNumber;
+        CurrentArmor = armorNumber;
         
 
 
         tank.GetComponent<MeshRenderer>().material = color[colorNumber];
-        currentColor = colorNumber;
+        CurrentColor = colorNumber;
 
         foreach( var item in weapons)
         {
             item.SetActive(false);
         }
         weapons[weaponNumber].SetActive(true);
-        currentWeapon = weaponNumber;
+        CurrentWeapon = weaponNumber;
 
         if(photonView.IsMine)
         {
             Hashtable table = new Hashtable();
-            table.Add("armor",currentArmor);
-            table.Add("color",currentColor);
-            table.Add("weapon",currentWeapon);
+            table.Add("armor",CurrentArmor);
+            table.Add("color",CurrentColor);
+            table.Add("weapon",CurrentWeapon);
             if(PhotonNetwork.InRoom)
             {
                 PhotonNetwork.LocalPlayer.SetCustomProperties(table);

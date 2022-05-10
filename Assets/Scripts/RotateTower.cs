@@ -5,26 +5,26 @@ using Photon.Pun;
 
 public class RotateTower : MonoBehaviourPun
 {
-    public Transform tower;
+    public Transform Tower;
     private float mouseX;
-    public float speed = 1000f;
+    public float Speed = 1000f;
     private float yRot;
-    public float yRotation;
-    public PauseMenu pauseMenu;
+    public float Yrotation;
+    public PauseMenu PauseMenu;
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        yRotation = 0;
+        Yrotation = 0;
         yRot = 0;
-        speed = PlayerPrefs.GetFloat("Sens", 40) * 100;
+        Speed = PlayerPrefs.GetFloat("Sens", 40) * 100;
     }
     void Update()
     {
-        if(photonView.IsMine == true && PlayerLeave.paused == false)
+        if(photonView.IsMine == true && PlayerLeave.Paused == false)
         {
-            mouseX = Input.GetAxis("Mouse X") * speed * 2 * Time.deltaTime;
+            mouseX = Input.GetAxis("Mouse X") * Speed * 2 * Time.deltaTime;
             yRot += mouseX;
-            tower.localRotation = Quaternion.Euler(0,yRot,0);
+            Tower.localRotation = Quaternion.Euler(0,yRot,0);
         }
         
     }

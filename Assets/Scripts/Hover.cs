@@ -6,8 +6,8 @@ using Photon.Pun;
 public class Hover : MonoBehaviourPun
 {
     private Rigidbody rb;
-    public float speed;
-    public Transform[] forcePoints = new Transform[4];
+    public float Speed;
+    public Transform[] ForcePoints = new Transform[4];
     private RaycastHit[] hits = new RaycastHit[4];
     private float vertical;
     private float horizontal;
@@ -29,11 +29,11 @@ public class Hover : MonoBehaviourPun
     }
     public void ChangeSpeed(float upgradeSpeed)
     {
-        speed = upgradeSpeed;
+        Speed = upgradeSpeed;
     }
     void Update()
     {
-        if(photonView.IsMine && PlayerLeave.paused == false)
+        if(photonView.IsMine && PlayerLeave.Paused == false)
         {
             vertical = Input.GetAxis("Vertical");
             horizontal = Input.GetAxis("Horizontal");
@@ -44,9 +44,9 @@ public class Hover : MonoBehaviourPun
     {
         for(int i = 0; i < 4; i++)
         {
-            ApplyForce(forcePoints[i], hits[i]);
+            ApplyForce(ForcePoints[i], hits[i]);
         }
-        rb.AddForce(vertical * speed* transform.forward);
+        rb.AddForce(vertical * Speed* transform.forward);
     }
     void ApplyForce(Transform forcePoint, RaycastHit hit)
     {

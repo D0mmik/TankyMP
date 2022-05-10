@@ -5,15 +5,15 @@ using System.Linq;
 
 public class ArmorChanger : MonoBehaviour
 {
-    public GameObject[] armors;
+    public GameObject[] Armors;
     public ButtonsPrefab Buttons;
-    public int currentArmor;
+    public int CurrentArmor;
 
 
     void Start()
     {
 
-        for(int i = 0; i < armors.Length; i++)
+        for(int i = 0; i < Armors.Length; i++)
         {   
             var ArmorButtonClone = Instantiate(Buttons, transform).GetComponent<ButtonsPrefab>();
             ArmorButtonClone.ButtonInt = i;
@@ -23,11 +23,11 @@ public class ArmorChanger : MonoBehaviour
     }
     public void dothis(int number)
     {  
-        foreach( var item in armors)
+        foreach( var item in Armors)
         {
             item.SetActive(false);
         }
-        armors[number].SetActive(true);
-        currentArmor = number;
+        Armors[number].SetActive(true);
+        CurrentArmor = number;
     }
 }

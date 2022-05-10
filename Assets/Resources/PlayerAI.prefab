@@ -2184,28 +2184,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f5d76f35be6205449e6c62d0800a563, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  opponentTarget: []
-  randomTarget: {fileID: 0}
+  OpponentTarget: []
+  RandomTarget: {fileID: 0}
   reload: 5
-  canShoot: 1
-  shootPoint: {fileID: 5211395844319218705}
-  health: 100
-  randomArmor: 0
-  randomColor: 0
-  armor:
-  - {fileID: 5211395844319218930}
-  - {fileID: 5211395844319218929}
-  color:
-  - {fileID: 2100000, guid: fd86bc25b90a80946b3e8c973ec785d2, type: 2}
-  - {fileID: 2100000, guid: 3a23130b91d1b3e49866e02b92ec6596, type: 2}
-  - {fileID: 2100000, guid: cefad22b2a709f140801c7b01e436699, type: 2}
-  - {fileID: 2100000, guid: f9d65addd406ae74f8a871ec7d48bc20, type: 2}
-  - {fileID: 2100000, guid: fd374fedc7843bd418ab74b27310eac6, type: 2}
-  - {fileID: 2100000, guid: 5ff4aa2a5acdac64789b72887ce200b1, type: 2}
-  - {fileID: 2100000, guid: fc9818c02d697c645ab8219ab590658d, type: 2}
-  - {fileID: 2100000, guid: 4c3e985c1a922974eaa6f95d500c7aaa, type: 2}
-  tank: {fileID: 5211395844319218698}
-  aiManager: {fileID: 0}
+  CanShoot: 1
+  ShootPoint: {fileID: 0}
+  Health: 100
+  RandomArmor: 0
+  RandomColor: 0
+  Armor: []
+  Color: []
+  Tank: {fileID: 0}
+  AIManager: {fileID: 0}
 --- !u!114 &4042767947063512186
 MonoBehaviour:
   m_ObjectHideFlags: 0

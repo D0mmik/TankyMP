@@ -5,7 +5,6 @@ using Photon.Pun;
 
 public class Scope : MonoBehaviourPun
 {
-    public GameObject cam;
     public Camera mainCam;
     public GameObject shootPoint;
     public GameObject cameraPoint;
@@ -31,24 +30,24 @@ public class Scope : MonoBehaviourPun
 
         if(photonView.IsMine)
         {
-            if(Input.GetMouseButtonDown(1) && scoped == false && PlayerLeave.paused == false)
+            if(Input.GetMouseButtonDown(1) && !scoped && !PlayerLeave.Paused)
             {
-                cam.transform.position = shootPoint.transform.position;
-                cam.transform.rotation = shootPoint.transform.rotation;
+                transform.position = shootPoint.transform.position;
+                transform.rotation = shootPoint.transform.rotation;
                 scoped = true;
                 crossHair.SetActive(true);
                 Debug.Log("nene");
             }
-            else if(Input.GetMouseButtonDown(1) && scoped == true)
+            else if(Input.GetMouseButtonDown(1) && scoped)
             {
-                cam.transform.position = cameraPoint.transform.position;
-                cam.transform.rotation = cameraPoint.transform.rotation;
+                transform.position = cameraPoint.transform.position;
+                transform.rotation = cameraPoint.transform.rotation;
                 scoped = false;
                 crossHair.SetActive(false);
             }
             
            
-            if(scoped == true)
+            if(scoped)
             {
                 mouseWheel = Input.GetAxis("Mouse ScrollWheel") * scrollSensitivity * Time.deltaTime * 50;
                 targetZoom = targetZoom -= mouseWheel;   
@@ -57,7 +56,7 @@ public class Scope : MonoBehaviourPun
                 VerticalWH = VerticalWH -= mouseY;
  
             }
-            if(scoped == false)
+            if(!scoped)
             {
                 targetZoom = 60;
                 VerticalWH = 0;

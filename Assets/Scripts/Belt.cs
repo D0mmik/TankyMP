@@ -7,13 +7,13 @@ public class Belt : MonoBehaviourPun
 {
     private Rigidbody rb;
     [SerializeField] private float speed = 10;
-    public float horizontal;
-    public float vertical;
-    public Vector3 moveDirection;
-    public bool isGrounded;
-    public float jumpForce = 10f;
-    private float groundDrag = 6f;
-    public float airMovement = 0.4f;
+    private float horizontal;
+    private float vertical;
+    private Vector3 moveDirection;
+    private bool isGrounded;
+    public float JumpForce = 10f;
+    private float GroundDrag = 6f;
+    public float AirMovement = 0.4f;
     
 
     
@@ -39,19 +39,12 @@ public class Belt : MonoBehaviourPun
     }
     void Update()
     {  
-        if(photonView.IsMine && PlayerLeave.paused == false)
+        if(photonView.IsMine && PlayerLeave.Paused == false)
         {
             isGrounded = Physics.Raycast(transform.position, Vector3.down,0.01f);
-            Debug.DrawRay(transform.position, Vector3.down,Color.black,0.01f);
+            //Debug.DrawRay(transform.position, Vector3.down,Color.black,0.01f);
 
-            if(isGrounded)
-            {
-                rb.drag = groundDrag;
-            } 
-            else
-            {
-                rb.drag = 6;
-            }
+            rb.drag = isGrounded? GroundDrag : 6;
 
             vertical = Input.GetAxisRaw("Vertical");
             horizontal = Input.GetAxis("Horizontal");
@@ -72,7 +65,7 @@ public class Belt : MonoBehaviourPun
             }
             else
             {
-                rb.AddForce(moveDirection.normalized * speed * airMovement, ForceMode.Acceleration);
+                rb.AddForce(moveDirection.normalized * speed * AirMovement, ForceMode.Acceleration);
             }
         }
         

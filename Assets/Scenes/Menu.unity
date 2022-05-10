@@ -329,17 +329,17 @@ MonoBehaviour:
   roomNameIP: {fileID: 1937761109}
   roomName: {fileID: 1759821058}
   loading: {fileID: 1181225576}
-  UIbuttons: {fileID: 1856278931}
+  uiButtons: {fileID: 1856278931}
   menuManager: {fileID: 2021781576}
-  JoinLobby: {fileID: 31640418}
+  joinLobby: {fileID: 0}
   roomListContent: {fileID: 1783123028}
   roomListPrefab: {fileID: 6227370435773162449, guid: dcd967f9517aff14da8fd874380b1f5a, type: 3}
   playerListContent: {fileID: 1286183857}
   playerListPrefab: {fileID: 6494356392485338107, guid: efe59e12dcfc00e43b324ee5773abc38, type: 3}
   startGameButton: {fileID: 1758594094}
-  instagibMode: 0
+  InstagibMode: 0
   checkMarkInstagib: {fileID: 888110376}
-  randomizerMode: 0
+  RandomizerMode: 0
   checkMarkRandomizer: {fileID: 1251281057}
 --- !u!4 &31640420
 Transform:
@@ -6407,54 +6407,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1010055878}
   m_CullTransparentMesh: 1
---- !u!1 &1014488898
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1014488899}
-  - component: {fileID: 1014488900}
-  m_Layer: 5
-  m_Name: Propulsion
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &1014488899
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1014488898}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2037552890}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -600, y: 0}
-  m_SizeDelta: {x: 550, y: 1440}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1014488900
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1014488898}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c0e9c3ee29e1a641918ba8beeee0d52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1084032309
 GameObject:
   m_ObjectHideFlags: 0
@@ -13131,9 +13083,9 @@ MonoBehaviour:
   - {fileID: 2037552889}
   - {fileID: 284782285}
   buttons: {fileID: 1856278931}
-  playMenu: {fileID: 581618723}
-  saveConfig: {fileID: 2041796743}
-  language: {fileID: 2021781578}
+  PlayMenu: {fileID: 581618723}
+  SaveConfig: {fileID: 2041796743}
+  Language: {fileID: 2021781578}
 --- !u!114 &2021781577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13369,7 +13321,6 @@ RectTransform:
   - {fileID: 193645105}
   - {fileID: 691540437}
   - {fileID: 50467823}
-  - {fileID: 1014488899}
   - {fileID: 1959964021994503330}
   - {fileID: 6337418812425905102}
   m_Father: {fileID: 2021781575}
@@ -13452,10 +13403,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73875a3432f332a459e3a5bcef43d752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  armorChanger: {fileID: 6337418812425905100}
-  colorChanger: {fileID: 1959964021994503331}
-  propulsionChanger: {fileID: 1014488900}
-  weaponsChanger: {fileID: 1326610388}
+  ArmorChanger: {fileID: 6337418812425905100}
+  ColorChanger: {fileID: 1959964021994503331}
+  WeaponsChanger: {fileID: 1326610388}
 --- !u!1 &2052964416
 GameObject:
   m_ObjectHideFlags: 0
@@ -15024,7 +14974,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2037552890}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -15043,7 +14993,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac3403647878beb44ad85c599711e0ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colors:
+  Colors:
   - {fileID: 2100000, guid: 7a910a2e7aef4564a91f69ebb5bd56c2, type: 2}
   - {fileID: 2100000, guid: 5e25594a77b9ba0498db0efa9388b6df, type: 2}
   - {fileID: 2100000, guid: 7e6afcd7aa55e86459661a60127addc4, type: 2}
@@ -15051,8 +15001,8 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 83abe2251d028984faa6b177821f6687, type: 2}
   - {fileID: 2100000, guid: 906c441b1fabf914092dfee82a4fca72, type: 2}
   Buttons: {fileID: 8301531216762243601, guid: 1056c9d40cac55c4c91536ee927b143f, type: 3}
-  tank: {fileID: 0}
-  currentColor: 0
+  Tank: {fileID: 3799338859321425577}
+  CurrentColor: 0
 --- !u!4 &2006404863094174325
 Transform:
   m_ObjectHideFlags: 0
@@ -16471,11 +16421,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ffed11f890c8684ea512a5c197fc946, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  armors:
+  Armors:
   - {fileID: 966462657}
   - {fileID: 6281756373642865116}
   Buttons: {fileID: 8301531216762243601, guid: 1056c9d40cac55c4c91536ee927b143f, type: 3}
-  currentArmor: 0
+  CurrentArmor: 0
 --- !u!114 &6337418812425905101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16512,7 +16462,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2037552890}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

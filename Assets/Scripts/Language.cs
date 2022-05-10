@@ -17,10 +17,10 @@ public class Language : MonoBehaviour
         StartCoroutine(ChangeLanguage(1));
         selectedlanguage = "en";
     }
-    public IEnumerator ChangeLanguage(int LanguageNumber)
+    public IEnumerator ChangeLanguage(int languageIndex)
     {
         yield return LocalizationSettings.InitializationOperation;
-        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[LanguageNumber];
+        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[languageIndex];
     }
     public void SaveLanguage()
     {
