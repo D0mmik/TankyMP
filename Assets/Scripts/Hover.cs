@@ -22,10 +22,9 @@ public class Hover : MonoBehaviourPun
         rb.drag = 2;
         rb.angularDrag = 2.1f;
         rb.useGravity = true;
-        if(photonView.IsMine == false)
-        {
-            rb.useGravity = false;
-        }
+        if(!photonView.IsMine)
+            rb.useGravity = false;    
+        
     }
     public void ChangeSpeed(float upgradeSpeed)
     {
@@ -33,24 +32,28 @@ public class Hover : MonoBehaviourPun
     }
     void Update()
     {
-        if(photonView.IsMine && PlayerLeave.Paused == false)
-        {
-            vertical = Input.GetAxis("Vertical");
-            horizontal = Input.GetAxis("Horizontal");
-            transform.Rotate(Vector3.up * 100 * horizontal * Time.deltaTime);
-        }
+        if(!photonView.IsMine)
+            return;
+        if(PlayerLeave.Paused)
+            return;
+        
+        vertical = Input.GetAxis("Vertical");
+        horizontal = Input.GetAxis("Horizontal");
+        transform.Rotate(Vector3.up * 100 * horizontal * Time.deltaTime);
+        
     }
     void FixedUpdate()
     {
         for(int i = 0; i < 4; i++)
-        {
             ApplyForce(ForcePoints[i], hits[i]);
-        }
+            
         rb.AddForce(vertical * Speed* transform.forward);
     }
     void ApplyForce(Transform forcePoint, RaycastHit hit)
     {
-        if(Physics.Raycast(forcePoint.position, -forcePoint.up, out hit) && photonView.IsMine)
+        if(!photonView.IsMine)
+            return;
+        if(Physics.Raycast(forcePoint.position, -forcePoint.up, out hit))
         {
             float force = 0;
             force = Mathf.Abs(1 /(hit.point.y - transform.position.y));

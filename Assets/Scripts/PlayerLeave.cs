@@ -20,14 +20,12 @@ public class PlayerLeave : MonoBehaviourPunCallbacks
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape) && Paused == false && Scope.scoped == false)
+        if(Input.GetKeyDown(KeyCode.Escape) && !Paused && !Scope.S_Scoped)
         {
             LeaveButton.SetActive(true);
             Paused = true;
-   
-
         }
-        else if(Input.GetKeyDown(KeyCode.Escape) && Paused == true)
+        else if(Input.GetKeyDown(KeyCode.Escape) && Paused)
         {
             LeaveButton.SetActive(false);
             Paused = false;

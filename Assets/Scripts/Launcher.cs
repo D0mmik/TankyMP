@@ -23,9 +23,9 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField] private Transform playerListPrefab;
     [SerializeField] private Player[] players;
     [SerializeField] private GameObject startGameButton;
-    public bool InstagibMode = false;
+    private bool instagib;
     [SerializeField] private GameObject checkMarkInstagib;
-    public bool RandomizerMode = false;
+    private bool randomizer;
     [SerializeField] private GameObject checkMarkRandomizer;
 
     void Start()
@@ -35,43 +35,35 @@ public class Launcher : MonoBehaviourPunCallbacks
         checkMarkInstagib.SetActive(false);
         checkMarkRandomizer.SetActive(false);
         Debug.Log("Connecting");
-        if(PhotonNetwork.IsConnected == false)
-        {
-            PhotonNetwork.ConnectUsingSettings();
-        }
+        if(PhotonNetwork.IsConnected)
+            return;   
+        PhotonNetwork.ConnectUsingSettings();
+        
     }
     void Update()
     {
-        if(uiButtons.activeSelf == true)
-        {
-            loading.SetActive(false);
-        }
+        if(!uiButtons.activeSelf)
+            return;
+        loading.SetActive(false);
+
     }
     public void InstagibButton()
     {
-        if(InstagibMode == false)
-        {
-            InstagibMode = true;
-            checkMarkInstagib.SetActive(true);
-        }
-        else if(InstagibMode == true)
-        {
-            InstagibMode = false;
-            checkMarkInstagib.SetActive(false);
-        }
+        if(!instagib)
+            instagib = true;
+        else if(instagib)
+            instagib = false;
+
+        checkMarkInstagib.SetActive(instagib);
     }
     public void RandomizerButton()
     {
-        if(RandomizerMode == false)
-        {
-            RandomizerMode = true;
-            checkMarkRandomizer.SetActive(true);
-        }
-        else if(RandomizerMode == true)
-        {
-            RandomizerMode = false;
-            checkMarkRandomizer.SetActive(false);
-        }
+        if(!randomizer)
+            randomizer = true;
+        else if(randomizer)
+            randomizer = false;
+
+        checkMarkRandomizer.SetActive(randomizer);
     }
 
     public override void OnConnectedToMaster()
@@ -92,13 +84,12 @@ public class Launcher : MonoBehaviourPunCallbacks
     public void CreateRoom()
     {
         if(string.IsNullOrEmpty(roomNameIP.text))
-        {
             return;
-        }
+        
         RoomOptions roomOptions = new RoomOptions();
         Hashtable hash = new Hashtable();
-        hash["Instagib"] = InstagibMode;
-        hash["Randomizer"] = RandomizerMode;
+        hash["Instagib"] = instagib;
+        hash["Randomizer"] = randomizer;
         roomOptions.CustomRoomProperties = hash;
         PhotonNetwork.CreateRoom(roomNameIP.text, roomOptions);
         menuManager.CloseWindows();
@@ -113,9 +104,8 @@ public class Launcher : MonoBehaviourPunCallbacks
         roomName.text = PhotonNetwork.CurrentRoom.Name;
         players = PhotonNetwork.PlayerList;
         for(int i = 0; i < players.Count(); i++)
-        {
             Instantiate(playerListPrefab, playerListContent).GetComponent<PlayerListPrefab>().OnStart(players[i]);
-        }
+
         startGameButton.SetActive(PhotonNetwork.IsMasterClient);
     }
     public override void OnMasterClientSwitched(Player newMasterClient)
@@ -136,24 +126,18 @@ public class Launcher : MonoBehaviourPunCallbacks
         menuManager.CloseWindows();
         loading.SetActive(true);
         foreach(Transform transform in playerListContent)
-        {
             Destroy(transform.gameObject);
-        }
-
     }
-    
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
         foreach(Transform transform in roomListContent)
-        {
             Destroy(transform.gameObject);
-        }
+            
         for(int i = 0; i < roomList.Count; i++)
         {
             if(roomList[i].RemovedFromList)
-            {
-                continue;
-            }
+               continue;
+            
             Instantiate(roomListPrefab, roomListContent).GetComponent<RoomPrefab>().OnStart(roomList[i]);
         }
     }

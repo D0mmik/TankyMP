@@ -2188,13 +2188,25 @@ MonoBehaviour:
   RandomTarget: {fileID: 0}
   reload: 5
   CanShoot: 1
-  ShootPoint: {fileID: 0}
+  ShootPoint: {fileID: 5211395844319218705}
   Health: 100
   RandomArmor: 0
   RandomColor: 0
-  Armor: []
-  Color: []
-  Tank: {fileID: 0}
+  Armor:
+  - {fileID: 5211395844319218930}
+  - {fileID: 5211395844319218929}
+  Color:
+  - {fileID: 2100000, guid: fd374fedc7843bd418ab74b27310eac6, type: 2}
+  - {fileID: 2100000, guid: 4c3e985c1a922974eaa6f95d500c7aaa, type: 2}
+  - {fileID: 2100000, guid: fc9818c02d697c645ab8219ab590658d, type: 2}
+  - {fileID: 2100000, guid: f9d65addd406ae74f8a871ec7d48bc20, type: 2}
+  - {fileID: 2100000, guid: cefad22b2a709f140801c7b01e436699, type: 2}
+  - {fileID: 2100000, guid: 3a23130b91d1b3e49866e02b92ec6596, type: 2}
+  - {fileID: 2100000, guid: fd86bc25b90a80946b3e8c973ec785d2, type: 2}
+  - {fileID: 2100000, guid: 906c441b1fabf914092dfee82a4fca72, type: 2}
+  - {fileID: 2100000, guid: 83abe2251d028984faa6b177821f6687, type: 2}
+  - {fileID: 2100000, guid: 5e25594a77b9ba0498db0efa9388b6df, type: 2}
+  Tank: {fileID: 5211395844319218698}
   AIManager: {fileID: 0}
 --- !u!114 &4042767947063512186
 MonoBehaviour:

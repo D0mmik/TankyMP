@@ -337,9 +337,7 @@ MonoBehaviour:
   playerListContent: {fileID: 1286183857}
   playerListPrefab: {fileID: 6494356392485338107, guid: efe59e12dcfc00e43b324ee5773abc38, type: 3}
   startGameButton: {fileID: 1758594094}
-  InstagibMode: 0
   checkMarkInstagib: {fileID: 888110376}
-  RandomizerMode: 0
   checkMarkRandomizer: {fileID: 1251281057}
 --- !u!4 &31640420
 Transform:
@@ -2534,10 +2532,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acd017ea7f1bf054b80e9ce8fa1672c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSensSlider: {fileID: 54610138}
-  scrollSensText: {fileID: 827026051}
-  sensSlider: {fileID: 760846324}
-  sensText: {fileID: 1698129945}
+  ScrollSensSlider: {fileID: 54610138}
+  ScrollSensText: {fileID: 827026051}
+  SensSlider: {fileID: 760846324}
+  SensText: {fileID: 1698129945}
 --- !u!1 &288473008
 GameObject:
   m_ObjectHideFlags: 0
@@ -9254,15 +9252,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e55f8fd7fe40c3140a2bf7d9e33ee94b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapons:
+  Weapons:
   - {fileID: 833756313922314818}
   - {fileID: 4569394759874673690}
   - {fileID: 6429304891348395557}
   - {fileID: 1873639925694468513}
   Buttons: {fileID: 8301531216762243601, guid: 1056c9d40cac55c4c91536ee927b143f, type: 3}
-  currentclone: {fileID: 0}
-  currentWeapon: 0
-  load: {fileID: 0}
+  CurrentClone: {fileID: 0}
+  CurrentWeapon: 0
 --- !u!114 &1326610389
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14061,52 +14058,6 @@ MonoBehaviour:
         m_CallState: 2
   references:
     version: 1
---- !u!1 &2139880455
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2139880457}
-  - component: {fileID: 2139880456}
-  m_Layer: 0
-  m_Name: ButtonsPrefab
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2139880456
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2139880455}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf4b0f3a9d5d1674f8cc42f01d810ab5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Button: {fileID: 0}
-  ButtonInt: 0
-  Name: {fileID: 0}
---- !u!4 &2139880457
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2139880455}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 859.775, y: 705.2088, z: -1349.4298}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2146222513
 GameObject:
   m_ObjectHideFlags: 0
@@ -15276,18 +15227,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &2723171949755556365
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6381880576171191502}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f1ca8d7dd39311479c2629cd72b3ec5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &2780140573532301100
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16494,14 +16433,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6381880576171191502}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.9397105, z: 0, w: 0.341971}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7905157824250345890}
   m_Father: {fileID: 8262651930541981987}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 140.006, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 3}
@@ -16519,7 +16458,6 @@ GameObject:
   - component: {fileID: 2996230568278851815}
   - component: {fileID: 5695562176103896431}
   - component: {fileID: 2717211339327080748}
-  - component: {fileID: 2723171949755556365}
   m_Layer: 5
   m_Name: NicknameCanvas
   m_TagString: Untagged

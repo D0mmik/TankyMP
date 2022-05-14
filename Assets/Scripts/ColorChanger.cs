@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class ColorChanger : MonoBehaviour
 {
@@ -11,23 +12,23 @@ public class ColorChanger : MonoBehaviour
 
     void Start()
     {
-        FindTank();
-        for(int i = 0; i < Colors.Length; i++)
-        {   
-            var ColorButtonClone = Instantiate(Buttons, transform).GetComponent<ButtonsPrefab>();
-            ColorButtonClone.ButtonInt = i;
-            ColorButtonClone.Name.text = ($"COLOR {ColorButtonClone.ButtonInt}");  
-            ColorButtonClone.Button.onClick.AddListener(()=>dothis(ColorButtonClone.ButtonInt));                    
-        }
+        for(int i = 0; i < Colors.Length; i++)         
+            SpawnButton(i, (index)=> DoColor(index), "COLOR", transform);                   
     }
-    public void dothis(int number)
-    {  
-        CurrentColor = number;
-        Tank.GetComponent<MeshRenderer>().material = Colors[number];
-
-    }
-    public void FindTank()
+    
+    void SpawnButton(int index, Action<int> onClick, string name, Transform parent)
     {
-        Tank = GameObject.Find("Body");   
+        var button = Instantiate(Buttons, transform);
+        button.Set(index: index,
+                   name: $"{name}{index}",
+                   callback: () => onClick(index));
+    }
+    public void DoColor(int index)
+    {  
+        if(index < 0 || index > Colors.Length)      
+            return;
+        
+        CurrentColor = index;
+        Tank.GetComponent<MeshRenderer>().material = Colors[index];
     }
 }

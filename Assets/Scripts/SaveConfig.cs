@@ -7,6 +7,9 @@ public class SaveConfig : MonoBehaviour
     public ArmorChanger ArmorChanger;
     public ColorChanger ColorChanger;
     public WeaponsChanger WeaponsChanger;
+    private const string Key_Armor = "armor";
+    private const string Key_Color = "color";
+    private const string Key_Weapon = "weapon";
     void Start()
     {
         Load();
@@ -14,17 +17,16 @@ public class SaveConfig : MonoBehaviour
 
     public void Save()
     {
-        PlayerPrefs.SetInt("armor", ArmorChanger.CurrentArmor);
-        PlayerPrefs.SetInt("color", ColorChanger.CurrentColor);
-        PlayerPrefs.SetInt("weapon", WeaponsChanger.CurrentWeapon);
+        PlayerPrefs.SetInt(Key_Armor, ArmorChanger.CurrentArmor);
+        PlayerPrefs.SetInt(Key_Color, ColorChanger.CurrentColor);
+        PlayerPrefs.SetInt(Key_Weapon, WeaponsChanger.CurrentWeapon);
 
     }
     public void Load()
     {
-        ArmorChanger.dothis(PlayerPrefs.GetInt("armor"));
-        ColorChanger.FindTank();
-        ColorChanger.dothis(PlayerPrefs.GetInt("color"));
-        WeaponsChanger.dothis(PlayerPrefs.GetInt("weapon"));
+        ArmorChanger.DoArmor(PlayerPrefs.GetInt(Key_Armor));
+        ColorChanger.DoColor(PlayerPrefs.GetInt(Key_Color));
+        WeaponsChanger.DoWeapon(PlayerPrefs.GetInt(Key_Weapon));
 
     }
 }

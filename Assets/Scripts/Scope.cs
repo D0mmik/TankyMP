@@ -5,84 +5,87 @@ using Photon.Pun;
 
 public class Scope : MonoBehaviourPun
 {
-    public Camera mainCam;
-    public GameObject shootPoint;
-    public GameObject cameraPoint;
-    public GameObject crossHair;
+    public Camera MainCam;
+    public GameObject ShootPoint;
+    public GameObject CameraPoint;
+    public GameObject Crosshair;
     private float mouseWheel;
-    public float scrollSensitivity;
-    public float targetZoom = 60;
+    public float ScrollSensitivity;
+    public float TargetZoom = 60;
     
     private float mouseY;
-    public float speed;
-    public GameObject weaponHolder;
+    public float Speed = 50;
+    public GameObject WeaponHolder;
     public float VerticalWH;
+    public float VMax = 8;
+    public float VMIn = -10;
+    public float FOVMax = 75;
+    public float FOVMin = 25;
 
-    public static bool scoped = false;
+    public static bool S_Scoped = false;
     void Start()
     {
-        scrollSensitivity = PlayerPrefs.GetFloat("ScrollSens", 30) * 100;
-        scoped = false;
+        ScrollSensitivity = PlayerPrefs.GetFloat("ScrollSens", 30) * 100;
+        if(photonView.IsMine)
+            S_Scoped = false;
     }
     
     void Update()
     {
 
-        if(photonView.IsMine)
+        if(!photonView.IsMine)
+            return;
+        
+        if(Input.GetMouseButtonDown(1) && !S_Scoped && !PlayerLeave.Paused)
         {
-            if(Input.GetMouseButtonDown(1) && !scoped && !PlayerLeave.Paused)
-            {
-                transform.position = shootPoint.transform.position;
-                transform.rotation = shootPoint.transform.rotation;
-                scoped = true;
-                crossHair.SetActive(true);
-                Debug.Log("nene");
-            }
-            else if(Input.GetMouseButtonDown(1) && scoped)
-            {
-                transform.position = cameraPoint.transform.position;
-                transform.rotation = cameraPoint.transform.rotation;
-                scoped = false;
-                crossHair.SetActive(false);
-            }
-            
-           
-            if(scoped)
-            {
-                mouseWheel = Input.GetAxis("Mouse ScrollWheel") * scrollSensitivity * Time.deltaTime * 50;
-                targetZoom = targetZoom -= mouseWheel;   
-
-                mouseY = Input.GetAxis("Mouse Y") * speed * Time.deltaTime;
-                VerticalWH = VerticalWH -= mouseY;
- 
-            }
-            if(!scoped)
-            {
-                targetZoom = 60;
-                VerticalWH = 0;
-            }
-            mainCam.fieldOfView = Mathf.MoveTowards(mainCam.fieldOfView, targetZoom, 60 * Time.deltaTime);
-
-           if(mainCam.fieldOfView >= 75)
-           { 
-              mainCam.fieldOfView = 75;
-              targetZoom = 75;
-           }
-           if(mainCam.fieldOfView <= 25)
-           {
-              mainCam.fieldOfView = 25;
-              targetZoom = 25;
-           }
-
-           if(VerticalWH >= 8)
-           {
-               VerticalWH = 8;
-           }
-           if(VerticalWH <= -10)
-           {
-               VerticalWH = -10;
-           }
-           weaponHolder.transform.rotation = Quaternion.Euler(VerticalWH,weaponHolder.transform.eulerAngles.y,0);
+            transform.position = ShootPoint.transform.position;
+            transform.rotation = ShootPoint.transform.rotation;
+            S_Scoped = true;
+            Crosshair.SetActive(true);
         }
+        else if(Input.GetMouseButtonDown(1) && S_Scoped)
+        {
+            transform.position = CameraPoint.transform.position;
+            transform.rotation = CameraPoint.transform.rotation;
+            S_Scoped = false;
+            Crosshair.SetActive(false);
+        }
+        
+        
+        if(S_Scoped)
+        {
+            mouseWheel = Input.GetAxis("Mouse ScrollWheel") * ScrollSensitivity * Time.deltaTime * 50;
+            TargetZoom = TargetZoom -= mouseWheel;   
+
+            mouseY = Input.GetAxis("Mouse Y") * Speed * Time.deltaTime;
+            VerticalWH = VerticalWH -= mouseY;
+
+        }
+        if(!S_Scoped)
+        {
+            TargetZoom = 60;
+            VerticalWH = 0;
+        }
+        MainCam.fieldOfView = Mathf.MoveTowards(MainCam.fieldOfView, TargetZoom, 60 * Time.deltaTime);
+
+        if(MainCam.fieldOfView >= FOVMax)
+        { 
+            MainCam.fieldOfView = FOVMax;
+            TargetZoom = FOVMax;
+        }
+        if(MainCam.fieldOfView <= FOVMin)
+        {
+            MainCam.fieldOfView = FOVMin;
+            TargetZoom = FOVMin;
+        }
+
+        if(VerticalWH >= VMax)
+            VerticalWH = VMax;
+
+        if(VerticalWH <= VMIn)
+            VerticalWH = VMIn;
+            
+        WeaponHolder.transform.rotation = Quaternion.Euler(VerticalWH,WeaponHolder.transform.eulerAngles.y,0);
+        
     }
 }

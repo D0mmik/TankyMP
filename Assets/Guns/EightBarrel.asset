@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4619241d7d0c1b84996c2a8c39ace00e, type: 3}
   m_Name: EightBarrel
   m_EditorClassIdentifier: 
-  gunName: EightBarrel
-  damage: 80
-  reloadTime: 8
-  projectile: 1
-  bullets: 4
+  GunName: EightBarrel
+  Damage: 80
+  ReloadTime: 5
+  Projectile: 1
+  Bullets: 4

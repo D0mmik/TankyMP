@@ -16,65 +16,60 @@ public class Target : MonoBehaviourPun
     public GameObject Armor;
     public bool Armored;
     private bool instagib;
-    void Awake()
+    void Start()
     {
         PlayerManager = PhotonView.Find((int)photonView.InstantiationData[0]).GetComponent<PlayerManager>();
-        if((bool)PhotonNetwork.CurrentRoom.CustomProperties["Instagib"] == true)
+        instagib = GameModes.S_Instagib;
+        if(!photonView.IsMine)
+            return;
+        
+        if(!instagib)
         {
-            instagib = true;
+            Health = MaxHealth;
+            HealthBar.fillAmount = Health / MaxHealth;
         }
-        if(photonView.IsMine)
+        if(instagib)
         {
-            if(instagib == false)
-            {
-                Health = MaxHealth;
-                HealthBar.fillAmount = Health / MaxHealth;
-            }
-            if(instagib == true)
-            {
-                Health = 1;
-                MaxHealth = 1;
-            }
+            Health = 1;
+            MaxHealth = 1;
         }
     }
     void Update()
     {
-        if(photonView.IsMine && instagib == false)
+        if(!photonView.IsMine && instagib)
+            return;
+
+        if(Armor.activeSelf && !Armored)
         {
-            if(Armor.activeSelf == true && Armored == false)
+            Armored = true;
+            Health = 200;
+            MaxHealth = 200;
+            HealthBar.fillAmount = Health / MaxHealth;
+        }
+        else if(!Armor.activeSelf && Armored)
+        {   
+            Armored = false;
+            MaxHealth = 100;
+            if(Health >= 100)
             {
-                Armored = true;
-                Health = 200;
-                MaxHealth = 200;
-                HealthBar.fillAmount = Health / MaxHealth;
+                Health = 100;
             }
-            else if(Armor.activeSelf == false && Armored == true)
-            {   
-                Armored = false;
-                MaxHealth = 100;
-                if(Health >= 100)
-                {
-                    Health = 100;
-                }
-                HealthBar.fillAmount = Health / MaxHealth;
-            }
+            HealthBar.fillAmount = Health / MaxHealth;
+        
         }
     }
     
     public void TakeDamage(float damage)
     {
         if(Health >= 0)
-        {
             photonView.RPC("RPC_TakeDamage", RpcTarget.All, damage);
-        }
     }
     [PunRPC]
     void RPC_TakeDamage(float damage)
     {
         if(!photonView.IsMine)
-        {
             return;
-        }
+
         Health -= damage;
         HealthBar.fillAmount = Health / MaxHealth;
         

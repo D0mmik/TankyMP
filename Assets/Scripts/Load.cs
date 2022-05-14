@@ -9,70 +9,58 @@ using TMPro;
 public class Load : MonoBehaviourPunCallbacks
 {
    
-   public GameObject[] armor;
-   public Material[] color;
-   public GameObject[] weapons;
-   public GameObject tank;
+   public GameObject[] Armor;
+   public Material[] Color;
+   public GameObject[] Weapons;
+   public GameObject Tank;
    public int CurrentArmor;
    public int CurrentColor;
    public int CurrentWeapon;
    private int randomArmor;
    private int randomColor;
    private int randomWeapon;
-   public ChangerIG ChangerIG;
    private bool randomizer;
    private bool instagib;
+   public GameObject OneBarrelGO;
 
 
 
    void Start()
    {
-        if((bool)PhotonNetwork.CurrentRoom.CustomProperties["Randomizer"] == true)
-        {
-            randomizer = true;
-        }
-        if((bool)PhotonNetwork.CurrentRoom.CustomProperties["Instagib"] == true)
-        {
-            instagib = true;
-        }
-        if(photonView.IsMine && randomizer == false)
-        {
-            if(instagib == false)
-            {
-                LoadAll(PlayerPrefs.GetInt("armor"),PlayerPrefs.GetInt("color"),PlayerPrefs.GetInt("weapon"));
-            }
-            else if(instagib == true)
-            {
-                LoadAll(PlayerPrefs.GetInt("armor"),PlayerPrefs.GetInt("color"),0);
-            }
-        }
-        if(photonView.IsMine && randomizer == true)
-        {
-            RandomSpawn();
-        }
-        //UpdateConfig();
-        
-   }
+       randomizer = GameModes.S_Randomizer;
+       instagib = GameModes.S_Instagib;
+       
+       if(!photonView.IsMine)
+            return;
 
+        if(!randomizer)
+        {
+            if(!instagib)
+                LoadAll(PlayerPrefs.GetInt("armor"),PlayerPrefs.GetInt("color"),PlayerPrefs.GetInt("weapon"));
+            else if(instagib)
+                LoadAll(PlayerPrefs.GetInt("armor"),PlayerPrefs.GetInt("color"),0);
+
+        }
+        if(randomizer)
+            RandomSpawn();       
+   }
    public void RandomSpawn()
    {
-       if(photonView.IsMine)
-        {
-            randomArmor = Random.Range(0,armor.Length);
-            randomColor = Random.Range(0,color.Length);
-            if(instagib == false)
-            {
-                randomWeapon = Random.Range(0, weapons.Length);
-            }
-            else if(instagib == true)
-            {
-                randomWeapon = 0;
-            }
-            PlayerPrefs.SetInt("armor", randomArmor); 
-            PlayerPrefs.SetInt("color", randomColor);
-            PlayerPrefs.SetInt("weapon", randomWeapon);
-            LoadAll(randomArmor,randomColor,randomWeapon);
-        }
+       if(!photonView.IsMine)
+            return;
+        
+        randomArmor = Random.Range(0,Armor.Length);
+        randomColor = Random.Range(0,Color.Length);
+        if(!instagib)
+            randomWeapon = Random.Range(0, Weapons.Length);
+        else if(instagib)
+            randomWeapon = 0;
+
+        PlayerPrefs.SetInt("armor", randomArmor); 
+        PlayerPrefs.SetInt("color", randomColor);
+        PlayerPrefs.SetInt("weapon", randomWeapon);
+        LoadAll(randomArmor,randomColor,randomWeapon);
+               
         StartCoroutine(WaitForUpdate());
         
    }
@@ -84,14 +72,13 @@ public class Load : MonoBehaviourPunCallbacks
 
    public void UpdateConfig()
    {
-        if(photonView.IsMine &&  randomizer == false)
-        {
+       if(!photonView.IsMine)
+            return;
+
+        if(!randomizer)
             LoadAll(PlayerPrefs.GetInt("armor"),PlayerPrefs.GetInt("color"),PlayerPrefs.GetInt("weapon"));
-        }
-        if(photonView.IsMine &&  randomizer == true)
-        {
+        else if(randomizer)
             LoadAll(randomArmor,randomColor,randomWeapon);
-        }
    }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
@@ -102,49 +89,41 @@ public class Load : MonoBehaviourPunCallbacks
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
     {
        if(!changedProps.ContainsKey("armor") || !changedProps.ContainsKey("color") || !changedProps.ContainsKey("weapon"))   
-        return;
+            return;
         
         if(!photonView.IsMine && targetPlayer == photonView.Owner)
-        {
             LoadAll((int)changedProps["armor"],(int)changedProps["color"],(int)changedProps["weapon"]);
-        }
     }
     
 
    public void LoadAll(int armorNumber, int colorNumber, int weaponNumber)
    {
        
-        foreach( var item in armor)
-        {
+        foreach( var item in Armor)
             item.SetActive(false);
-        }
-        armor[armorNumber].SetActive(true);
+
+        Armor[armorNumber].SetActive(true);
         CurrentArmor = armorNumber;
-        
-
-
-        tank.GetComponent<MeshRenderer>().material = color[colorNumber];
+    
+        Tank.GetComponent<MeshRenderer>().material = Color[colorNumber];
         CurrentColor = colorNumber;
 
-        foreach( var item in weapons)
-        {
+        foreach( var item in Weapons)
             item.SetActive(false);
-        }
-        weapons[weaponNumber].SetActive(true);
-        CurrentWeapon = weaponNumber;
 
-        if(photonView.IsMine)
-        {
-            Hashtable table = new Hashtable();
-            table.Add("armor",CurrentArmor);
-            table.Add("color",CurrentColor);
-            table.Add("weapon",CurrentWeapon);
-            if(PhotonNetwork.InRoom)
-            {
-                PhotonNetwork.LocalPlayer.SetCustomProperties(table);
-            }
-        }       
-   }
+        Weapons[weaponNumber].SetActive(true);
+        CurrentWeapon = weaponNumber;
+        
+        if(!photonView.IsMine)
+            return;
+        
+        Hashtable table = new Hashtable();
+        table.Add("armor",CurrentArmor);
+        table.Add("color",CurrentColor);
+        table.Add("weapon",CurrentWeapon);
+        if(!PhotonNetwork.InRoom)
+            return;
     
-   
+        PhotonNetwork.LocalPlayer.SetCustomProperties(table);      
+   } 
 }

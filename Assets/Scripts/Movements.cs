@@ -24,62 +24,50 @@ public class Movements : MonoBehaviourPunCallbacks
     public bool HoverActive;
     public bool FlyActive;
 
-    SpawnAI spawnAI;
-    public GameObject AIManager;
+    private SpawnAI spawnAI;
+    private GameObject aiManager;
     public TMP_Text AIText;
     public GameObject AIButtons;
 
     void Start()
     {
-        if((bool)PhotonNetwork.CurrentRoom.CustomProperties["Randomizer"] == true)
-        {
-            randomizer = true;
-        }
-        if((bool)PhotonNetwork.CurrentRoom.CustomProperties["Instagib"] == true)
-        {
-            instagib = true;
-        }
-        if(photonView.IsMine == false)
+        randomizer = GameModes.S_Randomizer;
+        instagib = GameModes.S_Instagib;
+        
+        if(!photonView.IsMine)
         {
             cam.enabled = false;
             lis.enabled = false;
-            ui.SetActive(false);
-        }
+            ui.SetActive(false); 
+        }             
+           
+        
     
         belt = GetComponent<Belt>();
         hover = GetComponent<Hover>();
         fly = GetComponent<Fly>();
         TurnOffMovements();
-        if(randomizer == false && instagib == false)
-        {
+        if(!randomizer && !instagib)
             BeltActive = true;
-        }
   
-        if(randomizer == true && instagib == false)
+        if(randomizer && !instagib)
         {
             randomMovement = Random.Range(1, 4);
             if(randomMovement == 1){BeltActive = true;}
             if(randomMovement == 2){FlyActive = true;}
             if(randomMovement == 3){HoverActive = true;}
         }
-        if(instagib == true)
-        {
+        if(instagib)
             HoverActive = true;
-        }
-        AIManager = GameObject.Find("AIManager");
-        spawnAI = AIManager.GetComponent<SpawnAI>();
+
+        aiManager = GameObject.Find("AIManager");
+        spawnAI = aiManager.GetComponent<SpawnAI>();
         AIText.text = spawnAI.AICount.ToString();
         AIButtons.SetActive(PhotonNetwork.IsMasterClient);
 
     }
     void Update()
     {
-        if(photonView.IsMine)
-        {
-            cam.enabled = true;
-            ui.SetActive(true);
-        }
-
         if(BeltActive == true)
         {
             EnableBelt();
@@ -95,7 +83,6 @@ public class Movements : MonoBehaviourPunCallbacks
             EnableFly();
             FlyActive = false;
         }
-        
     }
 
     public void TurnOffMovements()
@@ -126,18 +113,16 @@ public class Movements : MonoBehaviourPunCallbacks
     public void AiPlus()
     {
         if(spawnAI.AICount < 10)
-        {
             spawnAI.AICount++;
-        }
+
         AIText.text = spawnAI.AICount.ToString();
         spawnAI.Spawn();
     }
     public void AiMinus()
     {
         if(spawnAI.AICount > 0)
-        {
             spawnAI.AICount--;
-        }
+
         AIText.text = spawnAI.AICount.ToString();
     }
     public override void OnMasterClientSwitched(Player newMasterClient)

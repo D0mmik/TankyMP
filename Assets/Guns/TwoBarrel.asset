@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4619241d7d0c1b84996c2a8c39ace00e, type: 3}
   m_Name: TwoBarrel
   m_EditorClassIdentifier: 
-  gunName: TwoBarrel
-  damage: 20
-  reloadTime: 4
-  projectile: 1
-  bullets: 2
+  GunName: TwoBarrel
+  Damage: 20
+  ReloadTime: 3
+  Projectile: 1
+  Bullets: 2

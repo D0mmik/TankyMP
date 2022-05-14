@@ -12,9 +12,10 @@ public class Bullet : MonoBehaviourPun
             other.GetComponent<Target>()?.TakeDamage(10);
             other.GetComponent<AI>()?.TakeDamage(10);
         }
-        if(other.CompareTag("Wall") && photonView.IsMine)
-        {
+        if(!photonView.IsMine)
+            return;
+
+        if(other.CompareTag("Wall"))
             PhotonNetwork.Destroy(this.gameObject);
-        }
     }
 }

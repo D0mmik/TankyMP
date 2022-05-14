@@ -14,14 +14,13 @@ public class SpawnAI : MonoBehaviourPun
 
     public void Spawn()
     {
-        if(PhotonNetwork.IsMasterClient && AIActive < AICount)
+        if(!PhotonNetwork.IsMasterClient)
+            return;
+        if(AIActive < AICount)
         {
-            i = Random.Range(1,spawnpoints.Count());
+             i = Random.Range(1,spawnpoints.Count());
             ai = PhotonNetwork.Instantiate("PlayerAI",spawnpoints[i].position, Quaternion.identity);
             AIActive++;
-        }
-    }
-    
-    
+        }          
+    }   
 }
-    

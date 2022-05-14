@@ -16,9 +16,6 @@ public class Fly : MonoBehaviourPun
     public float AirDrag = 2f;
     public float AirMovement = 0.4f;
     
-
-    
-
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -29,10 +26,9 @@ public class Fly : MonoBehaviourPun
         rb.drag = 0;
         rb.angularDrag = 10;
         rb.useGravity = false;
-        if(photonView.IsMine == false)
-        {
+        if(!photonView.IsMine)      
             rb.useGravity = false;
-        }
+        
     }
     public void ChangeSpeed(float upgradeSpeed)
     {
@@ -43,42 +39,39 @@ public class Fly : MonoBehaviourPun
         flySpeed = upgradeFlySpeed;
     }
     void Update()
-    {  
-        if(photonView.IsMine && PlayerLeave.Paused == false)
-        {
-            isGrounded = Physics.Raycast(transform.position, Vector3.down,0.01f);
-            Debug.DrawRay(transform.position, Vector3.down,Color.black,0.01f);
-
-            rb.drag = isGrounded ? GroundDrag : AirDrag;
-
-            vertical = Input.GetAxisRaw("Vertical");
-            horizontal = Input.GetAxis("Horizontal");
+    {   
+        if(!photonView.IsMine)
+            return;
+        if(PlayerLeave.Paused)
+            return;
         
-            moveDirection = transform.forward * vertical;
-            
-            transform.Rotate(Vector3.up * 100 * horizontal * Time.deltaTime);    
-        }    
+        vertical = Input.GetAxisRaw("Vertical");
+        horizontal = Input.GetAxis("Horizontal");
+        
+        isGrounded = Physics.Raycast(transform.position, Vector3.down,0.01f);
+
+        rb.drag = isGrounded ? GroundDrag : AirDrag;
+
+        moveDirection = transform.forward * vertical;
+        
+        transform.Rotate(Vector3.up * 100 * horizontal * Time.deltaTime);    
+        
     }
     void FixedUpdate()
     {
-        if(isGrounded)
-        {
-            rb.AddForce(moveDirection.normalized * speed, ForceMode.Acceleration);
-        }
-        else
-        {
-            rb.AddForce(moveDirection.normalized * speed * AirMovement, ForceMode.Acceleration);
-        }
-        if(Input.GetKey(KeyCode.Space) && photonView.IsMine)
-        {
+        if(!photonView.IsMine)
+            return;
+
+        Vector3 groundSpeed = moveDirection.normalized * speed;
+        Vector3 airSpeed = groundSpeed * AirMovement;
+
+        rb.AddForce(isGrounded ? groundSpeed : airSpeed, ForceMode.Acceleration);
+
+        if(Input.GetKey(KeyCode.Space))
             rb.AddForce(transform.up * flySpeed, ForceMode.Acceleration);
-        }
 
-
-        if(Input.GetKey(KeyCode.LeftShift) && photonView.IsMine)
-        {
+        if(Input.GetKey(KeyCode.LeftShift))
             rb.AddForce(-transform.up * flySpeed, ForceMode.Acceleration);
-        }
         
     }
 }

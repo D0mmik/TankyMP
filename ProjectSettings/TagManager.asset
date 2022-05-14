@@ -10,6 +10,7 @@ TagManager:
   - Bullet
   - NotPlayer
   - Wall
+  - OneBarrel
   layers:
   - Default
   - TransparentFX

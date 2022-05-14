@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using System;
 
 public class ChangerIG : MonoBehaviourPun
 {
     public Load Load;
     public ButtonsPrefab Buttons;
+    private OneBarrel oneBarrel;
     public Transform WeaponHere;
     public Transform ArmorHere;
     public Transform ColorHere;
@@ -18,60 +20,63 @@ public class ChangerIG : MonoBehaviourPun
     void Start()
     {
 
-        if(photonView.IsMine)
-        {
-            for(int i = 0; i < Load.weapons.Length; i++)
-            {   
-                var WeaponsButtonClone = Instantiate(Buttons, WeaponHere.transform).GetComponent<ButtonsPrefab>();
-                WeaponsButtonClone.ButtonInt = i;
-                WeaponsButtonClone.Name.text = ($"WEAPON {WeaponsButtonClone.ButtonInt}");  
-                WeaponsButtonClone.Button.onClick.AddListener(()=>DoWeapon(WeaponsButtonClone.ButtonInt));        
-            }
+        if(!photonView.IsMine)
+            return;
+        
+        for(int i = 0; i < Load.Weapons.Length; i++)
+            SpawnButton(i, (index)=> DoWeapon(index), "WEAPON", WeaponHere.transform);
 
-            for(int i = 0; i < Load.armor.Length; i++)
-            {   
-                var ArmorButtonClone = Instantiate(Buttons, ArmorHere.transform).GetComponent<ButtonsPrefab>();
-                ArmorButtonClone.ButtonInt = i;
-                ArmorButtonClone.Name.text = ($"ARMOR {ArmorButtonClone.ButtonInt}");  
-                ArmorButtonClone.Button.onClick.AddListener(()=>DoArmor(ArmorButtonClone.ButtonInt));        
-            }
+        for(int i = 0; i < Load.Armor.Length; i++)
+            SpawnButton(i, (index)=> DoArmor(index), "ARMOR", ArmorHere.transform);
 
 
-            for(int i = 0; i < Load.color.Length; i++)
-            {   
-                var ColorButtonClone = Instantiate(Buttons, ColorHere.transform).GetComponent<ButtonsPrefab>();
-                ColorButtonClone.ButtonInt = i;
-                ColorButtonClone.Name.text = ($"COLOR {ColorButtonClone.ButtonInt}");  
-                ColorButtonClone.Button.onClick.AddListener(()=>DoColor(ColorButtonClone.ButtonInt));                    
-            }
-        }
+        for(int i = 0; i < Load.Color.Length; i++)  
+            SpawnButton(i, (index)=> DoColor(index), "COLOR", ColorHere.transform);                    
+        
+        
     }
-    public void DoWeapon(int number)
+    void SpawnButton(int index, Action<int> onClick, string name, Transform parent)
+    {
+        var button = Instantiate(Buttons, parent);
+        button.Set(index: index,
+                   name: $"{name}{index}",
+                   callback: () => onClick(index));
+    }
+    public void DoWeapon(int index)
     {  
-        if(photonView.IsMine)
-        {
-            CurrentWeapon = number;
-            PlayerPrefs.SetInt("weapon", CurrentWeapon);
-            Load.UpdateConfig();
-        }
+        if(!photonView.IsMine)
+            return;
+        if(index < 0 || index > Load.Weapons.Length)
+            return;
+            CurrentWeapon = index;
+        SaveProperty("weapon", index); 
+        
     }
-    public void DoArmor(int number)
+    public void DoArmor(int index)
     {
-        if(photonView.IsMine)
-        {
-            CurrentArmor = number;
-            PlayerPrefs.SetInt("armor", CurrentArmor); 
-            Load.UpdateConfig();
-        }
+        if(!photonView.IsMine)
+            return;
+        if(index < 0 || index > Load.Armor.Length)
+            return;
+        
+        CurrentArmor = index;
+        SaveProperty("armor", index); 
+        
     }
-    public void DoColor(int number)
+    public void DoColor(int index)
     {
-        if(photonView.IsMine)
-        {
-            CurrentColor = number;
-            PlayerPrefs.SetInt("color", CurrentColor);
-            Load.UpdateConfig();
-        }
+        if(!photonView.IsMine)
+            return;
+        if(index < 0 || index > Load.Color.Length)
+            return;
+        
+        CurrentColor = index;
+        SaveProperty("color", index); 
+    }
+    void SaveProperty(string property, int state)
+    {
+        PlayerPrefs.SetInt(property, state);
+        Load.UpdateConfig();
     }
     
 }

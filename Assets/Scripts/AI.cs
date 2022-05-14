@@ -14,13 +14,11 @@ public class AI : MonoBehaviourPun
 
     private float timer;
     public float reload;
-    public bool CanShoot = true;
+    public bool CanShoot;
 
     public Transform ShootPoint;
     private RaycastHit hit;
     private float range = 1000f;
-    private Target target;
-    private GameObject impact;
 
     public float Health = 100;
 
@@ -30,23 +28,24 @@ public class AI : MonoBehaviourPun
     public Material[] Color;
     public GameObject Tank;
     public GameObject AIManager;
-    SpawnAI spawnAI;
+    private SpawnAI spawnAI;
+    private bool instagib;
 
     void Awake()
     {
+        instagib = GameModes.S_Instagib;
         AIManager = GameObject.Find("AIManager");
         spawnAI = AIManager.GetComponent<SpawnAI>();
         navMeshAgent = GetComponent<NavMeshAgent>();
-        if((bool)PhotonNetwork.CurrentRoom.CustomProperties["Instagib"] == true)
+        if(instagib)
         {
             Health = 1;
         }
         RandomArmor = Random.Range(0,Armor.Length);
         RandomColor = Random.Range(0,Color.Length);
         foreach( var item in Armor)
-        {
             item.SetActive(false);
-        }
+            
         Armor[RandomArmor].SetActive(true);
         
         Tank.GetComponent<MeshRenderer>().material = Color[RandomColor];    
@@ -69,31 +68,24 @@ public class AI : MonoBehaviourPun
             timer = 0;
         }
         if(reload == 5)
-        {
             ShootAI();
-        }
        
     }
     public void TakeDamage(float damage)
     {      
         if(Health >= 0)
-        {
             photonView.RPC("RPC_TakeDamage", RpcTarget.All, damage); 
-        }
     }
     [PunRPC]
     void RPC_TakeDamage(float damage)
     {
         if(!photonView.IsMine)
-        {
             return;
-        }
+        
         Health -= damage;
         
         if(Health <= 0)
-        {
-            photonView.RPC("RPC_Destroy", RpcTarget.MasterClient); 
-        }
+            photonView.RPC("RPC_Destroy", RpcTarget.MasterClient);
     }
 
     [PunRPC]
@@ -114,23 +106,8 @@ public class AI : MonoBehaviourPun
                 hit.transform.GetComponent<AI>()?.TakeDamage(30f);
                 hit.transform.GetComponent<Target>()?.TakeDamage(30f);
             }
-            // Collider[] colliders = Physics.OverlapSphere(hit.point, 0.3f);
-            // if(colliders.Length != 0)
-            // {
-            //     impact = PhotonNetwork.Instantiate("impactPrefab", hit.point,Quaternion.LookRotation(hit.normal));
-            //     impact.transform.SetParent(colliders[0].transform);
-            // } 
-            // StartCoroutine(WaitForDestroy());
         }
         reload = 0;
-    }
-    IEnumerator WaitForDestroy()
-    {
-        yield return new WaitForSeconds(5f);
-        if(impact != null)
-        {
-            PhotonNetwork.Destroy(impact);
-        }
     }
 }
 

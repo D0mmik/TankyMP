@@ -12,7 +12,7 @@ public class MenuManager : MonoBehaviour
     public SaveConfig SaveConfig;
     public Language Language;
     
-    void Start()
+    void Awake()
     {
         Application.targetFrameRate = 360;
         ToggleWindow("LoadingMenu");
@@ -20,9 +20,7 @@ public class MenuManager : MonoBehaviour
     public void CloseWindows()
     {
         foreach( var item in windows)
-        {
             item.SetActive(false);
-        }
     }
 
     public void ToggleWindow(string nameOfWindow)
@@ -87,7 +85,6 @@ public class MenuManager : MonoBehaviour
     public void quit()
     {
         Application.Quit();
-        Debug.Log("quit");
     }
     
 }

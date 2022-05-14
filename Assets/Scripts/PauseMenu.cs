@@ -12,33 +12,27 @@ public class PauseMenu : MonoBehaviourPun
     private bool randomizer;
     void Start()
     {
-        if((bool)PhotonNetwork.CurrentRoom.CustomProperties["Randomizer"] == true)
-        {
-            randomizer = true;
-        }
+        randomizer = GameModes.S_Randomizer;
     }
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape) && PlayerLeave.Paused == false && Scope.scoped == false && randomizer == false)
+        if(Input.GetKeyDown(KeyCode.Escape) && !PlayerLeave.Paused && !Scope.S_Scoped && !randomizer)
         {
             PauseMenuGO.SetActive(false);
             Configurator.CloseWindows();
             Cursor.lockState = CursorLockMode.Locked;
         }
-        if(Input.GetKeyDown(KeyCode.Escape) && PlayerLeave.Paused == true && Scope.scoped == false && randomizer == false)
+        if(Input.GetKeyDown(KeyCode.Escape) && PlayerLeave.Paused && !Scope.S_Scoped && !randomizer)
         {
             PauseMenuGO.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
         }
-        if(Input.GetKeyDown(KeyCode.Escape) && PlayerLeave.Paused == false && Scope.scoped == false && randomizer == true)
-        {
+        if(Input.GetKeyDown(KeyCode.Escape) && !PlayerLeave.Paused && !Scope.S_Scoped && randomizer)
             Cursor.lockState = CursorLockMode.Locked;
-        }
-        if(Input.GetKeyDown(KeyCode.Escape) && PlayerLeave.Paused == true && Scope.scoped == false && randomizer == true)
-        {
+
+        if(Input.GetKeyDown(KeyCode.Escape) && PlayerLeave.Paused && !Scope.S_Scoped && randomizer)
             Cursor.lockState = CursorLockMode.None;
-        }
 
     }
 

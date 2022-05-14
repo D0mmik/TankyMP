@@ -29,31 +29,41 @@ public class OneBarrel : Gun
     {
         Shoot();
     }
+    void OnEnable()
+    {
+        if(DamageText.text != GunInfo.Damage.ToString())
+            DamageText.text = GunInfo.Damage.ToString();
+
+        Reload = GunInfo.ReloadTime;
+        RImage();
+    }
+    void RImage()
+    {
+        ReloadImage.fillAmount = Reload / GunInfo.ReloadTime;  
+    }
+
     void Update()
     {
         timer += Time.deltaTime % 60;
         timer2 += Time.deltaTime % 60;
+
         if(timer >= 1)
         {
             Reload++;
-            if(ReloadImage == null) return;
-            ReloadImage.fillAmount = Reload / (GunInfo).ReloadTime;
+
+            if(ReloadImage == null)
+                return;
+
+            RImage();
             timer = 0;
         }
-        if(Reload < (GunInfo).ReloadTime)
-        {
+
+        if(Reload < GunInfo.ReloadTime)
             CanShoot = false;
-        }
-        else if(Reload == (GunInfo).ReloadTime)
-        {
+        else if(Reload == GunInfo.ReloadTime)
             CanShoot = true;
-        }
-        if(DamageText.text != (GunInfo).Damage.ToString())
-        {
-            DamageText.text = (GunInfo).Damage.ToString();
-            Reload = 0;
-        }
-        if(shootCycles < (GunInfo).Bullets && shootingProjectiles == true)
+
+        if(shootCycles < GunInfo.Bullets && shootingProjectiles)
         {
             if(timer2 >= 0.25f)
             {
@@ -63,52 +73,37 @@ public class OneBarrel : Gun
                 timer2 = 0;
             }
         }
-        else if(shootCycles >= (GunInfo).Bullets)
-        {
+        else if(shootCycles >= GunInfo.Bullets)
             shootingProjectiles = false;
-        }
     }
     public void Shoot()
     {
-        if(CanShoot == true && !(GunInfo).Projectile)
+        if(CanShoot && !GunInfo.Projectile)
         {
             if(Physics.Raycast(ShootPoint.position, ShootPoint.forward, out hit, range))
             {
                 if(hit.transform != null)
                 {
-                    hit.transform.GetComponent<AI>()?.TakeDamage((GunInfo).Damage);
-                    hit.transform.GetComponent<Target>()?.TakeDamage((GunInfo).Damage);
+                    hit.transform.GetComponent<AI>()?.TakeDamage(GunInfo.Damage);
+                    hit.transform.GetComponent<Target>()?.TakeDamage(GunInfo.Damage);
                 }
-                //Collider[] colliders = Physics.OverlapSphere(hit.point, 0.3f);
-                //if(colliders.Length != 0)
-                //{
-                //    impact = PhotonNetwork.Instantiate("impactPrefab", hit.point,Quaternion.LookRotation(hit.normal));
-                //    impact.transform.SetParent(colliders[0].transform);
-                //} 
-                //StartCoroutine (WaitForDestroy());
             }
             Reload = 0;
-            if(ReloadImage == null) return;
-            ReloadImage.fillAmount = Reload / (GunInfo).ReloadTime;
+            if(ReloadImage == null) 
+                return;
+
+        RImage();
         }
-        if(CanShoot == true && (GunInfo).Projectile)
+        if(CanShoot && GunInfo.Projectile)
         {
             shootCycles = 0;
             shootingProjectiles = true;
-            //bullet.damage = (gunInfo).damage;
             Reload = 0;
-            if(ReloadImage == null) return;
-            ReloadImage.fillAmount = Reload / (GunInfo).ReloadTime;
 
-        }
-    }
+            if(ReloadImage == null) 
+                return;
 
-    IEnumerator WaitForDestroy()
-    {
-        yield return new WaitForSeconds(5f);
-        if(impact != null)
-        {
-            PhotonNetwork.Destroy(impact);
+            RImage();
         }
     }
 }
