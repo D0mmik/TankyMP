@@ -96,7 +96,7 @@ public class Load : MonoBehaviourPunCallbacks
     }
     
 
-   private void LoadAll(int armorNumber, int colorNumber, int weaponNumber)
+   public void LoadAll(int armorNumber, int colorNumber, int weaponNumber)
    {
        
         foreach( var item in Armor)
@@ -104,7 +104,8 @@ public class Load : MonoBehaviourPunCallbacks
 
         Armor[armorNumber].SetActive(true);
         CurrentArmor = armorNumber;
-    
+        
+        meshRenderer = Tank.GetComponent<MeshRenderer>();
         meshRenderer.material = Color[colorNumber];
         CurrentColor = colorNumber;
 

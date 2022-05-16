@@ -768,8 +768,6 @@ MonoBehaviour:
   CanShoot: 1
   ReloadImage: {fileID: 3076082420747000392}
   DamageText: {fileID: 3053851357338620731}
-  ProjectileShooting: 0
-  Bullet: {fileID: 3486810703062192602, guid: 3c95037dfc47ce54785ae2e1a6dc6bfc, type: 3}
 --- !u!1 &965024012333081950
 GameObject:
   m_ObjectHideFlags: 0
@@ -890,7 +888,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PauseMenuGO: {fileID: 7180012111654329514}
   Configurator: {fileID: 812371420975755000}
-  ChangerIG: {fileID: 4407849278147185370}
 --- !u!1 &1012409087443246799
 GameObject:
   m_ObjectHideFlags: 0
@@ -2351,8 +2348,6 @@ MonoBehaviour:
   CanShoot: 1
   ReloadImage: {fileID: 3076082420747000392}
   DamageText: {fileID: 3053851357338620731}
-  ProjectileShooting: 0
-  Bullet: {fileID: 3486810703062192602, guid: 3c95037dfc47ce54785ae2e1a6dc6bfc, type: 3}
 --- !u!1 &2124638910372973443
 GameObject:
   m_ObjectHideFlags: 0
@@ -3996,7 +3991,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Tower: {fileID: 55738622162123944}
   Speed: 1000
-  PauseMenu: {fileID: 8175321513431101957}
 --- !u!114 &555285227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4065,7 +4059,6 @@ MonoBehaviour:
   CurrentArmor: 0
   CurrentColor: 0
   CurrentWeapon: 0
-  OneBarrelGO: {fileID: 0}
 --- !u!114 &4896247088695144566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4147,7 +4140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 35
   flySpeed: 5
-  GroundDrag: 6
+  groundDrag: 6
   AirDrag: 2
   AirMovement: 0.4
 --- !u!65 &4725279069937516764
@@ -4844,8 +4837,6 @@ MonoBehaviour:
   CanShoot: 1
   ReloadImage: {fileID: 3076082420747000392}
   DamageText: {fileID: 3053851357338620731}
-  ProjectileShooting: 0
-  Bullet: {fileID: 3486810703062192602, guid: 3c95037dfc47ce54785ae2e1a6dc6bfc, type: 3}
 --- !u!1 &4213698384967133003
 GameObject:
   m_ObjectHideFlags: 0
@@ -8287,8 +8278,6 @@ MonoBehaviour:
   CanShoot: 1
   ReloadImage: {fileID: 3076082420747000392}
   DamageText: {fileID: 3053851357338620731}
-  ProjectileShooting: 0
-  Bullet: {fileID: 3486810703062192602, guid: 3c95037dfc47ce54785ae2e1a6dc6bfc, type: 3}
 --- !u!1 &6969609784597922634
 GameObject:
   m_ObjectHideFlags: 0
