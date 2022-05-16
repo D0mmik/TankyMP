@@ -17,11 +17,11 @@ public class ProgressBar : MonoBehaviourPunCallbacks
 
     public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
     {
-        if(propertiesThatChanged.TryGetValue(("Score"), out object data))
-        {
-            value = (float)data;
-            Bar.fillAmount = value / 20;
-        } 
+        if (!propertiesThatChanged.TryGetValue(("Score"), out object data)) 
+            return;
+        
+        value = (float)data;
+        Bar.fillAmount = value / 20;
     }
 
 }

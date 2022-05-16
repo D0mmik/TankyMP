@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class RoomManager : MonoBehaviourPunCallbacks
 {
     public static RoomManager S_RoomManager;
-    private GameObject playerManager;
     void Awake()
     {
         if(S_RoomManager)
@@ -33,6 +32,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
         if(scene.buildIndex != 1)
             return;
         
-        playerManager = PhotonNetwork.Instantiate("PlayerManager", Vector3.zero, Quaternion.identity);
+        GameObject playerManager = PhotonNetwork.Instantiate("PlayerManager", Vector3.zero, Quaternion.identity);
     }
 }

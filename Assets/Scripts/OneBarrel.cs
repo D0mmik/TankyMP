@@ -18,9 +18,7 @@ public class OneBarrel : Gun
     public bool CanShoot = true;
     public Image ReloadImage;
     public TMP_Text DamageText;
-
-    public bool ProjectileShooting = false;
-    public Bullet Bullet;
+    
     private float shootCycles;
     private bool shootingProjectiles;
     private float timer2;
@@ -92,18 +90,19 @@ public class OneBarrel : Gun
             if(ReloadImage == null) 
                 return;
 
-        RImage();
-        }
-        if(CanShoot && GunInfo.Projectile)
-        {
-            shootCycles = 0;
-            shootingProjectiles = true;
-            Reload = 0;
-
-            if(ReloadImage == null) 
-                return;
-
             RImage();
         }
+
+        if (!CanShoot || !GunInfo.Projectile)
+            return;
+        
+        shootCycles = 0;
+        shootingProjectiles = true;
+        Reload = 0;
+
+        if(ReloadImage == null) 
+            return;
+
+        RImage();
     }
 }

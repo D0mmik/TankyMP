@@ -16,7 +16,6 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject loading;
     [SerializeField] private GameObject uiButtons;
     [SerializeField] private MenuManager menuManager;
-    [SerializeField] private GameObject joinLobby;
     [SerializeField] private Transform roomListContent;
     [SerializeField] private GameObject roomListPrefab;
     [SerializeField] private Transform playerListContent;
@@ -125,12 +124,12 @@ public class Launcher : MonoBehaviourPunCallbacks
         PhotonNetwork.LeaveRoom();
         menuManager.CloseWindows();
         loading.SetActive(true);
-        foreach(Transform transform in playerListContent)
+        foreach(Transform transform1 in playerListContent)
             Destroy(transform.gameObject);
     }
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
-        foreach(Transform transform in roomListContent)
+        foreach(Transform transform1 in roomListContent)
             Destroy(transform.gameObject);
             
         for(int i = 0; i < roomList.Count; i++)

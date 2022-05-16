@@ -9,7 +9,7 @@ public class RotateTower : MonoBehaviourPun
     private float mouseX;
     public float Speed = 1000f;
     private float yRot;
-    public PauseMenu PauseMenu;
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;

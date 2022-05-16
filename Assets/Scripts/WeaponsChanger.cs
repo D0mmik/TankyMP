@@ -7,7 +7,6 @@ public class WeaponsChanger : MonoBehaviour
 {
     public GameObject[] Weapons;
     public ButtonsPrefab Buttons;
-    public GameObject CurrentClone;
     public int CurrentWeapon;
 
     void Start()

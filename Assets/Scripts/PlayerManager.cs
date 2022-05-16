@@ -7,7 +7,7 @@ using System.Linq;
 public class PlayerManager : MonoBehaviourPun
 {
     [SerializeField] private Transform[] spawnpoints;
-    private int i = 0;
+    private int i;
     private GameObject controller;
     void Start()
     {

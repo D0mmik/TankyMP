@@ -58,7 +58,7 @@ public class AI : MonoBehaviourPun
             randomTargetNumber = Random.Range(0,OpponentTarget.Count);
             RandomTarget = OpponentTarget[randomTargetNumber];
         }     
-    navMeshAgent.destination = RandomTarget.transform.position;
+        navMeshAgent.destination = RandomTarget.transform.position;
     
 
         timer += Time.deltaTime % 60;

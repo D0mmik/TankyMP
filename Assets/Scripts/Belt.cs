@@ -47,7 +47,7 @@ public class Belt : MonoBehaviourPun
         horizontal = Input.GetAxis("Horizontal");
     
         moveDirection = transform.forward * vertical;
-        transform.Rotate(Vector3.up * 100 * horizontal * Time.deltaTime);
+        transform.Rotate(horizontal * 100 * Time.deltaTime * Vector3.up);
         
     }
 
@@ -56,8 +56,8 @@ public class Belt : MonoBehaviourPun
         if(!photonView.IsMine)
             return;
 
-        Vector3 groundedSpeed = moveDirection.normalized * speed;
-        Vector3 airSpeed = groundedSpeed * AirMovement;
+        var groundedSpeed = moveDirection.normalized * speed;
+        var airSpeed = groundedSpeed * AirMovement;
         
         rb.AddForce(isGrounded ? groundedSpeed : airSpeed, ForceMode.Acceleration);
     }

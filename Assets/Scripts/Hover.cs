@@ -39,7 +39,7 @@ public class Hover : MonoBehaviourPun
         
         vertical = Input.GetAxis("Vertical");
         horizontal = Input.GetAxis("Horizontal");
-        transform.Rotate(Vector3.up * 100 * horizontal * Time.deltaTime);
+        transform.Rotate(100 * horizontal * Time.deltaTime * Vector3.up);
         
     }
     void FixedUpdate()
@@ -53,12 +53,12 @@ public class Hover : MonoBehaviourPun
     {
         if(!photonView.IsMine)
             return;
-        if(Physics.Raycast(forcePoint.position, -forcePoint.up, out hit))
-        {
-            float force = 0;
-            force = Mathf.Abs(1 /(hit.point.y - transform.position.y));
-            rb.AddForceAtPosition(transform.up * force * 2.5f, forcePoint.position, ForceMode.Acceleration);
-        }
+        if (!Physics.Raycast(forcePoint.position, -forcePoint.up, out hit)) 
+            return;
+        
+        float force = 0;
+        force = Mathf.Abs(1 /(hit.point.y - transform.position.y));
+        rb.AddForceAtPosition(force * 2.5f * transform.up, forcePoint.position, ForceMode.Acceleration);
 
     }
 }

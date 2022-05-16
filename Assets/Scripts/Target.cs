@@ -23,15 +23,16 @@ public class Target : MonoBehaviourPun
         if(!photonView.IsMine)
             return;
         
-        if(!instagib)
+        switch (instagib)
         {
-            Health = MaxHealth;
-            HealthBar.fillAmount = Health / MaxHealth;
-        }
-        if(instagib)
-        {
-            Health = 1;
-            MaxHealth = 1;
+            case false:
+                Health = MaxHealth;
+                HealthBar.fillAmount = Health / MaxHealth;
+                break;
+            case true:
+                Health = 1;
+                MaxHealth = 1;
+                break;
         }
     }
     void Update()

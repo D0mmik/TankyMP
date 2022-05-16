@@ -8,7 +8,6 @@ public class PauseMenu : MonoBehaviourPun
 {
     public GameObject PauseMenuGO;
     public Configurator Configurator;
-    public ChangerIG ChangerIG;
     private bool randomizer;
     void Start()
     {

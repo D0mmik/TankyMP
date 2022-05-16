@@ -53,9 +53,18 @@ public class Movements : MonoBehaviourPunCallbacks
         if(randomizer && !instagib)
         {
             randomMovement = Random.Range(1, 4);
-            if(randomMovement == 1){BeltActive = true;}
-            if(randomMovement == 2){FlyActive = true;}
-            if(randomMovement == 3){HoverActive = true;}
+            switch (randomMovement)
+            {
+                case 1:
+                    BeltActive = true;
+                    break;
+                case 2:
+                    FlyActive = true;
+                    break;
+                case 3:
+                    HoverActive = true;
+                    break;
+            }
         }
         if(instagib)
             HoverActive = true;
@@ -85,7 +94,7 @@ public class Movements : MonoBehaviourPunCallbacks
         }
     }
 
-    public void TurnOffMovements()
+    private void TurnOffMovements()
     {
         belt.enabled = false;
         hover.enabled = false;

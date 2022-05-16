@@ -42,17 +42,19 @@ public class ChangerIG : MonoBehaviourPun
                    name: $"{name}{index}",
                    callback: () => onClick(index));
     }
-    public void DoWeapon(int index)
+
+    private void DoWeapon(int index)
     {  
         if(!photonView.IsMine)
             return;
         if(index < 0 || index > Load.Weapons.Length)
             return;
-            CurrentWeapon = index;
+        CurrentWeapon = index;
         SaveProperty("weapon", index); 
         
     }
-    public void DoArmor(int index)
+
+    private void DoArmor(int index)
     {
         if(!photonView.IsMine)
             return;
@@ -63,7 +65,8 @@ public class ChangerIG : MonoBehaviourPun
         SaveProperty("armor", index); 
         
     }
-    public void DoColor(int index)
+
+    private void DoColor(int index)
     {
         if(!photonView.IsMine)
             return;

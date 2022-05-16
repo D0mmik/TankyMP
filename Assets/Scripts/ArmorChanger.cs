@@ -9,8 +9,7 @@ public class ArmorChanger : MonoBehaviour
     public GameObject[] Armors;
     public ButtonsPrefab Buttons;
     public int CurrentArmor;
-
-
+    
     void Start()
     {
         for(int i = 0; i < Armors.Length; i++)     

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
@@ -49,7 +48,7 @@ public class CapturePoint : MonoBehaviourPunCallbacks
         if(!photonView.IsMine)
             return;
 
-        if(other.gameObject.tag == "CapturePoint")
+        if(other.gameObject.CompareTag("CapturePoint"))
         {
             score = 0;
             capturing = true;
@@ -62,12 +61,12 @@ public class CapturePoint : MonoBehaviourPunCallbacks
         if(!photonView.IsMine)
             return;
 
-        if(other.gameObject.tag == "CapturePoint")
-        {
-            capturing = false;
-            hashtable["Counting"] = false;
-            PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable); 
-        }
+        if (!other.gameObject.CompareTag("CapturePoint")) 
+            return;
+        
+        capturing = false;
+        hashtable["Counting"] = false;
+        PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable);
     }
     void Update()
     {

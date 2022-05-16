@@ -21,47 +21,47 @@ public class Load : MonoBehaviourPunCallbacks
    private int randomWeapon;
    private bool randomizer;
    private bool instagib;
-   public GameObject OneBarrelGO;
-
+   private MeshRenderer meshRenderer;
 
 
    void Start()
    {
+       meshRenderer = Tank.GetComponent<MeshRenderer>();
        randomizer = GameModes.S_Randomizer;
        instagib = GameModes.S_Instagib;
        
        if(!photonView.IsMine)
             return;
 
-        if(!randomizer)
-        {
+       if(!randomizer)
+       {
             if(!instagib)
                 LoadAll(PlayerPrefs.GetInt("armor"),PlayerPrefs.GetInt("color"),PlayerPrefs.GetInt("weapon"));
             else if(instagib)
                 LoadAll(PlayerPrefs.GetInt("armor"),PlayerPrefs.GetInt("color"),0);
 
-        }
-        if(randomizer)
+       }
+       if(randomizer)
             RandomSpawn();       
    }
-   public void RandomSpawn()
+   private void RandomSpawn()
    {
        if(!photonView.IsMine)
             return;
         
-        randomArmor = Random.Range(0,Armor.Length);
-        randomColor = Random.Range(0,Color.Length);
-        if(!instagib)
+       randomArmor = Random.Range(0,Armor.Length);
+       randomColor = Random.Range(0,Color.Length);
+       if(!instagib)
             randomWeapon = Random.Range(0, Weapons.Length);
-        else if(instagib)
-            randomWeapon = 0;
+       else if(instagib) 
+           randomWeapon = 0;
 
-        PlayerPrefs.SetInt("armor", randomArmor); 
-        PlayerPrefs.SetInt("color", randomColor);
-        PlayerPrefs.SetInt("weapon", randomWeapon);
-        LoadAll(randomArmor,randomColor,randomWeapon);
+       PlayerPrefs.SetInt("armor", randomArmor); 
+       PlayerPrefs.SetInt("color", randomColor);
+       PlayerPrefs.SetInt("weapon", randomWeapon);
+       LoadAll(randomArmor,randomColor,randomWeapon);
                
-        StartCoroutine(WaitForUpdate());
+       StartCoroutine(WaitForUpdate());
         
    }
    IEnumerator WaitForUpdate()
@@ -73,12 +73,12 @@ public class Load : MonoBehaviourPunCallbacks
    public void UpdateConfig()
    {
        if(!photonView.IsMine)
-            return;
-
-        if(!randomizer)
-            LoadAll(PlayerPrefs.GetInt("armor"),PlayerPrefs.GetInt("color"),PlayerPrefs.GetInt("weapon"));
-        else if(randomizer)
-            LoadAll(randomArmor,randomColor,randomWeapon);
+           return;
+       
+       if(!randomizer) 
+           LoadAll(PlayerPrefs.GetInt("armor"),PlayerPrefs.GetInt("color"),PlayerPrefs.GetInt("weapon"));
+       else if(randomizer)
+           LoadAll(randomArmor,randomColor,randomWeapon);
    }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
@@ -91,12 +91,12 @@ public class Load : MonoBehaviourPunCallbacks
        if(!changedProps.ContainsKey("armor") || !changedProps.ContainsKey("color") || !changedProps.ContainsKey("weapon"))   
             return;
         
-        if(!photonView.IsMine && targetPlayer == photonView.Owner)
-            LoadAll((int)changedProps["armor"],(int)changedProps["color"],(int)changedProps["weapon"]);
+       if(!photonView.IsMine && Equals(targetPlayer, photonView.Owner))
+           LoadAll((int)changedProps["armor"],(int)changedProps["color"],(int)changedProps["weapon"]);
     }
     
 
-   public void LoadAll(int armorNumber, int colorNumber, int weaponNumber)
+   private void LoadAll(int armorNumber, int colorNumber, int weaponNumber)
    {
        
         foreach( var item in Armor)
@@ -105,7 +105,7 @@ public class Load : MonoBehaviourPunCallbacks
         Armor[armorNumber].SetActive(true);
         CurrentArmor = armorNumber;
     
-        Tank.GetComponent<MeshRenderer>().material = Color[colorNumber];
+        meshRenderer.material = Color[colorNumber];
         CurrentColor = colorNumber;
 
         foreach( var item in Weapons)

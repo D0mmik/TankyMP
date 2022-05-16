@@ -38,34 +38,37 @@ public class Scope : MonoBehaviourPun
         
         if(Input.GetMouseButtonDown(1) && !S_Scoped && !PlayerLeave.Paused)
         {
-            transform.position = ShootPoint.transform.position;
-            transform.rotation = ShootPoint.transform.rotation;
+            Transform transform1 = transform;
+            transform1.position = ShootPoint.transform.position;
+            transform1.rotation = ShootPoint.transform.rotation;
             S_Scoped = true;
             Crosshair.SetActive(true);
         }
         else if(Input.GetMouseButtonDown(1) && S_Scoped)
         {
-            transform.position = CameraPoint.transform.position;
-            transform.rotation = CameraPoint.transform.rotation;
+            Transform transform1 = transform;
+            transform1.position = CameraPoint.transform.position;
+            transform1.rotation = CameraPoint.transform.rotation;
             S_Scoped = false;
             Crosshair.SetActive(false);
         }
         
         
-        if(S_Scoped)
+        switch (S_Scoped)
         {
-            mouseWheel = Input.GetAxis("Mouse ScrollWheel") * ScrollSensitivity * Time.deltaTime * 50;
-            TargetZoom = TargetZoom -= mouseWheel;   
+            case true:
+                mouseWheel = Input.GetAxis("Mouse ScrollWheel") * ScrollSensitivity * Time.deltaTime * 50;
+                TargetZoom = TargetZoom -= mouseWheel;   
 
-            mouseY = Input.GetAxis("Mouse Y") * Speed * Time.deltaTime;
-            VerticalWH = VerticalWH -= mouseY;
+                mouseY = Input.GetAxis("Mouse Y") * Speed * Time.deltaTime;
+                VerticalWH = VerticalWH -= mouseY;
+                break;
+            case false:
+                TargetZoom = 60;
+                VerticalWH = 0;
+                break;
+        }
 
-        }
-        if(!S_Scoped)
-        {
-            TargetZoom = 60;
-            VerticalWH = 0;
-        }
         MainCam.fieldOfView = Mathf.MoveTowards(MainCam.fieldOfView, TargetZoom, 60 * Time.deltaTime);
 
         if(MainCam.fieldOfView >= FOVMax)

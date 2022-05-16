@@ -82,7 +82,7 @@ public class MenuManager : MonoBehaviour
     {
         CloseWindows();
     }
-    public void quit()
+    public void Quit()
     {
         Application.Quit();
     }

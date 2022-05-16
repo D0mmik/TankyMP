@@ -17,7 +17,7 @@ public class PlayerListPrefab : MonoBehaviourPunCallbacks
     }
     public override void OnPlayerLeftRoom(Player leftPlayer)
     {
-        if(player != leftPlayer)
+        if(!Equals(player, leftPlayer))
             return;
         
         Destroy(gameObject);

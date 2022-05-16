@@ -12,10 +12,11 @@ public class Configurator : MonoBehaviour
         foreach( var item in windows)
             item.SetActive(false);
     }
-    public void ToggleWindow(string nameOfWindow)
+
+    private void ToggleWindow(string nameOfWindow)
     {
         CloseWindows();
-        windows.SingleOrDefault((x)=> x.name == nameOfWindow).SetActive(true);
+        windows.SingleOrDefault((x)=> x.name == nameOfWindow)?.SetActive(true);
     }
     public void WeaponsButton()
     {

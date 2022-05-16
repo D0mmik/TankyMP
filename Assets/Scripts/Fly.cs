@@ -12,7 +12,7 @@ public class Fly : MonoBehaviourPun
     private float vertical;
     private Vector3 moveDirection;
     private bool isGrounded;
-    public float GroundDrag = 6f;
+    [SerializeField] private float groundDrag = 6f;
     public float AirDrag = 2f;
     public float AirMovement = 0.4f;
     
@@ -50,11 +50,11 @@ public class Fly : MonoBehaviourPun
         
         isGrounded = Physics.Raycast(transform.position, Vector3.down,0.01f);
 
-        rb.drag = isGrounded ? GroundDrag : AirDrag;
+        rb.drag = isGrounded ? groundDrag : AirDrag;
 
         moveDirection = transform.forward * vertical;
         
-        transform.Rotate(Vector3.up * 100 * horizontal * Time.deltaTime);    
+        transform.Rotate(100 * horizontal * Time.deltaTime * Vector3.up);    
         
     }
     void FixedUpdate()
@@ -62,8 +62,8 @@ public class Fly : MonoBehaviourPun
         if(!photonView.IsMine)
             return;
 
-        Vector3 groundSpeed = moveDirection.normalized * speed;
-        Vector3 airSpeed = groundSpeed * AirMovement;
+        var groundSpeed = moveDirection.normalized * speed;
+        var airSpeed = groundSpeed * AirMovement;
 
         rb.AddForce(isGrounded ? groundSpeed : airSpeed, ForceMode.Acceleration);
 

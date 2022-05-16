@@ -17,7 +17,8 @@ public class Language : MonoBehaviour
         StartCoroutine(ChangeLanguage(1));
         selectedlanguage = "en";
     }
-    public IEnumerator ChangeLanguage(int languageIndex)
+
+    private IEnumerator ChangeLanguage(int languageIndex)
     {
         yield return LocalizationSettings.InitializationOperation;
         LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[languageIndex];
