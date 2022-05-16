@@ -50,6 +50,7 @@ public class Belt : MonoBehaviourPun
         transform.Rotate(Vector3.up * 100 * horizontal * Time.deltaTime);
         
     }
+
     void FixedUpdate()
     {
         if(!photonView.IsMine)
@@ -59,7 +60,5 @@ public class Belt : MonoBehaviourPun
         Vector3 airSpeed = groundedSpeed * AirMovement;
         
         rb.AddForce(isGrounded ? groundedSpeed : airSpeed, ForceMode.Acceleration);
-        
-        
     }
 }

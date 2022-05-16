@@ -101,11 +101,12 @@ public class AI : MonoBehaviourPun
 
         if(Physics.Raycast(ShootPoint.position, ShootPoint.forward, out hit, range))
         {
-            if(hit.transform != null)
-            {
-                hit.transform.GetComponent<AI>()?.TakeDamage(30f);
-                hit.transform.GetComponent<Target>()?.TakeDamage(30f);
-            }
+            if(hit.transform == null)
+                return;
+            
+            hit.transform.GetComponent<AI>()?.TakeDamage(30f);
+            hit.transform.GetComponent<Target>()?.TakeDamage(30f);
+            
         }
         reload = 0;
     }

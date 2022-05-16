@@ -13,11 +13,10 @@ public class ArmorChanger : MonoBehaviour
 
     void Start()
     {
-
         for(int i = 0; i < Armors.Length; i++)     
-            SpawnButton(i, (index)=> DoArmor(index), "ARMOR", transform);   
-        
+            SpawnButton(i, (index)=> DoArmor(index), "ARMOR", transform); 
     }
+
     void SpawnButton(int index, Action<int> onClick, string name, Transform parent)
     {
         var button = Instantiate(Buttons, transform);
@@ -25,15 +24,15 @@ public class ArmorChanger : MonoBehaviour
                    name: $"{name}{index}",
                    callback: () => onClick(index));
     }
+
     public void DoArmor(int index)
     {  
         if(index < 0 || index > Armors.Length)      
             return;
         
         foreach( var item in Armors)
-        {
             item.SetActive(false);
-        }
+            
         Armors[index].SetActive(true);
         CurrentArmor = index;
     }
