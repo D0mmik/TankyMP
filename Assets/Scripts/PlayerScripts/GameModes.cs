@@ -1,0 +1,16 @@
+using Photon.Pun;
+
+namespace PlayerScripts
+{
+    public class GameModes : MonoBehaviourPun
+    {
+        public static bool S_Instagib;
+        public static bool S_Randomizer;
+
+        private void Awake()
+        {
+            S_Instagib = (bool)PhotonNetwork.CurrentRoom.CustomProperties["Instagib"];
+            S_Randomizer = (bool)PhotonNetwork.CurrentRoom.CustomProperties["Randomizer"];   
+        }
+    }
+}

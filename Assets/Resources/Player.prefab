@@ -4277,8 +4277,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Movements, Assembly-CSharp
+      - m_Target: {fileID: 3254485457666341750}
+        m_TargetAssemblyTypeName: PlayerScripts.Movements, Assembly-CSharp
         m_MethodName: EnableHover
         m_Mode: 1
         m_Arguments:
@@ -6476,8 +6476,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Movements, Assembly-CSharp
+      - m_Target: {fileID: 3254485457666341750}
+        m_TargetAssemblyTypeName: PlayerScripts.Movements, Assembly-CSharp
         m_MethodName: AiMinus
         m_Mode: 1
         m_Arguments:
@@ -6609,8 +6609,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Movements, Assembly-CSharp
+      - m_Target: {fileID: 3254485457666341750}
+        m_TargetAssemblyTypeName: PlayerScripts.Movements, Assembly-CSharp
         m_MethodName: AiPlus
         m_Mode: 1
         m_Arguments:
@@ -8399,8 +8399,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Movements, Assembly-CSharp
+      - m_Target: {fileID: 3254485457666341750}
+        m_TargetAssemblyTypeName: PlayerScripts.Movements, Assembly-CSharp
         m_MethodName: EnableBelt
         m_Mode: 1
         m_Arguments:
@@ -9151,8 +9151,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Movements, Assembly-CSharp
+      - m_Target: {fileID: 3254485457666341750}
+        m_TargetAssemblyTypeName: PlayerScripts.Movements, Assembly-CSharp
         m_MethodName: EnableFly
         m_Mode: 1
         m_Arguments:
