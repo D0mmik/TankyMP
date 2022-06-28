@@ -9,20 +9,20 @@ namespace ShootingScripts
     public class OneBarrel : Gun
     {
         public Transform ShootPoint;
-        private RaycastHit hit;
-        private float _range = 1000f;
-        private Target _target;
-        private GameObject _impact;
+        RaycastHit hit;
+        float range = 1000f;
+        Target target;
+        GameObject impact;
 
-        private float _timer;
+        float timer;
         public float Reload;
         public bool CanShoot = true;
         public Image ReloadImage;
         public TMP_Text DamageText;
     
-        private float _shootCycles;
-        private bool _shootingProjectiles;
-        private float _timer2;
+        float shootCycles;
+        bool shootingProjectiles;
+        float timer2;
 
         public override void Use()
         {
@@ -43,10 +43,10 @@ namespace ShootingScripts
 
         void Update()
         {
-            _timer += Time.deltaTime % 60;
-            _timer2 += Time.deltaTime % 60;
+            timer += Time.deltaTime % 60;
+            timer2 += Time.deltaTime % 60;
 
-            if(_timer >= 1)
+            if(timer >= 1)
             {
                 Reload++;
 
@@ -54,7 +54,7 @@ namespace ShootingScripts
                     return;
 
                 RImage();
-                _timer = 0;
+                timer = 0;
             }
 
             if(Reload < GunInfo.ReloadTime)
@@ -62,24 +62,24 @@ namespace ShootingScripts
             else if(Reload == GunInfo.ReloadTime)
                 CanShoot = true;
 
-            if(_shootCycles < GunInfo.Bullets && _shootingProjectiles)
+            if(shootCycles < GunInfo.Bullets && shootingProjectiles)
             {
-                if(_timer2 >= 0.25f)
+                if(timer2 >= 0.25f)
                 {
                     GameObject ball =  PhotonNetwork.Instantiate("ball", ShootPoint.position, Quaternion.identity);
                     ball.GetComponent<Rigidbody>().AddForce(transform.forward * 125,ForceMode.Impulse);
-                    _shootCycles++;
-                    _timer2 = 0;
+                    shootCycles++;
+                    timer2 = 0;
                 }
             }
-            else if(_shootCycles >= GunInfo.Bullets)
-                _shootingProjectiles = false;
+            else if(shootCycles >= GunInfo.Bullets)
+                shootingProjectiles = false;
         }
         public void Shoot()
         {
             if(CanShoot && !GunInfo.Projectile)
             {
-                if(Physics.Raycast(ShootPoint.position, ShootPoint.forward, out hit, _range))
+                if(Physics.Raycast(ShootPoint.position, ShootPoint.forward, out hit, range))
                 {
                     if(hit.transform != null)
                     {
@@ -97,8 +97,8 @@ namespace ShootingScripts
             if (!CanShoot || !GunInfo.Projectile)
                 return;
         
-            _shootCycles = 0;
-            _shootingProjectiles = true;
+            shootCycles = 0;
+            shootingProjectiles = true;
             Reload = 0;
 
             if(ReloadImage == null) 

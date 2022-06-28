@@ -1,4 +1,5 @@
 using Photon.Pun;
+using UnityEngine;
 using UnityEngine.UI;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
@@ -6,8 +7,7 @@ namespace CapturePoint
 {
     public class ProgressBar : MonoBehaviourPunCallbacks
     {
-        public Image Bar;
-        private float _value;
+        [SerializeField] private Image Bar;
         void Start()
         {
             Bar.fillAmount = 0;
@@ -18,8 +18,8 @@ namespace CapturePoint
             if (!propertiesThatChanged.TryGetValue(("Score"), out var data)) 
                 return;
         
-            _value = (float)data;
-            Bar.fillAmount = _value / 20;
+            var value = (float)data;
+            Bar.fillAmount = value / 20;
         }
 
     }

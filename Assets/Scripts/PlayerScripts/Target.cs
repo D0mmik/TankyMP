@@ -10,19 +10,19 @@ namespace PlayerScripts
         public float Health = 100;
         public float MaxHealth = 100;
         public Image HealthBar;
-        PlayerManager PlayerManager;
+        PlayerManager playerManager;
         public CapturePoint.CapturePoint CapturePoint;
         public GameObject Armor;
         public bool Armored;
-        private bool _instagib;
+        bool instagib;
         void Start()
         {
-            PlayerManager = PhotonView.Find((int)photonView.InstantiationData[0]).GetComponent<PlayerManager>();
-            _instagib = GameModes.S_Instagib;
+            playerManager = PhotonView.Find((int)photonView.InstantiationData[0]).GetComponent<PlayerManager>();
+            instagib = GameModes.SInstagib;
             if(!photonView.IsMine)
                 return;
         
-            switch (_instagib)
+            switch (instagib)
             {
                 case false:
                     Health = MaxHealth;
@@ -36,7 +36,7 @@ namespace PlayerScripts
         }
         void Update()
         {
-            if(!photonView.IsMine && _instagib)
+            if(!photonView.IsMine && instagib)
                 return;
 
             if(Armor.activeSelf && !Armored)
@@ -82,7 +82,7 @@ namespace PlayerScripts
         {
             CapturePoint.StartScore();
             CapturePoint.CheckPlayers();
-            PlayerManager.Die();
+            playerManager.Die();
         }
     }
 }

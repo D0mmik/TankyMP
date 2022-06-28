@@ -6,8 +6,8 @@ namespace PlayerScripts
 {
     public class ArmorChanger : MonoBehaviour
     {
-        public GameObject[] Armors;
-        public ButtonsPrefab Buttons;
+        [SerializeField] GameObject[] Armors;
+        [SerializeField] ButtonsPrefab Buttons;
         public int CurrentArmor;
     
         void Start()

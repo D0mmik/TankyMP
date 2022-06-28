@@ -11,28 +11,28 @@ namespace PhotonMP
 {
     public class Launcher : MonoBehaviourPunCallbacks
     {
-        [SerializeField] private TMP_Text roomNameIP;
-        [SerializeField] private TMP_Text roomName;
-        [SerializeField] private GameObject loading;
-        [SerializeField] private GameObject uiButtons;
-        [SerializeField] private MenuManager menuManager;
-        [SerializeField] private Transform roomListContent;
-        [SerializeField] private GameObject roomListPrefab;
-        [SerializeField] private Transform playerListContent;
-        [SerializeField] private Transform playerListPrefab;
-        [SerializeField] private Player[] _players;
-        [SerializeField] private GameObject startGameButton;
-        private bool _instagib;
-        [SerializeField] private GameObject checkMarkInstagib;
-        private bool _randomizer;
-        [SerializeField] private GameObject checkMarkRandomizer;
+        [SerializeField] TMP_InputField RoomNameIP;
+        [SerializeField] TMP_Text RoomName;
+        [SerializeField] GameObject Loading;
+        [SerializeField] GameObject UIButtons;
+        [SerializeField] MenuManager MenuManager;
+        [SerializeField] Transform RoomListContent;
+        [SerializeField] GameObject RoomListPrefab;
+        [SerializeField] Transform PlayerListContent;
+        [SerializeField] Transform PlayerListPrefab;
+        Player[] players;
+        [SerializeField] GameObject StartGameButton;
+        bool instagib;
+        [SerializeField] GameObject CheckMarkInstagib;
+        bool randomizer;
+        [SerializeField] GameObject CheckMarkRandomizer;
 
         void Start()
         {
-            loading.SetActive(true);
-            uiButtons.SetActive(false);
-            checkMarkInstagib.SetActive(false);
-            checkMarkRandomizer.SetActive(false);
+            Loading.SetActive(true);
+            UIButtons.SetActive(false);
+            CheckMarkInstagib.SetActive(false);
+            CheckMarkRandomizer.SetActive(false);
             Debug.Log("Connecting");
             if(PhotonNetwork.IsConnected)
                 return;   
@@ -41,28 +41,28 @@ namespace PhotonMP
         }
         void Update()
         {
-            if(!uiButtons.activeSelf)
+            if(!UIButtons.activeSelf)
                 return;
-            loading.SetActive(false);
+            Loading.SetActive(false);
 
         }
         public void InstagibButton()
         {
-            if(!_instagib)
-                _instagib = true;
-            else if(_instagib)
-                _instagib = false;
+            if(!instagib)
+                instagib = true;
+            else if(instagib)
+                instagib = false;
 
-            checkMarkInstagib.SetActive(_instagib);
+            CheckMarkInstagib.SetActive(instagib);
         }
         public void RandomizerButton()
         {
-            if(!_randomizer)
-                _randomizer = true;
-            else if(_randomizer)
-                _randomizer = false;
+            if(!randomizer)
+                randomizer = true;
+            else if(randomizer)
+                randomizer = false;
 
-            checkMarkRandomizer.SetActive(_randomizer);
+            CheckMarkRandomizer.SetActive(randomizer);
         }
 
         public override void OnConnectedToMaster()
@@ -74,46 +74,46 @@ namespace PhotonMP
 
         public override void OnJoinedLobby()
         {
-            uiButtons.SetActive(true);
-            loading.SetActive(false);
+            UIButtons.SetActive(true);
+            Loading.SetActive(false);
             Debug.Log("Joined Lobby");
         }
     
 
         public void CreateRoom()
         {
-            if(string.IsNullOrEmpty(roomNameIP.text))
+            if(string.IsNullOrEmpty(RoomNameIP.text))
                 return;
         
             RoomOptions roomOptions = new RoomOptions();
             Hashtable hash = new Hashtable();
-            hash["Instagib"] = _instagib;
-            hash["Randomizer"] = _randomizer;
+            hash["Instagib"] = instagib;
+            hash["Randomizer"] = randomizer;
             roomOptions.CustomRoomProperties = hash;
-            PhotonNetwork.CreateRoom(roomNameIP.text, roomOptions);
-            menuManager.CloseWindows();
-            menuManager.PlayMenu.SetActive(false);
-            loading.SetActive(true);
+            PhotonNetwork.CreateRoom(RoomNameIP.text, roomOptions);
+            MenuManager.CloseWindows();
+            MenuManager.PlayMenu.SetActive(false);
+            Loading.SetActive(true);
         }
         public override void OnJoinedRoom()
         {
-            loading.SetActive(false);
-            menuManager.ToggleWindow("RoomMenu");
-            loading.SetActive(false);
-            roomName.text = PhotonNetwork.CurrentRoom.Name;
-            _players = PhotonNetwork.PlayerList;
-            for(int i = 0; i < _players.Count(); i++)
-                Instantiate(playerListPrefab, playerListContent).GetComponent<PlayerListPrefab>().OnStart(_players[i]);
+            Loading.SetActive(false);
+            MenuManager.ToggleWindow("RoomMenu");
+            Loading.SetActive(false);
+            RoomName.text = PhotonNetwork.CurrentRoom.Name;
+            players = PhotonNetwork.PlayerList;
+            for(int i = 0; i < players.Count(); i++)
+                Instantiate(PlayerListPrefab, PlayerListContent).GetComponent<PlayerListPrefab>().OnStart(players[i]);
 
-            startGameButton.SetActive(PhotonNetwork.IsMasterClient);
+            StartGameButton.SetActive(PhotonNetwork.IsMasterClient);
         }
         public override void OnMasterClientSwitched(Player newMasterClient)
         {
-            startGameButton.SetActive(PhotonNetwork.IsMasterClient);
+            StartGameButton.SetActive(PhotonNetwork.IsMasterClient);
         }
         public override void OnJoinRoomFailed(short returnCode, string message)
         {
-            menuManager.ToggleWindow("ErrorMenu");
+            MenuManager.ToggleWindow("ErrorMenu");
         }
         public void StartGame()
         {
@@ -122,14 +122,14 @@ namespace PhotonMP
         public void LeaveRoom()
         {
             PhotonNetwork.LeaveRoom();
-            menuManager.CloseWindows();
-            loading.SetActive(true);
-            foreach(Transform transform1 in playerListContent)
+            MenuManager.CloseWindows();
+            Loading.SetActive(true);
+            foreach(Transform transform1 in PlayerListContent)
                 Destroy(transform.gameObject);
         }
         public override void OnRoomListUpdate(List<RoomInfo> roomList)
         {
-            foreach(Transform transform1 in roomListContent)
+            foreach(Transform transform1 in RoomListContent)
                 Destroy(transform.gameObject);
             
             for(int i = 0; i < roomList.Count; i++)
@@ -137,12 +137,12 @@ namespace PhotonMP
                 if(roomList[i].RemovedFromList)
                     continue;
             
-                Instantiate(roomListPrefab, roomListContent).GetComponent<RoomPrefab>().OnStart(roomList[i]);
+                Instantiate(RoomListPrefab, RoomListContent).GetComponent<RoomPrefab>().OnStart(roomList[i]);
             }
         }
         public override void OnPlayerEnteredRoom(Player newPlayer)
         {
-            Instantiate(playerListPrefab, playerListContent).GetComponent<PlayerListPrefab>().OnStart(newPlayer);
+            Instantiate(PlayerListPrefab, PlayerListContent).GetComponent<PlayerListPrefab>().OnStart(newPlayer);
         }
     }
 }

@@ -7,17 +7,17 @@ namespace PhotonMP
 {
     public class PlayerListPrefab : MonoBehaviourPunCallbacks
     {
-        [SerializeField] private TMP_Text pName;
-        private Player _player;
+        [SerializeField] private TMP_Text PName;
+        private Player player;
     
         public void OnStart(Player player)
         {
-            _player = player;
-            pName.text = _player.NickName;
+            this.player = player;
+            PName.text = this.player.NickName;
         }
         public override void OnPlayerLeftRoom(Player leftPlayer)
         {
-            if(!Equals(_player, leftPlayer))
+            if(!Equals(player, leftPlayer))
                 return;
         
             Destroy(gameObject);

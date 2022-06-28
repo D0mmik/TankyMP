@@ -11,9 +11,8 @@ namespace PhotonMP
             if(!photonView.IsMine)
                 return;
 
-            Destroy(RoomManager.S_RoomManager.gameObject);
+            Destroy(RoomManager.SRoomManager.gameObject);
             PhotonNetwork.LeaveRoom();
-        
         }
         public override void OnPlayerLeftRoom(Player otherPlayer)
         {

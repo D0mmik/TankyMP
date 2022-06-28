@@ -14,26 +14,26 @@ namespace UI
         private bool _randomizer;
         void Start()
         {
-            _randomizer = GameModes.S_Randomizer;
+            _randomizer = GameModes.SRandomizer;
         }
 
         void Update()
         {
-            if(Input.GetKeyDown(KeyCode.Escape) && !PlayerLeave.Paused && !Scope.S_Scoped && !_randomizer)
+            if(Input.GetKeyDown(KeyCode.Escape) && !PlayerLeave.Paused && !Scope.SScoped && !_randomizer)
             {
                 PauseMenuGO.SetActive(false);
                 Configurator.CloseWindows();
                 Cursor.lockState = CursorLockMode.Locked;
             }
-            if(Input.GetKeyDown(KeyCode.Escape) && PlayerLeave.Paused && !Scope.S_Scoped && !_randomizer)
+            if(Input.GetKeyDown(KeyCode.Escape) && PlayerLeave.Paused && !Scope.SScoped && !_randomizer)
             {
                 PauseMenuGO.SetActive(true);
                 Cursor.lockState = CursorLockMode.None;
             }
-            if(Input.GetKeyDown(KeyCode.Escape) && !PlayerLeave.Paused && !Scope.S_Scoped && _randomizer)
+            if(Input.GetKeyDown(KeyCode.Escape) && !PlayerLeave.Paused && !Scope.SScoped && _randomizer)
                 Cursor.lockState = CursorLockMode.Locked;
 
-            if(Input.GetKeyDown(KeyCode.Escape) && PlayerLeave.Paused && !Scope.S_Scoped && _randomizer)
+            if(Input.GetKeyDown(KeyCode.Escape) && PlayerLeave.Paused && !Scope.SScoped && _randomizer)
                 Cursor.lockState = CursorLockMode.None;
 
         }

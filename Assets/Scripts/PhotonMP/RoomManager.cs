@@ -6,16 +6,16 @@ namespace PhotonMP
 {
     public class RoomManager : MonoBehaviourPunCallbacks
     {
-        public static RoomManager S_RoomManager;
+        public static RoomManager SRoomManager;
         void Awake()
         {
-            if(S_RoomManager)
+            if(SRoomManager)
             {
                 Destroy(gameObject);
                 return;
             }
             DontDestroyOnLoad(gameObject);
-            S_RoomManager = this;
+            SRoomManager = this;
         }
         public override void OnEnable()
         {

@@ -17,32 +17,32 @@ namespace Configuration
         public int CurrentArmor;
         public int CurrentColor;
         public int CurrentWeapon;
-        private int _randomArmor;
-        private int _randomColor;
-        private int _randomWeapon;
-        private bool _randomizer;
-        private bool _instagib;
-        private MeshRenderer _meshRenderer;
+        int randomArmor;
+        int randomColor;
+        int randomWeapon;
+        bool randomizer;
+        bool instagib;
+        MeshRenderer meshRenderer;
 
 
         void Start()
         {
-            _meshRenderer = Tank.GetComponent<MeshRenderer>();
-            _randomizer = GameModes.S_Randomizer;
-            _instagib = GameModes.S_Instagib;
+            meshRenderer = Tank.GetComponent<MeshRenderer>();
+            randomizer = GameModes.SRandomizer;
+            instagib = GameModes.SInstagib;
        
             if(!photonView.IsMine)
                 return;
 
-            if(!_randomizer)
+            if(!randomizer)
             {
-                if(!_instagib)
+                if(!instagib)
                     LoadAll(PlayerPrefs.GetInt("armor"),PlayerPrefs.GetInt("color"),PlayerPrefs.GetInt("weapon"));
-                else if(_instagib)
+                else if(instagib)
                     LoadAll(PlayerPrefs.GetInt("armor"),PlayerPrefs.GetInt("color"),0);
 
             }
-            if(_randomizer)
+            if(randomizer)
                 RandomSpawn();       
         }
         private void RandomSpawn()
@@ -50,17 +50,17 @@ namespace Configuration
             if(!photonView.IsMine)
                 return;
         
-            _randomArmor = Random.Range(0,Armor.Length);
-            _randomColor = Random.Range(0,Color.Length);
-            if(!_instagib)
-                _randomWeapon = Random.Range(0, Weapons.Length);
-            else if(_instagib) 
-                _randomWeapon = 0;
+            randomArmor = Random.Range(0,Armor.Length);
+            randomColor = Random.Range(0,Color.Length);
+            if(!instagib)
+                randomWeapon = Random.Range(0, Weapons.Length);
+            else if(instagib) 
+                randomWeapon = 0;
 
-            PlayerPrefs.SetInt("armor", _randomArmor); 
-            PlayerPrefs.SetInt("color", _randomColor);
-            PlayerPrefs.SetInt("weapon", _randomWeapon);
-            LoadAll(_randomArmor,_randomColor,_randomWeapon);
+            PlayerPrefs.SetInt("armor", randomArmor); 
+            PlayerPrefs.SetInt("color", randomColor);
+            PlayerPrefs.SetInt("weapon", randomWeapon);
+            LoadAll(randomArmor,randomColor,randomWeapon);
                
             StartCoroutine(WaitForUpdate());
         
@@ -76,10 +76,10 @@ namespace Configuration
             if(!photonView.IsMine)
                 return;
        
-            if(!_randomizer) 
+            if(!randomizer) 
                 LoadAll(PlayerPrefs.GetInt("armor"),PlayerPrefs.GetInt("color"),PlayerPrefs.GetInt("weapon"));
-            else if(_randomizer)
-                LoadAll(_randomArmor,_randomColor,_randomWeapon);
+            else if(randomizer)
+                LoadAll(randomArmor,randomColor,randomWeapon);
         }
 
         public override void OnPlayerEnteredRoom(Player newPlayer)
@@ -106,8 +106,8 @@ namespace Configuration
             Armor[armorNumber].SetActive(true);
             CurrentArmor = armorNumber;
         
-            _meshRenderer = Tank.GetComponent<MeshRenderer>();
-            _meshRenderer.material = Color[colorNumber];
+            meshRenderer = Tank.GetComponent<MeshRenderer>();
+            meshRenderer.material = Color[colorNumber];
             CurrentColor = colorNumber;
 
             foreach( var item in Weapons)

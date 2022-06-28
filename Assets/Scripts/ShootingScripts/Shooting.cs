@@ -9,8 +9,8 @@ namespace ShootingScripts
     public class Shooting : MonoBehaviourPun
     {
         public Load Load;
-        public PauseMenu pauseMenu;
-        public Item[] guns;
+        public PauseMenu PauseMenu;
+        public Item[] Guns;
 
         void Update()
         { 
@@ -18,7 +18,7 @@ namespace ShootingScripts
                 return;
     
             if(Input.GetMouseButtonDown(0) && !PlayerLeave.Paused)
-                guns[Load.CurrentWeapon].Use();
+                Guns[Load.CurrentWeapon].Use();
         }
     }
 }

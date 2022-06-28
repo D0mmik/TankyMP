@@ -7,17 +7,17 @@ namespace PhotonMP
 {
     public class RoomPrefab : MonoBehaviour
     {
-        [SerializeField] private TMP_Text text;
-        private RoomInfo _info;
+        [SerializeField] TMP_Text RoomName;
+        RoomInfo info;
 
         public void OnStart(RoomInfo info)
         {
-            this._info = info;
-            text.text = this._info.Name;
+            this.info = info;
+            RoomName.text = this.info.Name;
         }
         public void OnClick()
         {
-            PhotonNetwork.JoinRoom(_info.Name);
+            PhotonNetwork.JoinRoom(info.Name);
         }
 
     }

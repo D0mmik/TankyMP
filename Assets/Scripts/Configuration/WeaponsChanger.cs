@@ -6,8 +6,8 @@ namespace Configuration
 {
     public class WeaponsChanger : MonoBehaviour
     {
-        public GameObject[] Weapons;
-        public ButtonsPrefab Buttons;
+        [SerializeField] GameObject[] Weapons;
+        [SerializeField] ButtonsPrefab Buttons;
         public int CurrentWeapon;
 
         void Start()

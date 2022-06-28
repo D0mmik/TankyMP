@@ -6,8 +6,8 @@ namespace UI
 {
     public class MenuManager : MonoBehaviour
     {
-        [SerializeField] private GameObject[] windows;
-        [SerializeField] private GameObject buttons;
+        [SerializeField] GameObject[] Windows;
+        [SerializeField] GameObject Buttons;
         public GameObject PlayMenu;
         public SaveConfig SaveConfig;
         public Language.Language Language;
@@ -19,19 +19,19 @@ namespace UI
         }
         public void CloseWindows()
         {
-            foreach( var item in windows)
+            foreach( var item in Windows)
                 item.SetActive(false);
         }
 
         public void ToggleWindow(string nameOfWindow)
         {
             CloseWindows();
-            windows.Single((x)=> x.name == nameOfWindow).SetActive(true);
+            Windows.Single((x)=> x.name == nameOfWindow).SetActive(true);
         }
         public void PlayButton()
         {
             PlayMenu.SetActive(true);
-            buttons.SetActive(false);
+            Buttons.SetActive(false);
         }
         public void FindRoom()
         {
@@ -49,7 +49,7 @@ namespace UI
         {
             ToggleWindow("ConfiguratorMenu");
             PlayMenu.SetActive(false);
-            buttons.SetActive(false);        
+            Buttons.SetActive(false);        
         }
         public void CloseConfigurator()
         {
@@ -60,23 +60,23 @@ namespace UI
         public void Options()
         {
             ToggleWindow("OptionsMenu");
-            buttons.SetActive(false);
+            Buttons.SetActive(false);
         }
         public void CloseOptions()
         {
             Language.SaveLanguage();
             CloseWindows();
-            buttons.SetActive(true);
+            Buttons.SetActive(true);
         }
         public void CloseNickname()
         {
             CloseWindows();
-            buttons.SetActive(true);
+            Buttons.SetActive(true);
         }
         public void Back()
         {
             PlayMenu.SetActive(false);
-            buttons.SetActive(true);
+            Buttons.SetActive(true);
         }
         public void CloseButton()
         {

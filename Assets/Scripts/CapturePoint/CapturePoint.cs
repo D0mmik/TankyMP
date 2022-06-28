@@ -11,23 +11,24 @@ namespace CapturePoint
 {
     public class CapturePoint : MonoBehaviourPunCallbacks
     {
-        private bool _capturing = false;
-        private bool _canCapture = true;
-        private float _score;
-        public TMP_Text ScoreText;
-        private int _playerCount;
-        private float _timer;
-        public TMP_Text WinnerText;
-        public GameObject WinnerGameObject;
+        [Header("Texts")]
+        [SerializeField] TMP_Text ScoreText;
+        [SerializeField] TMP_Text WinnerText;
+        [SerializeField] GameObject WinnerGameObject;
         Hashtable hashtable = PhotonNetwork.LocalPlayer.CustomProperties;  
         Hashtable scoreHash = new Hashtable();
+        float score;
+        int playerCount;
+        float timer;
+        bool capturing;
+        bool canCapture = true;
         void Start()
         {
             StartScore();
             if(!photonView.IsMine)
                 return;
         
-            _capturing = false;
+            capturing = false;
             hashtable["Counting"] = false;
             PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable);
 
@@ -38,11 +39,11 @@ namespace CapturePoint
             if(!photonView.IsMine)
                 return;
         
-            _score = 0;
+            score = 0;
             scoreHash = new Hashtable();
-            scoreHash.Add("Score", _score);
+            scoreHash.Add("Score", score);
             PhotonNetwork.CurrentRoom.SetCustomProperties(scoreHash);
-            ScoreText.text = _score.ToString();
+            ScoreText.text = score.ToString();
         
         }
 
@@ -53,8 +54,8 @@ namespace CapturePoint
 
             if(other.gameObject.CompareTag("CapturePoint"))
             {
-                _score = 0;
-                _capturing = true;
+                score = 0;
+                capturing = true;
                 hashtable["Counting"] = true;   
                 PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable);
             }
@@ -67,7 +68,7 @@ namespace CapturePoint
             if (!other.gameObject.CompareTag("CapturePoint")) 
                 return;
         
-            _capturing = false;
+            capturing = false;
             hashtable["Counting"] = false;
             PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable);
         }
@@ -76,13 +77,13 @@ namespace CapturePoint
             if(!photonView.IsMine)
                 return;
 
-            if(_capturing && _canCapture)
+            if(capturing && canCapture)
                 CountScore();
         
-            if(_playerCount == 1)
-                _canCapture = true;
-            else if(_playerCount >= 2)
-                _canCapture = false;
+            if(playerCount == 1)
+                canCapture = true;
+            else if(playerCount >= 2)
+                canCapture = false;
         
         }
         public override void OnPlayerPropertiesUpdate (Player targetPlayer, Hashtable changedProps)
@@ -96,25 +97,25 @@ namespace CapturePoint
         public void CheckPlayers()
         {
             var players = PhotonNetwork.PlayerList;
-            _playerCount = players.Count(p => p.CustomProperties.ContainsKey("Counting") && (bool)p.CustomProperties["Counting"]);
+            playerCount = players.Count(p => p.CustomProperties.ContainsKey("Counting") && (bool)p.CustomProperties["Counting"]);
         }
 
         void CountScore()
         {
-            if(!_canCapture)
+            if(!canCapture)
                 return; 
         
-            _timer += Time.deltaTime % 60;
-            if(_timer >= 1)
+            timer += Time.deltaTime % 60;
+            if(timer >= 1)
             {
-                _score++;
+                score++;
                 scoreHash = new Hashtable();
-                if(_score >= 20)
-                    _score = 20;
+                if(score >= 20)
+                    score = 20;
                 
-                scoreHash.Add("Score", _score);
+                scoreHash.Add("Score", score);
                 PhotonNetwork.CurrentRoom.SetCustomProperties(scoreHash);
-                _timer = 0;   
+                timer = 0;   
             }      
         }
         public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
@@ -124,23 +125,21 @@ namespace CapturePoint
          
             ScoreText.text = propertiesThatChanged["Score"].ToString();
 
-            if((float)propertiesThatChanged["Score"] == 20 && _playerCount == 1)
-            {
-                var players = PhotonNetwork.PlayerList;
-                _score = 0;
+            if ((float)propertiesThatChanged["Score"] != 20 || playerCount != 1) 
+                return;
+            
+            var players = PhotonNetwork.PlayerList;
+            score = 0;
 
-                if(!photonView.IsMine)
-                    return;
+            if(!photonView.IsMine)
+                return;
         
-                Player winner = players.Single(p => p.CustomProperties.ContainsKey("Counting") && (bool)p.CustomProperties["Counting"]);
-                WinnerGameObject.SetActive(true);
-                WinnerText.text = ($"{winner.NickName} CAPTURED POINT");
-                StartCoroutine(HideWinnerGO());
-        
-
-            }
+            Player winner = players.Single(p => p.CustomProperties.ContainsKey("Counting") && (bool)p.CustomProperties["Counting"]);
+            WinnerGameObject.SetActive(true);
+            WinnerText.text = ($"{winner.NickName} CAPTURED POINT");
+            StartCoroutine(HideWinnerGo());
         } 
-        IEnumerator HideWinnerGO()
+        IEnumerator HideWinnerGo()
         {
             yield return new WaitForSeconds(5);
             WinnerGameObject.SetActive(false);

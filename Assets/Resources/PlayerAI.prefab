@@ -2184,14 +2184,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f5d76f35be6205449e6c62d0800a563, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OpponentTarget: []
-  RandomTarget: {fileID: 0}
-  reload: 5
-  CanShoot: 1
+  AIManager: {fileID: 0}
+  NavMeshAgent: {fileID: 0}
+  Reload: 5
   ShootPoint: {fileID: 5211395844319218705}
+  Range: 1000
   Health: 100
-  RandomArmor: 0
-  RandomColor: 0
   Armor:
   - {fileID: 5211395844319218930}
   - {fileID: 5211395844319218929}
@@ -2207,7 +2205,6 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 83abe2251d028984faa6b177821f6687, type: 2}
   - {fileID: 2100000, guid: 5e25594a77b9ba0498db0efa9388b6df, type: 2}
   Tank: {fileID: 5211395844319218698}
-  AIManager: {fileID: 0}
 --- !u!114 &4042767947063512186
 MonoBehaviour:
   m_ObjectHideFlags: 0

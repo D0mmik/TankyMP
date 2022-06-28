@@ -11,19 +11,19 @@ namespace ShootingScripts
         public Slider SensSlider;
         public TMP_Text SensText;
 
-        private const string Key_ScrollSens = "ScrollSens";
-        private const string Key_Sens = "Sens";
+        const string KeyScrollSens = "ScrollSens"; 
+        const string KeySens = "Sens";
 
         public void LoadSliderValue()
         {
-            ScrollSensSlider.value = PlayerPrefs.GetFloat(Key_ScrollSens, 30);;
-            SensSlider.value = PlayerPrefs.GetFloat(Key_Sens, 40);
+            ScrollSensSlider.value = PlayerPrefs.GetFloat(KeyScrollSens, 30);;
+            SensSlider.value = PlayerPrefs.GetFloat(KeySens, 40);
 
         }
         public void SaveSliderValue()
         {
-            PlayerPrefs.SetFloat(Key_ScrollSens, ScrollSensSlider.value);
-            PlayerPrefs.SetFloat(Key_Sens, SensSlider.value);
+            PlayerPrefs.SetFloat(KeyScrollSens, ScrollSensSlider.value);
+            PlayerPrefs.SetFloat(KeySens, SensSlider.value);
         }
         void Update()
         {

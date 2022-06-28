@@ -6,31 +6,31 @@ namespace PlayerScripts
 {
     public class Belt : MonoBehaviourPun
     {
-        private Rigidbody _rb;
-        [SerializeField] private float speed = 10;
-        private float _horizontal;
-        private float _vertical;
-        private Vector3 _moveDirection;
-        private bool _isGrounded;
-        private float _groundDrag = 6f;
+        Rigidbody rb;
+        [SerializeField] private float Speed = 10; 
+        float horizontal;
+        float vertical;
+        Vector3 moveDirection;
+        bool isGrounded;
+        float groundDrag = 6f;
         public float AirMovement = 0.4f;
 
         void Awake()
         {
-            _rb = GetComponent<Rigidbody>();
+            rb = GetComponent<Rigidbody>();
         }
         public void SetRb()
         {
-            _rb.mass = 10;
-            _rb.drag = 6;
-            _rb.angularDrag = 10;
-            _rb.useGravity = true;
+            rb.mass = 10;
+            rb.drag = 6;
+            rb.angularDrag = 10;
+            rb.useGravity = true;
             if(!photonView.IsMine)
-                _rb.useGravity = false;
+                rb.useGravity = false;
         }
         public void ChangeSpeed(float upgradeSpeed)
         {
-            speed = upgradeSpeed;
+            Speed = upgradeSpeed;
         }
         void Update()
         {
@@ -40,15 +40,15 @@ namespace PlayerScripts
             if(PlayerLeave.Paused)
                 return;
 
-            _isGrounded = Physics.Raycast(transform.position, Vector3.down,0.01f);
+            isGrounded = Physics.Raycast(transform.position, Vector3.down,0.01f);
 
-            _rb.drag = _isGrounded? _groundDrag : 6;
+            rb.drag = isGrounded? groundDrag : 6;
 
-            _vertical = Input.GetAxisRaw("Vertical");
-            _horizontal = Input.GetAxis("Horizontal");
+            vertical = Input.GetAxisRaw("Vertical");
+            horizontal = Input.GetAxis("Horizontal");
     
-            _moveDirection = transform.forward * _vertical;
-            transform.Rotate(_horizontal * 100 * Time.deltaTime * Vector3.up);
+            moveDirection = transform.forward * vertical;
+            transform.Rotate(horizontal * 100 * Time.deltaTime * Vector3.up);
         
         }
 
@@ -57,10 +57,10 @@ namespace PlayerScripts
             if(!photonView.IsMine)
                 return;
 
-            var groundedSpeed = _moveDirection.normalized * speed;
+            var groundedSpeed = moveDirection.normalized * Speed;
             var airSpeed = groundedSpeed * AirMovement;
         
-            _rb.AddForce(_isGrounded ? groundedSpeed : airSpeed, ForceMode.Acceleration);
+            rb.AddForce(isGrounded ? groundedSpeed : airSpeed, ForceMode.Acceleration);
         }
     }
 }

@@ -5,18 +5,18 @@ namespace Configuration
 {
     public class Configurator : MonoBehaviour
     {
-        [SerializeField] private GameObject[] windows;
+        [SerializeField] GameObject[] Windows;
 
         public void CloseWindows()
         {
-            foreach( var item in windows)
+            foreach( var item in Windows)
                 item.SetActive(false);
         }
 
         private void ToggleWindow(string nameOfWindow)
         {
             CloseWindows();
-            windows.SingleOrDefault((x)=> x.name == nameOfWindow)?.SetActive(true);
+            Windows.SingleOrDefault((x)=> x.name == nameOfWindow)?.SetActive(true);
         }
         public void WeaponsButton()
         {

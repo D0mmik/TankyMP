@@ -5,19 +5,21 @@ namespace PlayerScripts
 {
     public class Billboard : MonoBehaviourPun
     {
-        private Transform _camTransform;
-    
+        Transform camTransform;
         void Update()
         {
             if(Camera.main.transform == null)
                 return;
     
-            _camTransform = Camera.main.transform;
+            camTransform = Camera.main.transform;
         }
         private void LateUpdate()
         {
-            if(transform != null && _camTransform != null)
-                transform.LookAt(transform.position + _camTransform.rotation * Vector3.forward, _camTransform.rotation * Vector3.up);
+            if(transform != null && camTransform != null)
+            {
+                var rotation = camTransform.rotation;
+                transform.LookAt(transform.position + rotation * Vector3.forward, rotation * Vector3.up);
+            }
         }
     }
 }

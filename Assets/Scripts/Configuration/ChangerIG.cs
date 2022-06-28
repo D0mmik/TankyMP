@@ -10,7 +10,7 @@ namespace Configuration
     {
         public Load Load;
         public ButtonsPrefab Buttons;
-        private OneBarrel oneBarrel;
+        OneBarrel oneBarrel;
         public Transform WeaponHere;
         public Transform ArmorHere;
         public Transform ColorHere;
@@ -22,7 +22,6 @@ namespace Configuration
 
         void Start()
         {
-
             if(!photonView.IsMine)
                 return; 
         
@@ -34,9 +33,7 @@ namespace Configuration
 
 
             for(int i = 0; i < Load.Color.Length; i++)  
-                SpawnButton(i, DoColor, "COLOR", ColorHere.transform);                    
-        
-        
+                SpawnButton(i, DoColor, "COLOR", ColorHere.transform);
         }
         void SpawnButton(int index, Action<int> onClick, string buttonName, Transform parent)
         {
@@ -53,8 +50,7 @@ namespace Configuration
             if(index < 0 || index > Load.Weapons.Length)
                 return;
             CurrentWeapon = index;
-            SaveProperty("weapon", index); 
-        
+            SaveProperty("weapon", index);
         }
 
         private void DoArmor(int index)
@@ -65,8 +61,7 @@ namespace Configuration
                 return;
         
             CurrentArmor = index;
-            SaveProperty("armor", index); 
-        
+            SaveProperty("armor", index);
         }
 
         private void DoColor(int index)

@@ -9,26 +9,26 @@ namespace ShootingScripts
         public Camera MainCam;
         public GameObject ShootPoint;
         public GameObject CameraPoint;
-        public GameObject Crosshair;
-        private float _mouseWheel;
+        public GameObject CrossHair;
+        float mouseWheel;
         public float ScrollSensitivity;
         public float TargetZoom = 60;
     
-        private float _mouseY;
+        float mouseY;
         public float Speed = 50;
         public GameObject WeaponHolder;
-        public float VerticalWH;
+        public float VerticalWh;
         public float VMax = 8;
-        public float VMIn = -10;
+        public float VMin = -10;
         public float FOVMax = 75;
         public float FOVMin = 25;
 
-        public static bool S_Scoped = false;
+        public static bool SScoped = false;
         void Start()
         {
             ScrollSensitivity = PlayerPrefs.GetFloat("ScrollSens", 30) * 100;
             if(photonView.IsMine)
-                S_Scoped = false;
+                SScoped = false;
         }
     
         void Update()
@@ -37,36 +37,36 @@ namespace ShootingScripts
             if(!photonView.IsMine)
                 return;
         
-            if(Input.GetMouseButtonDown(1) && !S_Scoped && !PlayerLeave.Paused)
+            if(Input.GetMouseButtonDown(1) && !SScoped && !PlayerLeave.Paused)
             {
                 Transform transform1 = transform;
                 transform1.position = ShootPoint.transform.position;
                 transform1.rotation = ShootPoint.transform.rotation;
-                S_Scoped = true;
-                Crosshair.SetActive(true);
+                SScoped = true;
+                CrossHair.SetActive(true);
             }
-            else if(Input.GetMouseButtonDown(1) && S_Scoped)
+            else if(Input.GetMouseButtonDown(1) && SScoped)
             {
                 Transform transform1 = transform;
                 transform1.position = CameraPoint.transform.position;
                 transform1.rotation = CameraPoint.transform.rotation;
-                S_Scoped = false;
-                Crosshair.SetActive(false);
+                SScoped = false;
+                CrossHair.SetActive(false);
             }
         
         
-            switch (S_Scoped)
+            switch (SScoped)
             {
                 case true:
-                    _mouseWheel = Input.GetAxis("Mouse ScrollWheel") * ScrollSensitivity * Time.deltaTime * 50;
-                    TargetZoom = TargetZoom -= _mouseWheel;   
+                    mouseWheel = Input.GetAxis("Mouse ScrollWheel") * ScrollSensitivity * Time.deltaTime * 50;
+                    TargetZoom = TargetZoom -= mouseWheel;   
 
-                    _mouseY = Input.GetAxis("Mouse Y") * Speed * Time.deltaTime;
-                    VerticalWH = VerticalWH -= _mouseY;
+                    mouseY = Input.GetAxis("Mouse Y") * Speed * Time.deltaTime;
+                    VerticalWh = VerticalWh -= mouseY;
                     break;
                 case false:
                     TargetZoom = 60;
-                    VerticalWH = 0;
+                    VerticalWh = 0;
                     break;
             }
 
@@ -83,13 +83,13 @@ namespace ShootingScripts
                 TargetZoom = FOVMin;
             }
 
-            if(VerticalWH >= VMax)
-                VerticalWH = VMax;
+            if(VerticalWh >= VMax)
+                VerticalWh = VMax;
 
-            if(VerticalWH <= VMIn)
-                VerticalWH = VMIn;
+            if(VerticalWh <= VMin)
+                VerticalWh = VMin;
             
-            WeaponHolder.transform.rotation = Quaternion.Euler(VerticalWH,WeaponHolder.transform.eulerAngles.y,0);
+            WeaponHolder.transform.rotation = Quaternion.Euler(VerticalWh,WeaponHolder.transform.eulerAngles.y,0);
         
         }
     }

@@ -6,11 +6,10 @@ namespace AI
 {
     public class SpawnAI : MonoBehaviourPun
     {
-        private GameObject ai;
-        public int AICount = 0;
-        public int AIActive = 0;
-        [SerializeField] private Transform[] spawnpoints;
-        private int i = 0;
+        [Header("AI")]
+        public int AICount;
+        public int AIActive;
+        [SerializeField] Transform[] Spawnpoints;
 
         public void Spawn()
         {
@@ -18,8 +17,8 @@ namespace AI
                 return;
             if(AIActive < AICount)
             {
-                i = Random.Range(1,spawnpoints.Count());
-                ai = PhotonNetwork.Instantiate("PlayerAI",spawnpoints[i].position, Quaternion.identity);
+                var i = Random.Range(1,Spawnpoints.Count());
+                PhotonNetwork.Instantiate("PlayerAI",Spawnpoints[i].position, Quaternion.identity);
                 AIActive++;
             }          
         }   

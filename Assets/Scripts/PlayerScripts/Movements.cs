@@ -8,52 +8,52 @@ namespace PlayerScripts
 {
     public class Movements : MonoBehaviourPunCallbacks
     {
-        [SerializeField] private GameObject ui;
-        [SerializeField] private Camera cam;
-        [SerializeField] private AudioListener lis;
+        [SerializeField] GameObject UI;
+        [SerializeField] Camera Cam;
+        [SerializeField] AudioListener Lis;
 
-        private bool _randomizer;
-        private int _randomMovement;
-        private bool _instagib;
+        bool randomizer;
+        int randomMovement;
+        bool instagib;
 
-        private Belt _belt;
-        private Hover _hover;
-        private Fly _fly;
+        Belt belt;
+        Hover hover;
+        Fly fly;
 
         public bool BeltActive;
         public bool HoverActive;
         public bool FlyActive;
 
-        private SpawnAI _spawnAI;
-        private GameObject _aiManager;
+        SpawnAI spawnAI;
+        GameObject aiManager;
         public TMP_Text AIText;
         public GameObject AIButtons;
 
         void Start()
         {
-            _randomizer = GameModes.S_Randomizer;
-            _instagib = GameModes.S_Instagib;
+            randomizer = GameModes.SRandomizer;
+            instagib = GameModes.SInstagib;
         
             if(!photonView.IsMine)
             {
-                cam.enabled = false;
-                lis.enabled = false;
-                ui.SetActive(false); 
+                Cam.enabled = false;
+                Lis.enabled = false;
+                UI.SetActive(false); 
             }             
            
         
     
-            _belt = GetComponent<Belt>();
-            _hover = GetComponent<Hover>();
-            _fly = GetComponent<Fly>();
+            belt = GetComponent<Belt>();
+            hover = GetComponent<Hover>();
+            fly = GetComponent<Fly>();
             TurnOffMovements();
-            if(!_randomizer && !_instagib)
+            if(!randomizer && !instagib)
                 BeltActive = true;
   
-            if(_randomizer && !_instagib)
+            if(randomizer && !instagib)
             {
-                _randomMovement = Random.Range(1, 4);
-                switch (_randomMovement)
+                randomMovement = Random.Range(1, 4);
+                switch (randomMovement)
                 {
                     case 1:
                         BeltActive = true;
@@ -66,12 +66,12 @@ namespace PlayerScripts
                         break;
                 }
             }
-            if(_instagib)
+            if(instagib)
                 HoverActive = true;
 
-            _aiManager = GameObject.Find("AIManager");
-            _spawnAI = _aiManager.GetComponent<SpawnAI>();
-            AIText.text = _spawnAI.AICount.ToString();
+            aiManager = GameObject.Find("AIManager");
+            spawnAI = aiManager.GetComponent<SpawnAI>();
+            AIText.text = spawnAI.AICount.ToString();
             AIButtons.SetActive(PhotonNetwork.IsMasterClient);
 
         }
@@ -96,43 +96,43 @@ namespace PlayerScripts
 
         private void TurnOffMovements()
         {
-            _belt.enabled = false;
-            _hover.enabled = false;
-            _fly.enabled = false;
+            belt.enabled = false;
+            hover.enabled = false;
+            fly.enabled = false;
         }
 
         public void EnableBelt()
         {
             TurnOffMovements();
-            _belt.enabled = true;
-            _belt.SetRb();
+            belt.enabled = true;
+            belt.SetRb();
         }
         public void EnableHover()
         {
             TurnOffMovements();
-            _hover.enabled = true;
-            _hover.SetRb();
+            hover.enabled = true;
+            hover.SetRb();
         }
         public void EnableFly()
         {
             TurnOffMovements();
-            _fly.enabled = true;
-            _fly.SetRb();
+            fly.enabled = true;
+            fly.SetRb();
         }
         public void AiPlus()
         {
-            if(_spawnAI.AICount < 10)
-                _spawnAI.AICount++;
+            if(spawnAI.AICount < 10)
+                spawnAI.AICount++;
 
-            AIText.text = _spawnAI.AICount.ToString();
-            _spawnAI.Spawn();
+            AIText.text = spawnAI.AICount.ToString();
+            spawnAI.Spawn();
         }
         public void AiMinus()
         {
-            if(_spawnAI.AICount > 0)
-                _spawnAI.AICount--;
+            if(spawnAI.AICount > 0)
+                spawnAI.AICount--;
 
-            AIText.text = _spawnAI.AICount.ToString();
+            AIText.text = spawnAI.AICount.ToString();
         }
         public override void OnMasterClientSwitched(Player newMasterClient)
         {

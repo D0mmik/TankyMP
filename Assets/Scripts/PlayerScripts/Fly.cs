@@ -6,38 +6,38 @@ namespace PlayerScripts
 {
     public class Fly : MonoBehaviourPun
     {
-        private Rigidbody _rb;
-        [SerializeField] private float speed = 20;
-        [SerializeField] private float flySpeed = 5;
-        private float _horizontal;
-        private float _vertical;
-        private Vector3 _moveDirection;
-        private bool _isGrounded;
-        [SerializeField] private float groundDrag = 6f;
+        private Rigidbody rb;
+        [SerializeField] private float Speed = 20;
+        [SerializeField] private float FlySpeed = 5;
+        float horizontal;
+        float vertical;
+        Vector3 moveDirection;
+        bool isGrounded;
+        [SerializeField] private float GroundDrag = 6f;
         public float AirDrag = 2f;
         public float AirMovement = 0.4f;
     
         void Awake()
         {
-            _rb = GetComponent<Rigidbody>();
+            rb = GetComponent<Rigidbody>();
         }
         public void SetRb()
         {
-            _rb.mass = 10;
-            _rb.drag = 0;
-            _rb.angularDrag = 10;
-            _rb.useGravity = false;
+            rb.mass = 10;
+            rb.drag = 0;
+            rb.angularDrag = 10;
+            rb.useGravity = false;
             if(!photonView.IsMine)      
-                _rb.useGravity = false;
+                rb.useGravity = false;
         
         }
         public void ChangeSpeed(float upgradeSpeed)
         {
-            speed = upgradeSpeed;
+            Speed = upgradeSpeed;
         }
         public void ChangeFlySpeed(float upgradeFlySpeed)
         {
-            flySpeed = upgradeFlySpeed;
+            FlySpeed = upgradeFlySpeed;
         }
         void Update()
         {   
@@ -46,16 +46,16 @@ namespace PlayerScripts
             if(PlayerLeave.Paused)
                 return;
         
-            _vertical = Input.GetAxisRaw("Vertical");
-            _horizontal = Input.GetAxis("Horizontal");
+            vertical = Input.GetAxisRaw("Vertical");
+            horizontal = Input.GetAxis("Horizontal");
         
-            _isGrounded = Physics.Raycast(transform.position, Vector3.down,0.01f);
+            isGrounded = Physics.Raycast(transform.position, Vector3.down,0.01f);
 
-            _rb.drag = _isGrounded ? groundDrag : AirDrag;
+            rb.drag = isGrounded ? GroundDrag : AirDrag;
 
-            _moveDirection = transform.forward * _vertical;
+            moveDirection = transform.forward * vertical;
         
-            transform.Rotate(100 * _horizontal * Time.deltaTime * Vector3.up);    
+            transform.Rotate(100 * horizontal * Time.deltaTime * Vector3.up);    
         
         }
         void FixedUpdate()
@@ -63,16 +63,16 @@ namespace PlayerScripts
             if(!photonView.IsMine)
                 return;
 
-            var groundSpeed = _moveDirection.normalized * speed;
+            var groundSpeed = moveDirection.normalized * Speed;
             var airSpeed = groundSpeed * AirMovement;
 
-            _rb.AddForce(_isGrounded ? groundSpeed : airSpeed, ForceMode.Acceleration);
+            rb.AddForce(isGrounded ? groundSpeed : airSpeed, ForceMode.Acceleration);
 
             if(Input.GetKey(KeyCode.Space))
-                _rb.AddForce(transform.up * flySpeed, ForceMode.Acceleration);
+                rb.AddForce(transform.up * FlySpeed, ForceMode.Acceleration);
 
             if(Input.GetKey(KeyCode.LeftShift))
-                _rb.AddForce(-transform.up * flySpeed, ForceMode.Acceleration);
+                rb.AddForce(-transform.up * FlySpeed, ForceMode.Acceleration);
         
         }
     }

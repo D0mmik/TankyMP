@@ -6,16 +6,16 @@ namespace Language
 {
     public class Language : MonoBehaviour
     {
-        private string _selectedLanguage;
+        string selectedLanguage;
         public void Czech()
         {
             StartCoroutine(ChangeLanguage(0));
-            _selectedLanguage = "cs";
+            selectedLanguage = "cs";
         }
         public void English()
         {
             StartCoroutine(ChangeLanguage(1));
-            _selectedLanguage = "en";
+            selectedLanguage = "en";
         }
 
         private IEnumerator ChangeLanguage(int languageIndex)
@@ -25,7 +25,7 @@ namespace Language
         }
         public void SaveLanguage()
         {
-            PlayerPrefs.SetString("language",_selectedLanguage);
+            PlayerPrefs.SetString("language",selectedLanguage);
         }
     }
 }

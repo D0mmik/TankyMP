@@ -6,12 +6,12 @@ namespace UI
 {
     public class PlayerNameTag : MonoBehaviourPun
     {
-        [SerializeField] private TMP_Text nameText;
+        [SerializeField] private TMP_Text NameText;
         void Start()
         {
             if(photonView.IsMine)
                 return;
-            nameText.text = photonView.Owner.NickName;   
+            NameText.text = photonView.Owner.NickName;   
         }    
     }
 }

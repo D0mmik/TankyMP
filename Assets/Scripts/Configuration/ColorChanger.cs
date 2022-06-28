@@ -6,9 +6,9 @@ namespace Configuration
 {
     public class ColorChanger : MonoBehaviour
     {
-        public Material[] Colors;
-        public ButtonsPrefab Buttons;
-        public GameObject Tank;
+        [SerializeField] Material[] Colors;
+        [SerializeField] ButtonsPrefab Buttons;
+        [SerializeField] GameObject Tank;
         public int CurrentColor;
 
         void Start()

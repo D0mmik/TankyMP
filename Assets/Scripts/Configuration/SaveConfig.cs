@@ -8,9 +8,9 @@ namespace Configuration
         public ArmorChanger ArmorChanger;
         public ColorChanger ColorChanger;
         public WeaponsChanger WeaponsChanger;
-        private const string Key_Armor = "armor";
-        private const string Key_Color = "color";
-        private const string Key_Weapon = "weapon";
+        const string Key_Armor = "armor";
+        const string Key_Color = "color";
+        const string Key_Weapon = "weapon";
         void Start()
         {
             Load();

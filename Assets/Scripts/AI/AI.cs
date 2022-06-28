@@ -2,73 +2,72 @@ using System.Collections.Generic;
 using System.Linq;
 using Photon.Pun;
 using PlayerScripts;
+using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace AI
 {
+    [RequireComponent(typeof(NavMeshAgent))]
     public class AI : MonoBehaviourPun
-    {
-        private  NavMeshAgent navMeshAgent;
-        public List<GameObject> OpponentTarget;
-        private int randomTargetNumber;
-        public GameObject RandomTarget;
+    { 
+        [Header("AI Targets")]
+        [SerializeField] NavMeshAgent NavMeshAgent;
+        List<GameObject> opponentTarget;
+        GameObject randomTarget;
+        GameObject aiManager;
 
-        private float timer;
-        public float reload;
+        [Header("Shooting")] 
+        [SerializeField] float Reload;
+        [SerializeField] Transform ShootPoint;
+        [SerializeField] float Range;
+        [SerializeField] float Health;
+        float timer;
 
-        public Transform ShootPoint;
-        private RaycastHit hit;
-        private float range = 1000f;
+        [Header("Tank Configuration")]
+        [SerializeField] GameObject[] Armor;
+        [SerializeField] Material[] Color; 
+        [SerializeField] GameObject Tank;
 
-        public float Health = 100;
-
-        public int RandomArmor;
-        public int RandomColor;
-        public GameObject[] Armor;
-        public Material[] Color;
-        public GameObject Tank;
-        public GameObject AIManager;
-        private SpawnAI spawnAI;
-        private bool instagib;
+        SpawnAI spawnAI;
+        bool instagib;
 
         void Awake()
         {
-            instagib = GameModes.S_Instagib;
-            AIManager = GameObject.Find("AIManager");
-            spawnAI = AIManager.GetComponent<SpawnAI>();
-            navMeshAgent = GetComponent<NavMeshAgent>();
+            instagib = GameModes.SInstagib;
+            aiManager = GameObject.Find("AIManager");
+            spawnAI = aiManager.GetComponent<SpawnAI>();
+            NavMeshAgent = GetComponent<NavMeshAgent>();
             if(instagib)
             {
                 Health = 1;
             }
-            RandomArmor = Random.Range(0,Armor.Length);
-            RandomColor = Random.Range(0,Color.Length);
+            var randomArmor = Random.Range(0,Armor.Length);
+            var randomColor = Random.Range(0,Color.Length);
             foreach( var item in Armor)
                 item.SetActive(false);
             
-            Armor[RandomArmor].SetActive(true);
+            Armor[randomArmor].SetActive(true);
         
-            Tank.GetComponent<MeshRenderer>().material = Color[RandomColor];    
+            Tank.GetComponent<MeshRenderer>().material = Color[randomColor];    
         }
         void Update()
         {
-            if(RandomTarget == null)
+            if (randomTarget == null)
             {
-                OpponentTarget = GameObject.FindGameObjectsWithTag("Player").Where(x => !x.Equals(this.gameObject)).ToList();
-                randomTargetNumber = Random.Range(0,OpponentTarget.Count);
-                RandomTarget = OpponentTarget[randomTargetNumber];
-            }     
-            navMeshAgent.destination = RandomTarget.transform.position;
-    
-
+                opponentTarget = GameObject.FindGameObjectsWithTag("Player").Where(x => !x.Equals(this.gameObject)).ToList();
+                var randomTargetNumber = Random.Range(0,opponentTarget.Count);
+                randomTarget = opponentTarget[randomTargetNumber];
+            }
+            NavMeshAgent.destination = randomTarget.transform.position;
+            
             timer += Time.deltaTime % 60;
             if(timer >= 1)
             {
-                reload++;
+                Reload++;
                 timer = 0;
             }
-            if(reload == 5)
+            if(Reload == 5)
                 ShootAI();
        
         }
@@ -88,7 +87,7 @@ namespace AI
             if(Health <= 0)
                 photonView.RPC("RPC_Destroy", RpcTarget.MasterClient);
         }
-
+        
         [PunRPC]
         void RPC_Destroy()
         {
@@ -99,17 +98,15 @@ namespace AI
 
         void ShootAI()
         {
-
-            if(Physics.Raycast(ShootPoint.position, ShootPoint.forward, out hit, range))
+            if(Physics.Raycast(ShootPoint.position, ShootPoint.forward, out RaycastHit hit, Range))
             {
                 if(hit.transform == null)
                     return;
             
                 hit.transform.GetComponent<AI>()?.TakeDamage(30f);
                 hit.transform.GetComponent<Target>()?.TakeDamage(30f);
-            
             }
-            reload = 0;
+            Reload = 0;
         }
     }
 }

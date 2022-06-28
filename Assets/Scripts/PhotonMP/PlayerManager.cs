@@ -6,9 +6,8 @@ namespace PhotonMP
 {
     public class PlayerManager : MonoBehaviourPun
     {
-        [SerializeField] private Transform[] spawnpoints;
-        private int i;
-        private GameObject _controller;
+        [SerializeField] Transform[] Spawnpoints;
+        GameObject controller;
         void Start()
         {
             CreatePlayer();
@@ -19,8 +18,8 @@ namespace PhotonMP
             if(!photonView.IsMine)
                 return;
         
-            i = Random.Range(1,spawnpoints.Count());
-            _controller = PhotonNetwork.Instantiate("Player", spawnpoints[i].position, Quaternion.identity, 0, new object[]{photonView.ViewID});
+            var i = Random.Range(1,Spawnpoints.Count());
+            controller = PhotonNetwork.Instantiate("Player", Spawnpoints[i].position, Quaternion.identity, 0, new object[]{photonView.ViewID});
     
         }
         public void Die()
@@ -28,7 +27,7 @@ namespace PhotonMP
             if(!photonView.IsMine)
                 return;
         
-            PhotonNetwork.Destroy(_controller);
+            PhotonNetwork.Destroy(controller);
             CreatePlayer();
         }
     }

@@ -7,9 +7,9 @@ namespace PhotonMP
 {
     public class PlayerLeave : MonoBehaviourPunCallbacks
     {
-        public GameObject LeaveButton;
-        public GameObject Bar;
-        public static bool Paused = false;
+        [SerializeField] GameObject LeaveButton;
+        [SerializeField] GameObject Bar;
+        public static bool Paused;
         void Start()
         {
             LeaveButton.SetActive(false);
@@ -18,7 +18,7 @@ namespace PhotonMP
 
         void Update()
         {
-            if(Input.GetKeyDown(KeyCode.Escape) && !Paused && !Scope.S_Scoped)
+            if(Input.GetKeyDown(KeyCode.Escape) && !Paused && !Scope.SScoped)
             {
                 LeaveButton.SetActive(true);
                 Paused = true;
@@ -31,7 +31,7 @@ namespace PhotonMP
         }
         public void Leave()
         {
-            Destroy(RoomManager.S_RoomManager.gameObject);
+            Destroy(RoomManager.SRoomManager.gameObject);
             Destroy(Bar);
             PhotonNetwork.LeaveRoom();
         }
